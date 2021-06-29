@@ -10,6 +10,7 @@ class App
 
 	typedef std::function<void(double)> GameLoopFunc;
 	typedef std::function<void(const class Renderer&)> GameDrawFunc;
+	typedef std::function<void(int key, int scancode, int action, int mode)> GameInputFunc;
 
 public:
 	App();
@@ -17,6 +18,7 @@ public:
 
 	void SetGameLoop(GameLoopFunc loop);
 	void SetGameDraw(GameDrawFunc draw);
+	void SetGameInput(GameInputFunc input);
 
 	struct GLFWwindow* GetGLFWWindow() const;
 
@@ -41,6 +43,7 @@ private:
 
 	class Renderer* m_pRenderer = nullptr;
 
-	GameLoopFunc GameLoop;
-	GameDrawFunc GameDraw;
+	GameLoopFunc  GameLoop;
+	GameDrawFunc  GameDraw;
+	GameInputFunc GameInput;
 };

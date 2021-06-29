@@ -9,11 +9,7 @@ public:
 
 	void Update(double delta) override;
 	void Draw(const class Renderer& renderer) override;
-
-	int GetFrameCount()
-	{
-		return frameCount;
-	}
+	void HandleInput(int key, int scancode, int action, int mode) override;
 
 private:
 

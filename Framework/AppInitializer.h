@@ -76,5 +76,11 @@ inline bool AppInitializer<GameType>::Setup()
 	App::GameDrawFunc draw = std::bind(&IGameClass::Draw, Game_, std::placeholders::_1);
 	Application_->SetGameDraw(draw);
 
+	App::GameInputFunc input = std::bind(&IGameClass::HandleInput, Game_, std::placeholders::_1, 
+																		  std::placeholders::_2, 
+																		  std::placeholders::_3, 
+																		  std::placeholders::_4);
+	Application_->SetGameInput(input);
+
 	return true;
 }

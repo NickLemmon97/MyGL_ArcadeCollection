@@ -37,6 +37,11 @@ void Game::Draw(const Renderer& renderer)
 	renderer.Draw();
 }
 
+void Game::HandleInput(int key, int scancode, int action, int mode)
+{
+	App::GetAppInstance().LogMessage(LogVerbosity::Warning, "Input is being handled");
+}
+
 void Game::ShowFPS()
 {
 	double elapsedSeconds;

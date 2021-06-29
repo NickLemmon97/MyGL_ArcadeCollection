@@ -90,6 +90,7 @@ void App::Run()
 		return;
 	}
 
+	//Initialize the clear color just once here
 	glClearColor(0.23f, 0.56f, 0.89f, 1.0f);
 
 	double previousTime = 0.0;
@@ -112,9 +113,7 @@ void App::Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 
-
 	GameDraw(*m_pRenderer);
-
 
 	glfwSwapBuffers(m_pWindow);
 }
@@ -130,6 +129,8 @@ void App::HandleInput(GLFWwindow* window, int key, int scancode, int action, int
 		//do nothing;
 		break;
 	}
+
+	_sInstance->GameInput(key, scancode, action, mode);
 }
 
 void App::SetGameLoop(GameLoopFunc loop)
@@ -140,6 +141,11 @@ void App::SetGameLoop(GameLoopFunc loop)
 void App::SetGameDraw(GameDrawFunc draw)
 {
 	GameDraw = draw;
+}
+
+void App::SetGameInput(GameInputFunc input)
+{
+	GameInput = input;
 }
 
 GLFWwindow* App::GetGLFWWindow() const
