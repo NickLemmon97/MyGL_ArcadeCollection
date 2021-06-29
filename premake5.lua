@@ -56,15 +56,19 @@ project "Game"
         "Framework",
     }
 
+    postbuildcommands{
+        ("{COPY} %{prj.location}../Data %{prj.location}bin/"..outputdir.."/%{prj.name}/Data")
+    }
+
     filter "system:windows"
         cppdialect "C++17"
         systemversion "latest"
 
-   filter "configurations:Debug"
+    filter "configurations:Debug"
       defines { "DEBUG" }
       symbols "On"
 
-   filter "configurations:Release"
+    filter "configurations:Release"
       defines { "NDEBUG" }
       optimize "On"
 
@@ -72,10 +76,8 @@ project "Game"
         kind "WindowedApp"
         entrypoint ("mainCRTStartup")
 
+    filter {}
 
-    postbuildcommands{
-        ("{COPY} %{prj.location}../Data %{prj.location}bin/"..outputdir.."/%{prj.name}/Data")
-    }
 
 ------------------------------------------------ Engine Project
 project "Framework"
@@ -118,6 +120,7 @@ project "Framework"
       defines { "NDEBUG" }
       optimize "On"
 
+      filter {}
 
 ---------------------------------------------------- Project Configuration files
 project "PROJECT_CONFIG"
