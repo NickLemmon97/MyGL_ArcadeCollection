@@ -10,6 +10,9 @@ class App
 	//Allow the main function to access the Run method
 	friend int ::main(int argc, char** argv);
 
+	template<typename _Ty>
+	friend class AppInitializer;
+
 	typedef std::function<void(double)> GameLoopFunc;
 	typedef std::function<void()> GameDrawFunc;
 

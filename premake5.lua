@@ -64,9 +64,14 @@ project "Game"
       defines { "DEBUG" }
       symbols "On"
 
-    filter "configurations:Release"
+   filter "configurations:Release"
       defines { "NDEBUG" }
       optimize "On"
+
+    filter {"configurations:Release", "system:windows"}
+        kind "WindowedApp"
+        entrypoint ("mainCRTStartup")
+
 
     postbuildcommands{
         ("{COPY} %{prj.location}../Data %{prj.location}bin/"..outputdir.."/%{prj.name}/Data")

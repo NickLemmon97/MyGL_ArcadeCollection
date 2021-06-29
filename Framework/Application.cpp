@@ -9,16 +9,16 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-
 static App* _sInstance;
-
 
 App::App()
 {
+	_sInstance = this;
 }
 
 App::~App()
 {
+	_sInstance = nullptr;
 }
 
 bool App::Init()
@@ -58,8 +58,6 @@ bool App::Init()
 	}
 
 	glfwSetKeyCallback(m_pWindow, HandleInput);
-
-	_sInstance = this;
 
 	return true;
 }
