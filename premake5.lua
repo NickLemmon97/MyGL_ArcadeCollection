@@ -122,6 +122,7 @@ project "Framework"
 
       filter {}
 
+
 ---------------------------------------------------- Project Configuration files
 project "PROJECT_CONFIG"
     location (WorkingDirectory)
@@ -132,6 +133,7 @@ project "PROJECT_CONFIG"
         "PremakeGenerateBuildFiles.bat",
         ".gitignore",
     }
+
 
 
 ------------------------------------------------------- Shaders project
@@ -145,18 +147,19 @@ project "Shaders"
     files{
         "Data/Shaders/**.vert",
         "Data/Shaders/**.frag",
-        "Data/Shaders/**.bat",
     }
 
+
+--A Project used to view all files
 ----------------------------------All files project
-project "ALL_FILES"
-    location (WorkingDirectory)
-    kind "none"
-
-    files{
-        "**.*",
-    }
-
-    removefiles{
-        "build/**.*",
-    }
+-- project "ALL_FILES"
+--     location (WorkingDirectory)
+--     kind "none"
+-- 
+--     files{
+--         "**.*",
+--     }
+-- 
+--     removefiles{
+--         "build/**.*",
+--     }

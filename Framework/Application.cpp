@@ -2,23 +2,33 @@
 
 #include <iostream>
 
-#include "Constants.h"
-#include "Debugging.h"
-
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+
+#include "Constants.h"
+#include "Debugging.h"
+#include "Renderer.h"
 
 static App* _sInstance;
 
 App::App()
 {
 	_sInstance = this;
+
+	m_pRenderer = new Renderer();
 }
 
 App::~App()
 {
 	_sInstance = nullptr;
+
+	if (m_pRenderer != nullptr)
+	{
+		delete m_pRenderer;
+	}
+	m_pRenderer = nullptr;
+
 }
 
 bool App::Init()
@@ -103,7 +113,7 @@ void App::Draw()
 	glClear(GL_COLOR_BUFFER_BIT);
 
 
-	GameDraw();
+	GameDraw(*m_pRenderer);
 
 
 	glfwSwapBuffers(m_pWindow);

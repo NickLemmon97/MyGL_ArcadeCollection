@@ -3,18 +3,13 @@
 
 #include "Debugging.h"
 
-int main(int argc, char** argv);
-
 class App
 {
-	//Allow the main function to access the Run method
-	friend int ::main(int argc, char** argv);
-
 	template<typename _Ty>
 	friend class AppInitializer;
 
 	typedef std::function<void(double)> GameLoopFunc;
-	typedef std::function<void()> GameDrawFunc;
+	typedef std::function<void(const class Renderer&)> GameDrawFunc;
 
 public:
 	App();
@@ -43,6 +38,8 @@ protected:
 
 private:
 	struct GLFWwindow* m_pWindow = nullptr;
+
+	class Renderer* m_pRenderer = nullptr;
 
 	GameLoopFunc GameLoop;
 	GameDrawFunc GameDraw;

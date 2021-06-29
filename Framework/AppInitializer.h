@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <memory>
+#include <type_traits>
 #include <Application.h>
 #include <GameClass.h>
 
@@ -13,10 +14,20 @@ public:
 	void Run();
 	bool Setup();
 
+	std::shared_ptr<App> GetApplication()
+	{
+		return Application_;
+	}
+
+	std::shared_ptr<GameType> GetGame()
+	{
+		return Game_;
+	}
+
 private:
 
 	std::shared_ptr<App> Application_;
-	std::shared_ptr<IGameClass> Game_;
+	std::shared_ptr<GameType> Game_;
 
 };
 
@@ -24,9 +35,18 @@ private:
 template<typename GameType>
 inline AppInitializer<GameType>::AppInitializer()
 {
-	Run();
-}
+#ifdef DEBUG
+	if (std::is_base_of<IGameClass, GameType>::value){
+#endif 
 
+		Run();
+
+#ifdef DEBUG
+	}else{
+		std::cerr << RED_CONSOLE_TEXT << "Wasn't a Game, make sure your class inherits from IGameClass" << WHITE_CONSOLE_TEXT << std::endl;
+	}
+#endif
+}
 
 template<typename GameType>
 inline void AppInitializer<GameType>::Run()
@@ -48,14 +68,12 @@ inline bool AppInitializer<GameType>::Setup()
 		return false;
 	}
 
-	//if GameType is not equal to a IGameClass then notify the user and return false
-
 	Game_ = std::make_shared<GameType>();
 
 	App::GameLoopFunc loop = std::bind(&IGameClass::Update, Game_, std::placeholders::_1);
 	Application_->SetGameLoop(loop);
 
-	App::GameDrawFunc draw = std::bind(&IGameClass::Draw, Game_);
+	App::GameDrawFunc draw = std::bind(&IGameClass::Draw, Game_, std::placeholders::_1);
 	Application_->SetGameDraw(draw);
 
 	return true;
