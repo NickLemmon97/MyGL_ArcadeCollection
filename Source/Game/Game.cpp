@@ -3,10 +3,30 @@
 
 Game::Game()
 {
+	m_Count = 0.0;
+	previousSeconds = 0.0;
+	frameCount = 0;
 }
 
 Game::~Game()
 {
+}
+
+void Game::Init()
+{
+	m_Triangle = std::make_shared<Mesh>();
+
+	std::vector<GLfloat> verts = {
+		 0.8f, 0.0f,
+		 0.4f, 0.6f,
+		 0.1f, 0.8f,
+		-0.3f, 0.4f,
+		-0.7f, 0.1f,
+		-0.3f, -0.6f
+	};
+
+	m_Triangle->SetVertices(verts);
+
 }
 
 void Game::Update(double delta)
@@ -24,20 +44,39 @@ void Game::Update(double delta)
 
 void Game::Draw(const Renderer& renderer)
 {
-	renderer.Draw();
+	DrawMyShape
+		? renderer.Draw(*m_Triangle.get())
+		: renderer.DrawTriangle();
 }
 
 void Game::HandleInput(int key, int scancode, int action, int mode)
 {
 	App::GetAppInstance().LogMessage(LogVerbosity::Warning, "Input is being handled");
+
+	switch (key)
+	{
+	case GLFW_KEY_SPACE:
+		if(action == GLFW_PRESS)
+			DrawMyShape = !DrawMyShape;
+		break;
+	}
+
+}
+
+void Game::HandleMousePosition(double x, double y)
+{
+	char xx[255];
+	itoa(x, xx, 10);
+	App::GetAppInstance().LogMessage(LogVerbosity::Log, xx);
+	itoa(y, xx, 10);
+	App::GetAppInstance().LogMessage(LogVerbosity::Log, xx);
 }
 
 void Game::ShowFPS()
 {
-	double elapsedSeconds;
-	double currentSeconds = glfwGetTime();
+	double currentSeconds = App::GetAppInstance().GetGLFWTime();
 
-	elapsedSeconds = currentSeconds - previousSeconds;
+	double elapsedSeconds = currentSeconds - previousSeconds;
 
 	if (elapsedSeconds > 0.5)
 	{
@@ -48,7 +87,7 @@ void Game::ShowFPS()
 		std::ostringstream ostream;
 		ostream.precision(3);
 		ostream << std::fixed << APP_TITLE << "  " << "FPS: " << fps << "  " << "Frame Time: " << msPerFrame << "ms";
-		glfwSetWindowTitle(App::GetAppInstance().GetGLFWWindow(), ostream.str().c_str());
+		App::GetAppInstance().SetWindowTitle(ostream.str().c_str());
 
 		frameCount = 0;
 	}

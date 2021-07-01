@@ -8,7 +8,7 @@ Renderer::~Renderer()
 {
 }
 
-void Renderer::Draw() const
+void Renderer::DrawTriangle() const
 {
 	GLfloat Vertices[] =
 	{
@@ -34,6 +34,20 @@ void Renderer::Draw() const
 	glVertexAttribPointer(loc, 2, GL_FLOAT, GL_FALSE, 8, (void*)0);
 
 	glDrawArrays(GL_TRIANGLES, 0, 3);
+
+	glBindVertexArray(0);
+}
+
+void Renderer::Draw(const Mesh& mesh) const
+{
+	glBindVertexArray(mesh.m_Vao);
+
+	GLint loc = 0;
+	glEnableVertexAttribArray(loc);
+
+	glVertexAttribPointer(loc, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
+	glDrawArrays(mesh.PrimitiveType, 0, mesh.m_Vertices.size());
 
 	glBindVertexArray(0);
 }

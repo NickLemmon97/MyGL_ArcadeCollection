@@ -7,6 +7,8 @@ App::App()
 	_sInstance = this;
 
 	m_pRenderer = new Renderer();
+
+	m_glfwTime = 0.0;
 }
 
 App::~App()
@@ -47,7 +49,7 @@ bool App::Init()
 
 	glfwMakeContextCurrent(m_pWindow);
 
-	glewExperimental = GL_TRUE;
+	glewExperimental = GL_FALSE;
 	if (glewInit() != GLEW_OK)
 	{
 		std::cerr << RED_CONSOLE_TEXT << "Failed to initialize glew" << std::endl;
@@ -58,6 +60,7 @@ bool App::Init()
 	}
 
 	glfwSetKeyCallback(m_pWindow, HandleInput);
+	glfwSetCursorPosCallback(m_pWindow, HandleCursorPos);
 
 	return true;
 }
@@ -89,9 +92,9 @@ void App::Run()
 	{
 		glfwPollEvents();
 
-		double currentTime = glfwGetTime();
-		double deltaTime = currentTime - previousTime;
-		previousTime = currentTime;
+		m_glfwTime = glfwGetTime();
+		double deltaTime = m_glfwTime - previousTime;
+		previousTime = m_glfwTime;
 
 		GameLoop(deltaTime);
 
@@ -123,6 +126,11 @@ void App::HandleInput(GLFWwindow* window, int key, int scancode, int action, int
 	_sInstance->GameInput(key, scancode, action, mode);
 }
 
+void App::HandleCursorPos(GLFWwindow* window, double x, double y)
+{
+	_sInstance->GameCursorFunc(x, y);
+}
+
 void App::SetGameLoop(GameLoopFunc loop)
 {
 	GameLoop = loop;
@@ -138,9 +146,24 @@ void App::SetGameInput(GameInputFunc input)
 	GameInput = input;
 }
 
+void App::SetGameCursorFunc(GameCursorPosFunc cursor)
+{
+	GameCursorFunc = cursor;
+}
+
 GLFWwindow* App::GetGLFWWindow()
 {
 	return m_pWindow;
+}
+
+void App::SetWindowTitle(const char* title)
+{
+	glfwSetWindowTitle(m_pWindow, title);
+}
+
+double App::GetGLFWTime()
+{
+	return m_glfwTime;
 }
 
 App& App::GetAppInstance()

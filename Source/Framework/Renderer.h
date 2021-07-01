@@ -1,12 +1,15 @@
 #pragma once
 
-#include "../ProjectConfig.h"
-
-class Renderer
+class FrameworkAPI Renderer
 {
 public:
 	Renderer();
 	~Renderer();
 
-	FrameworkAPI void Draw(/*required params*/) const;
+	void DrawTriangle(/*required params*/) const;
+	void Draw(const class Mesh&) const;
+
+	void DrawMyMesh() const;
+
+	Mesh m;
 };

@@ -11,6 +11,7 @@ void AppInitializer::Run()
 	Application_ = std::make_shared<App>();
 	if (Setup())
 	{
+		Game_->Init();
 		Application_->Run();
 	}
 	Application_->Close();
@@ -36,6 +37,9 @@ bool AppInitializer::Setup()
 		std::placeholders::_3,
 		std::placeholders::_4);
 	Application_->SetGameInput(input);
+
+	App::GameCursorPosFunc cursor = std::bind(&IGameClass::HandleMousePosition, Game_, std::placeholders::_1, std::placeholders::_2);
+	Application_->SetGameCursorFunc(cursor);
 
 	return true;
 }

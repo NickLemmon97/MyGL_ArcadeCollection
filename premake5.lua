@@ -23,6 +23,10 @@ files{
     "Source/ProjectConfig.h",
 }
 
+ filter "system:windows"
+        cppdialect "C++17"
+        systemversion "latest"
+
 ------------------------------------------------ Solution
 workspace (WorkspaceName)
     configurations  { "Debug", "Release" }
@@ -57,7 +61,7 @@ project (ProjectConfigProjectName)
     --If on windows we are most likely using a visual studio project 
     --Created since I can't right click and run a bat file in vs
     filter "system:windows"
-        prebuildcommands{
+        postbuildcommands{
             "cd ..",
             "PremakeGenerateBuildFiles.bat",
         }
@@ -101,37 +105,31 @@ project (ApplicationProjectName)
         (GameName),
     }
 
-    prebuildcommands{
-        --Check IF the needed DLLs exists
-        --if they don't compile them, else do nothing
-    }
-
     postbuildcommands{
         ("{COPY} %{prj.location}../Source/Data %{prj.location}bin/"..outputdir.."/Game/Data"),
-        ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/Framework.dll %{cfg.targetdir}/"),
-        ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll %{cfg.targetdir}/"),
     }
-
-    filter "system:windows"
-        cppdialect "C++17"
-        systemversion "latest"
 
     filter "configurations:Debug"
       defines { "DEBUG" }
       symbols "On"
       postbuildcommands{
-        
+        ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/ %{cfg.targetdir}/"),
       }
 
     filter "configurations:Release"
       defines { "NDEBUG" }
       optimize "On"
+       postbuildcommands{
+        ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/Framework.dll %{cfg.targetdir}/"),
+        ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll %{cfg.targetdir}/"),
+    }
 
     filter {"configurations:Release", "system:windows"}
         kind "WindowedApp"
         entrypoint ("mainCRTStartup")
 
     filter {}
+
 
 
 ------------------------------------------------ Game Project
@@ -174,10 +172,6 @@ project (GameProjectName)
         "Framework",
     }
 
-    filter "system:windows"
-        cppdialect "C++17"
-        systemversion "latest"
-
     filter "configurations:Debug"
       defines { "DEBUG" }
       symbols "On"
@@ -189,7 +183,8 @@ project (GameProjectName)
     filter {}
 
 
------------------------------------------------- Engine Project
+
+------------------------------------------------ Framework Project
 project (FrameworkProjectName)
     targetname  "Framework"
     location    (WorkingDirectory)
@@ -222,10 +217,6 @@ project (FrameworkProjectName)
         "glfw3",
     }
 
-    filter "system:windows"
-        cppdialect "C++17"
-        systemversion "latest"
-
     filter "configurations:Debug"
       defines { "DEBUG" }
       symbols "On"
@@ -249,18 +240,3 @@ project (ShaderProjectName)
         "Source/Data/Shaders/**.vert",
         "Source/Data/Shaders/**.frag",
     }
-
-
---A Project used to view all files
-----------------------------------All files project
--- project "ALL_FILES"
---     location (WorkingDirectory)
---     kind "none"
--- 
---     files{
---         "**.*",
---     }
--- 
---     removefiles{
---         "build/**.*",
---     }

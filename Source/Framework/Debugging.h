@@ -1,13 +1,18 @@
 #pragma once
-#include "../ProjectConfig.h"
 
 //Debug logging
+#if !_HAS_CXX20
 constexpr char* RED_CONSOLE_TEXT = "\33[31m";
-constexpr char* WHITE_CONSOLE_TEXT = "\33[97m"; 
+constexpr char* WHITE_CONSOLE_TEXT = "\33[97m";
 constexpr char* YELLOW_CONSOLE_TEXT = "\33[33m";
+#else
+const char* RED_CONSOLE_TEXT = "\33[31m";
+const char* WHITE_CONSOLE_TEXT = "\33[97m"; 
+const char* YELLOW_CONSOLE_TEXT = "\33[33m";
+#endif
 
 
-enum class FrameworkAPI LogVerbosity
+enum class LogVerbosity
 {
 	Log = 0,
 	Warning,

@@ -3,6 +3,7 @@
 FrameworkImpl template class FrameworkAPI std::function<void(double)>;
 FrameworkImpl template class FrameworkAPI std::function<void(const class Renderer&)>;
 FrameworkImpl template class FrameworkAPI std::function<void(int key, int scancode, int action, int mode)>;
+FrameworkImpl template class FrameworkAPI std::function<void(double x, double y)>;
 
 class FrameworkAPI App
 {
@@ -12,12 +13,17 @@ class FrameworkAPI App
 	typedef std::function<void(double)>                                      GameLoopFunc;
 	typedef std::function<void(const class Renderer&)>                       GameDrawFunc;
 	typedef std::function<void(int key, int scancode, int action, int mode)> GameInputFunc;
+	typedef std::function<void(double x, double y)>                      GameCursorPosFunc;
 
 public:
 	App();
 	~App();
 
 	struct GLFWwindow* GetGLFWWindow();
+
+	void SetWindowTitle(const char* title);
+
+	double GetGLFWTime();
 
 	static App& GetAppInstance();
 
@@ -34,10 +40,12 @@ protected:
 	void Draw();
 
 	static void HandleInput(struct GLFWwindow* window, int key, int scancode, int action, int mode);
+	static void HandleCursorPos(struct GLFWwindow* window, double x, double y);
 
 	void SetGameLoop(GameLoopFunc loop);
 	void SetGameDraw(GameDrawFunc draw);
 	void SetGameInput(GameInputFunc input);
+	void SetGameCursorFunc(GameCursorPosFunc cursor);
 
 private:
 	struct GLFWwindow* m_pWindow = nullptr;
@@ -47,4 +55,7 @@ private:
 	GameLoopFunc  GameLoop;
 	GameDrawFunc  GameDraw;
 	GameInputFunc GameInput;
+	GameCursorPosFunc GameCursorFunc;
+
+	double m_glfwTime;
 };
