@@ -2,6 +2,7 @@
 #include <memory>
 #include <AppInitializer.h>
 #include <Game.h>
+#include "ProjectConfig.h"
 
 int main(int argc, char** argv)
 {
@@ -12,9 +13,11 @@ int main(int argc, char** argv)
 #endif
 #endif
 
+		Game* g = new Game();
+		//AppInitializer<Game> FPS;
+		AppInit2 Game = { g };
 
-	AppInitializer<Game> FPS;
-
+		delete g;
 
 #ifdef DEBUG
 #if CHECK_FOR_MEMORY_LEAKS

@@ -148,7 +148,7 @@ void App::SetGameInput(GameInputFunc input)
 	GameInput = input;
 }
 
-GLFWwindow* App::GetGLFWWindow() const
+GLFWwindow* App::GetGLFWWindow()
 {
 	return m_pWindow;
 }

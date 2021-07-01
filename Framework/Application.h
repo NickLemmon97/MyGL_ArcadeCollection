@@ -1,16 +1,22 @@
 #pragma once
 #include <functional>
 
+#include "../ProjectConfig.h"
 #include "Debugging.h"
 
-class App
+FrameworkImpl template class FrameworkAPI std::function<void(double)>;
+FrameworkImpl template class FrameworkAPI std::function<void(const class Renderer&)>;
+FrameworkImpl template class FrameworkAPI std::function<void(int key, int scancode, int action, int mode)>;
+
+typedef FrameworkAPI std::function<void(double)>                                      GameLoopFunc;
+typedef FrameworkAPI std::function<void(const class Renderer&)>                       GameDrawFunc;
+typedef FrameworkAPI std::function<void(int key, int scancode, int action, int mode)> GameInputFunc;
+
+class FrameworkAPI App
 {
 	template<typename _Ty>
 	friend class AppInitializer;
-
-	typedef std::function<void(double)> GameLoopFunc;
-	typedef std::function<void(const class Renderer&)> GameDrawFunc;
-	typedef std::function<void(int key, int scancode, int action, int mode)> GameInputFunc;
+	friend class AppInit2;
 
 public:
 	App();
@@ -20,7 +26,7 @@ public:
 	void SetGameDraw(GameDrawFunc draw);
 	void SetGameInput(GameInputFunc input);
 
-	struct GLFWwindow* GetGLFWWindow() const;
+	struct GLFWwindow* GetGLFWWindow();
 
 	static App& GetAppInstance();
 

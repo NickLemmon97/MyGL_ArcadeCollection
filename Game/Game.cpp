@@ -10,7 +10,6 @@
 
 #include <sstream>
 
-
 Game::Game()
 {
 }

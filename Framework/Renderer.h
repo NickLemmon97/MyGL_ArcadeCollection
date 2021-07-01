@@ -1,10 +1,12 @@
 #pragma once
 
+#include "../ProjectConfig.h"
+
 class Renderer
 {
 public:
 	Renderer();
 	~Renderer();
 
-	void Draw(/*required params*/) const;
+	FrameworkAPI void Draw(/*required params*/) const;
 };

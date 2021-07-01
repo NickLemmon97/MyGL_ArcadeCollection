@@ -5,14 +5,61 @@
 #include <Application.h>
 #include <GameClass.h>
 
+FrameworkImpl template class FrameworkAPI std::shared_ptr<App>;
 
 template<typename GameType>
-class AppInitializer
+class FrameworkAPI AppInitializer
 {
 public:
-	AppInitializer();
-	void Run();
-	bool Setup();
+	AppInitializer()
+	{
+	#ifdef DEBUG 
+		if (std::is_base_of<IGameClass, GameType>::value) { 
+	#endif 
+
+		Run();
+
+	#ifdef DEBUG
+	} else { std::cerr << RED_CONSOLE_TEXT << "Wasn't a Game, make sure your class inherits from IGameClass" << WHITE_CONSOLE_TEXT << std::endl; }
+	#endif
+	}
+
+	void Run()
+	{
+		Application_ = std::make_shared<App>();
+		if (Setup())
+		{
+			Application_->Run();
+		}
+		Application_->Close();
+	}
+
+	bool Setup()
+	{
+		if (!Application_->Init())
+		{
+			std::cerr << RED_CONSOLE_TEXT << "Application was unable to initialize, will be closing" << std::endl;
+			return false;
+		}
+
+		Game_ = std::make_shared<GameType>();
+
+		GameLoopFunc loop = std::bind(&IGameClass::Update, Game_, std::placeholders::_1);
+		Application_->SetGameLoop(loop);
+
+		GameDrawFunc draw = std::bind(&IGameClass::Draw, Game_, std::placeholders::_1);
+		Application_->SetGameDraw(draw);
+
+		GameInputFunc input = std::bind(&IGameClass::HandleInput, Game_, 
+			std::placeholders::_1, 
+			std::placeholders::_2, 
+			std::placeholders::_3, 
+			std::placeholders::_4);
+		Application_->SetGameInput(input);
+
+		return true;
+	}
+
 
 	std::shared_ptr<App> GetApplication()
 	{
@@ -31,56 +78,17 @@ private:
 
 };
 
-
-template<typename GameType>
-inline AppInitializer<GameType>::AppInitializer()
+class FrameworkAPI AppInit2
 {
-#ifdef DEBUG
-	if (std::is_base_of<IGameClass, GameType>::value){
-#endif 
+public:
+	AppInit2(IGameClass* game);
 
-		Run();
+	void Run();
 
-#ifdef DEBUG
-	}else{
-		std::cerr << RED_CONSOLE_TEXT << "Wasn't a Game, make sure your class inherits from IGameClass" << WHITE_CONSOLE_TEXT << std::endl;
-	}
-#endif
-}
+	bool Setup();
 
-template<typename GameType>
-inline void AppInitializer<GameType>::Run()
-{
-	Application_ = std::make_shared<App>();
-	if (Setup())
-	{
-		Application_->Run();
-	}
-	Application_->Close();
-}
+private:
 
-template<typename GameType>
-inline bool AppInitializer<GameType>::Setup()
-{
-	if (!Application_->Init())
-	{
-		std::cerr << RED_CONSOLE_TEXT << "Application was unable to initialize, will be closing" << std::endl;
-		return false;
-	}
-
-	Game_ = std::make_shared<GameType>();
-
-	App::GameLoopFunc loop = std::bind(&IGameClass::Update, Game_, std::placeholders::_1);
-	Application_->SetGameLoop(loop);
-
-	App::GameDrawFunc draw = std::bind(&IGameClass::Draw, Game_, std::placeholders::_1);
-	Application_->SetGameDraw(draw);
-
-	App::GameInputFunc input = std::bind(&IGameClass::HandleInput, Game_, std::placeholders::_1, 
-																		  std::placeholders::_2, 
-																		  std::placeholders::_3, 
-																		  std::placeholders::_4);
-	Application_->SetGameInput(input);
-
-	return true;
-}
+	std::shared_ptr<App> Application_;
+	IGameClass* Game_;
+};
