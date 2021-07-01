@@ -31,10 +31,7 @@ bool App::Init()
 		return false;
 	}
 
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	SetGLWindowHints();
 
 	m_pWindow = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, APP_TITLE, nullptr, nullptr);
 
@@ -59,8 +56,7 @@ bool App::Init()
 		return false;
 	}
 
-	glfwSetKeyCallback(m_pWindow, HandleInput);
-	glfwSetCursorPosCallback(m_pWindow, HandleCursorPos);
+	SetupInputCallbacks();
 
 	return true;
 }
@@ -149,6 +145,20 @@ void App::SetGameInput(GameInputFunc input)
 void App::SetGameCursorFunc(GameCursorPosFunc cursor)
 {
 	GameCursorFunc = cursor;
+}
+
+void App::SetGLWindowHints()
+{
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+}
+
+void App::SetupInputCallbacks()
+{
+	glfwSetKeyCallback(m_pWindow, HandleInput);
+	glfwSetCursorPosCallback(m_pWindow, HandleCursorPos);
 }
 
 GLFWwindow* App::GetGLFWWindow()

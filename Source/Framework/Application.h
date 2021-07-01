@@ -48,6 +48,10 @@ protected:
 	void SetGameCursorFunc(GameCursorPosFunc cursor);
 
 private:
+
+	void SetGLWindowHints();
+	void SetupInputCallbacks();
+
 	struct GLFWwindow* m_pWindow = nullptr;
 
 	class Renderer* m_pRenderer = nullptr;

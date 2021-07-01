@@ -17,6 +17,7 @@ public:
 private:
 
 	std::shared_ptr<class Mesh> m_Triangle;
+	std::shared_ptr<class Mesh> m_Mess;
 
 	void ShowFPS();
 

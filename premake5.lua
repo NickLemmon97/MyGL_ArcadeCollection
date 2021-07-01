@@ -240,3 +240,32 @@ project (ShaderProjectName)
         "Source/Data/Shaders/**.vert",
         "Source/Data/Shaders/**.frag",
     }
+
+
+-------------------------Test a third part folder
+workspace "ThirdParty"
+    configurations  { "Debug", "Release" }
+    location        (WorkingDirectory)
+    startproject    "ThirdParty"
+
+    filter "system:windows"
+        platforms       { "x64" }
+        characterset    "MBCS"
+
+        defines{
+            "WIN32",
+            "WIN64",
+            "_WINDOWS",
+        }
+
+project "ThirdParty"
+    location (WorkingDirectory)
+    kind "Utility"
+
+    targetdir (WorkingDirectory.."/bin/" ..outputdir)
+    objdir  (WorkingDirectory.."/bin-obj/")
+
+    files{
+        "Source/ThirdParty/**.h",
+        "Source/ThirdParty/**.cpp",
+    }

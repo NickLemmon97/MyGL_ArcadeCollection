@@ -15,7 +15,9 @@ Game::~Game()
 void Game::Init()
 {
 	m_Triangle = std::make_shared<Mesh>();
+	m_Triangle->MakeTriangle();
 
+	m_Mess = std::make_shared<Mesh>();
 	std::vector<GLfloat> verts = {
 		 0.8f, 0.0f,
 		 0.4f, 0.6f,
@@ -24,8 +26,7 @@ void Game::Init()
 		-0.7f, 0.1f,
 		-0.3f, -0.6f
 	};
-
-	m_Triangle->SetVertices(verts);
+	m_Mess->SetVertices(verts);
 
 }
 
@@ -46,7 +47,7 @@ void Game::Draw(const Renderer& renderer)
 {
 	DrawMyShape
 		? renderer.Draw(*m_Triangle.get())
-		: renderer.DrawTriangle();
+		: renderer.Draw(*m_Mess.get());
 }
 
 void Game::HandleInput(int key, int scancode, int action, int mode)
@@ -66,9 +67,9 @@ void Game::HandleInput(int key, int scancode, int action, int mode)
 void Game::HandleMousePosition(double x, double y)
 {
 	char xx[255];
-	itoa(x, xx, 10);
+	_itoa_s(x, xx, 10);
 	App::GetAppInstance().LogMessage(LogVerbosity::Log, xx);
-	itoa(y, xx, 10);
+	_itoa_s(y, xx, 10);
 	App::GetAppInstance().LogMessage(LogVerbosity::Log, xx);
 }
 

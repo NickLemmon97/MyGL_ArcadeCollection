@@ -22,7 +22,7 @@ void Renderer::DrawTriangle() const
 
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices) * 9, &Vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), &Vertices, GL_STATIC_DRAW);
 
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
@@ -31,12 +31,13 @@ void Renderer::DrawTriangle() const
 	GLint loc = 0;
 	glEnableVertexAttribArray(loc);
 
-	glVertexAttribPointer(loc, 2, GL_FLOAT, GL_FALSE, 8, (void*)0);
+	glVertexAttribPointer(loc, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 
 	glBindVertexArray(0);
 }
+
 
 void Renderer::Draw(const Mesh& mesh) const
 {
@@ -47,7 +48,7 @@ void Renderer::Draw(const Mesh& mesh) const
 
 	glVertexAttribPointer(loc, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
-	glDrawArrays(mesh.PrimitiveType, 0, mesh.m_Vertices.size());
+	glDrawArrays(mesh.PrimitiveType, 0, mesh.m_Vertices.size() - 1);
 
 	glBindVertexArray(0);
 }

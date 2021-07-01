@@ -45,10 +45,16 @@ void Mesh::MakeTriangle()
 void Mesh::SetupBuffers()
 {
 	glGenBuffers(1, &m_Vbo);
+	
 	glBindBuffer(GL_ARRAY_BUFFER, m_Vbo);
-	glBufferData(GL_ARRAY_BUFFER, m_Vertices.size() * 9, m_Vertices.data(), GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glBufferData(GL_ARRAY_BUFFER, 
+		sizeof(GLfloat) * (m_Vertices.size()), 
+		m_Vertices.data(), 
+		GL_STATIC_DRAW);
 
 	glGenVertexArrays(1, &m_Vao);
+
 	glBindVertexArray(m_Vao);
+
 }

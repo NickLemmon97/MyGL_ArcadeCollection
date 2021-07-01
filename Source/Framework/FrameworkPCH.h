@@ -19,5 +19,5 @@
 #include <Application.h>
 #include <AppInitializer.h>
 
-#include <Mesh.h>
-#include <Renderer.h>
+#include <Graphics/Mesh.h>
+#include <Graphics/Renderer.h>
