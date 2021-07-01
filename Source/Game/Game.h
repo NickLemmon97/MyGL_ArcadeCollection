@@ -1,7 +1,6 @@
 #pragma once
-#include "../ProjectConfig.h"
+
 #include <GameClass.h>
-#include <Renderer.h>
 
 class GameAPI Game : public IGameClass
 {

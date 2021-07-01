@@ -1,16 +1,8 @@
 #pragma once
-#include <functional>
-
-#include "../ProjectConfig.h"
-#include "Debugging.h"
 
 FrameworkImpl template class FrameworkAPI std::function<void(double)>;
 FrameworkImpl template class FrameworkAPI std::function<void(const class Renderer&)>;
 FrameworkImpl template class FrameworkAPI std::function<void(int key, int scancode, int action, int mode)>;
-
-//typedef FrameworkAPI std::function<void(double)>                                      GameLoopFunc;
-//typedef FrameworkAPI std::function<void(const class Renderer&)>                       GameDrawFunc;
-//typedef FrameworkAPI std::function<void(int key, int scancode, int action, int mode)> GameInputFunc;
 
 class FrameworkAPI App
 {

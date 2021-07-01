@@ -1,8 +1,4 @@
-#include "Renderer.h"
-#include "Application.h"
-
-#define GLEW_STATIC
-#include <GL/glew.h>
+#include <FrameworkPCH.h>
 
 Renderer::Renderer()
 {

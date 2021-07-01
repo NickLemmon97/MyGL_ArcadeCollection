@@ -1,14 +1,4 @@
-#include "Application.h"
-
-#include <iostream>
-
-#define GLEW_STATIC
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
-#include "Constants.h"
-#include "Debugging.h"
-#include "Renderer.h"
+#include <FrameworkPCH.h>
 
 static App* _sInstance;
 

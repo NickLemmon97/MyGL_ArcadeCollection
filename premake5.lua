@@ -16,7 +16,7 @@ ProjectConfigProjectName = "1. Project Config"
 ShaderProjectName        = "2. Shaders"
 ApplicationProjectName   = "3. Player"
 FrameworkProjectName     = "4. Framework"
-GameProjectName         = ("5. "..GameName)
+GameProjectName          = ("5. "..GameName)
 
 
 files{
@@ -57,7 +57,7 @@ project (ProjectConfigProjectName)
     --If on windows we are most likely using a visual studio project 
     --Created since I can't right click and run a bat file in vs
     filter "system:windows"
-        postbuildcommands{
+        prebuildcommands{
             "cd ..",
             "PremakeGenerateBuildFiles.bat",
         }
@@ -141,6 +141,8 @@ project (GameProjectName)
     kind        "SharedLib"
     language    "C++"
     defines     {"GameDLLExport"}
+    pchheader   "GamePCH.h"
+    pchsource   "Source/Game/GamePCH.cpp"
 
     dependson{
        (FrameworkProjectName),
@@ -193,7 +195,9 @@ project (FrameworkProjectName)
     location    (WorkingDirectory)
     kind        "SharedLib"
     language    "C++"
-     defines    {"FrameworkDLLExport"}
+    defines     {"FrameworkDLLExport"}
+    pchheader   "FrameworkPCH.h"
+    pchsource   "Source/Framework/FrameworkPCH.cpp"
 
     includedirs {
         "Source/Framework",

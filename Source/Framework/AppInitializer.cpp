@@ -1,7 +1,4 @@
-#include "AppInitializer.h"
-
-#include <Application.h>
-#include <GameClass.h>
+#include <FrameworkPCH.h>
 
 AppInitializer::AppInitializer(IGameClass* game)
 {

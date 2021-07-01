@@ -1,14 +1,5 @@
-#include "Game.h"
+#include <GamePCH.h>
 
-#include <Application.h>
-#include <AppInitializer.h>
-#include <Renderer.h>
-#include <Constants.h>
-
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
-#include <sstream>
 
 Game::Game()
 {

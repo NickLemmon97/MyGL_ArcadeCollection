@@ -1,8 +1,5 @@
-#include <iostream>
-#include <memory>
-#include <AppInitializer.h>
-#include <Game.h>
-#include <Debugging.h>
+#include <FrameworkPCH.h>
+#include <GamePCH.h>
 
 int main(int argc, char** argv)
 {
