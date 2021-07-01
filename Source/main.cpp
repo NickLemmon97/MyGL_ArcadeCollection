@@ -2,7 +2,7 @@
 #include <memory>
 #include <AppInitializer.h>
 #include <Game.h>
-#include "ProjectConfig.h"
+#include <Debugging.h>
 
 int main(int argc, char** argv)
 {
@@ -13,11 +13,10 @@ int main(int argc, char** argv)
 #endif
 #endif
 
-		Game* g = new Game();
-		//AppInitializer<Game> FPS;
-		AppInit2 Game = { g };
 
-		delete g;
+		std::shared_ptr<Game> g2 = std::make_shared<Game>();
+		AppInitializer Game = { g2.get() };
+
 
 #ifdef DEBUG
 #if CHECK_FOR_MEMORY_LEAKS

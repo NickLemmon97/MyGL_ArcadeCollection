@@ -2,23 +2,32 @@
 WorkingDirectory = "build"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-DLL_LibOutput =  (WorkingDirectory.."/bin/" ..outputdir.. "/Libs");
+DLL_LibOutput =  ("/bin/" ..outputdir.. "/Libs");
 
 
---Change me
-GameName = "Testing"
+--Name of the current game project
+GameName = "TestGame"
 
+
+--Project names as a variable
+WorkspaceName            = "OpenGLFramework"
+
+ProjectConfigProjectName = "1. Project Config"
+ShaderProjectName        = "2. Shaders"
+ApplicationProjectName   = "3. Player"
+FrameworkProjectName     = "4. Framework"
+GameProjectName         = ("5. "..GameName)
 
 
 files{
-    "ProjectConfig.h",
+    "Source/ProjectConfig.h",
 }
 
 ------------------------------------------------ Solution
-workspace "OpenGLFramework"
+workspace (WorkspaceName)
     configurations  { "Debug", "Release" }
     location        (WorkingDirectory)
-    startproject    "2. Player"
+    startproject    (ApplicationProjectName)
 
     filter "system:windows"
         platforms       { "x64" }
@@ -32,7 +41,7 @@ workspace "OpenGLFramework"
 
 
 ---------------------------------------------------- Project Configuration files
-project "1. PROJECT_CONFIG"
+project (ProjectConfigProjectName)
     location (WorkingDirectory)
     kind "Utility"
 
@@ -55,34 +64,33 @@ project "1. PROJECT_CONFIG"
 
 
 ------------------------------------------------ Main Executable Project
-project "2. Player"
+project (ApplicationProjectName)
     targetname  "Player"
     location    (WorkingDirectory)
     kind        "ConsoleApp"
     language    "C++"
 
     dependson{
-        "Framework",
-        (GameName),
+        (GameProjectName),
+        (FrameworkProjectName),
     }
     
     includedirs {
-        "Game",
-        "Framework",
-        "ThirdParty/include",
+        "Source/Game",
+        "Source/Framework",
+        "Source/ThirdParty/include",
     }
 
     files {
-        "main.cpp",
-        "ProjectConfig.h",
+        "Source/main.cpp",
     }
 
     targetdir (WorkingDirectory.."/bin/" ..outputdir.. "/Game")
     objdir  (WorkingDirectory.."/bin-obj/")
 
     libdirs{
-        "ThirdParty/lib",
-        (DLL_LibOutput),
+        "Source/ThirdParty/lib",
+        (WorkingDirectory..DLL_LibOutput),
     }
 
     links {
@@ -93,8 +101,13 @@ project "2. Player"
         (GameName),
     }
 
+    prebuildcommands{
+        --Check IF the needed DLLs exists
+        --if they don't compile them, else do nothing
+    }
+
     postbuildcommands{
-        ("{COPY} %{prj.location}../Data %{prj.location}bin/"..outputdir.."/Game/Data"),
+        ("{COPY} %{prj.location}../Source/Data %{prj.location}bin/"..outputdir.."/Game/Data"),
         ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/Framework.dll %{cfg.targetdir}/"),
         ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll %{cfg.targetdir}/"),
     }
@@ -122,7 +135,7 @@ project "2. Player"
 
 
 ------------------------------------------------ Game Project
-project ("3. "..GameName)
+project (GameProjectName)
     targetname  (GameName)
     location    (WorkingDirectory)
     kind        "SharedLib"
@@ -130,26 +143,26 @@ project ("3. "..GameName)
     defines     {"GameDLLExport"}
 
     dependson{
-        "Framework",
+       (FrameworkProjectName),
     }
     
     includedirs {
-        "Game",
-        "Framework",
-        "ThirdParty/include",
+        "Source/Game",
+        "Source/Framework",
+        "Source/ThirdParty/include",
     }
 
     files {
-        "Game/**.cpp",
-        "Game/**.h",
+        "Source/Game/**.cpp",
+        "Source/Game/**.h",
     }
 
-    targetdir (DLL_LibOutput)
+    targetdir (WorkingDirectory..DLL_LibOutput)
     objdir  (WorkingDirectory.."/bin-obj/")
 
     libdirs{
-        "ThirdParty/lib",
-        (DLL_LibOutput),
+        "Source/ThirdParty/lib",
+        (WorkingDirectory..DLL_LibOutput),
     }
 
     links {
@@ -175,7 +188,7 @@ project ("3. "..GameName)
 
 
 ------------------------------------------------ Engine Project
-project "4. Framework"
+project (FrameworkProjectName)
     targetname  "Framework"
     location    (WorkingDirectory)
     kind        "SharedLib"
@@ -183,20 +196,20 @@ project "4. Framework"
      defines    {"FrameworkDLLExport"}
 
     includedirs {
-        "Framework",
-        "ThirdParty/include",
+        "Source/Framework",
+        "Source/ThirdParty/include",
     }
 
     files {
-        "Framework/**.cpp",
-        "Framework/**.h",
+        "Source/Framework/**.cpp",
+        "Source/Framework/**.h",
     }
 
-    targetdir (DLL_LibOutput)
+    targetdir (WorkingDirectory..DLL_LibOutput)
     objdir  (WorkingDirectory.."/bin-obj/")
 
     libdirs{
-        "ThirdParty/lib",
+        "Source/ThirdParty/lib",
     }
 
     links {
@@ -221,7 +234,7 @@ project "4. Framework"
 
 
 ------------------------------------------------------- Shaders project
-project "5. Shaders"
+project (ShaderProjectName)
     location (WorkingDirectory)
     kind "Utility"
 
@@ -229,8 +242,8 @@ project "5. Shaders"
     objdir  (WorkingDirectory.."/bin-obj/")
 
     files{
-        "Data/Shaders/**.vert",
-        "Data/Shaders/**.frag",
+        "Source/Data/Shaders/**.vert",
+        "Source/Data/Shaders/**.frag",
     }
 
 

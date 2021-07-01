@@ -1,4 +1,7 @@
 
+/*
+* Export defines for exporting and importing DLL functions
+*/
 #ifdef GameDLLExport
 #define GameAPI __declspec(dllexport)
 #else

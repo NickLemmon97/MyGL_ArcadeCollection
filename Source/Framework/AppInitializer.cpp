@@ -1,12 +1,15 @@
 #include "AppInitializer.h"
 
-AppInit2::AppInit2(IGameClass* game)
+#include <Application.h>
+#include <GameClass.h>
+
+AppInitializer::AppInitializer(IGameClass* game)
 {
 	Game_ = game;
 	Run();
 }
 
-void AppInit2::Run()
+void AppInitializer::Run()
 {
 	Application_ = std::make_shared<App>();
 	if (Setup())
@@ -16,7 +19,7 @@ void AppInit2::Run()
 	Application_->Close();
 }
 
-bool AppInit2::Setup()
+bool AppInitializer::Setup()
 {
 	if (!Application_->Init())
 	{
@@ -24,13 +27,13 @@ bool AppInit2::Setup()
 		return false;
 	}
 
-	GameLoopFunc loop = std::bind(&IGameClass::Update, Game_, std::placeholders::_1);
+	App::GameLoopFunc loop = std::bind(&IGameClass::Update, Game_, std::placeholders::_1);
 	Application_->SetGameLoop(loop);
 
-	GameDrawFunc draw = std::bind(&IGameClass::Draw, Game_, std::placeholders::_1);
+	App::GameDrawFunc draw = std::bind(&IGameClass::Draw, Game_, std::placeholders::_1);
 	Application_->SetGameDraw(draw);
 
-	GameInputFunc input = std::bind(&IGameClass::HandleInput, Game_,
+	App::GameInputFunc input = std::bind(&IGameClass::HandleInput, Game_,
 		std::placeholders::_1,
 		std::placeholders::_2,
 		std::placeholders::_3,
