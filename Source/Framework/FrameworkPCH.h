@@ -25,5 +25,6 @@
 #include <Application.h>
 #include <AppInitializer.h>
 
+#include <Graphics/ShaderProgram.h>
 #include <Graphics/Mesh.h>
 #include <Graphics/Renderer.h>

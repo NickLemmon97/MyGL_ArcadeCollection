@@ -19,12 +19,11 @@ private:
 
 	std::shared_ptr<class Mesh> m_Triangle;
 	std::shared_ptr<class Mesh> m_Mess;
+	std::shared_ptr<class ShaderProgram> m_ShaderProgram;
 
-	void ShowFPS();
+	void ShowFPS(double delta);
 
-	double m_Count = 0.0;
-
-	double previousSeconds = 0.0;
+	double fpsTime = 0.0;
 	int frameCount = 0;
 
 	bool DrawMyShape = true;

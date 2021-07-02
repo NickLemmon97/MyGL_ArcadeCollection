@@ -40,9 +40,11 @@ char* Utilities::LoadCompleteFile(const char* filename, long* length /*= nullptr
 */
 char* Utilities::LoadCompleteFileFromData(const char* filename, long* length/*= nullptr*/)
 {
-#ifdef DEBUG
+#ifdef WITH_VS
+    DEBUG_LOG_MESSAGE(LogUtils, LogVerbosity::Warning, "Open file from data path relative to Visual Studio Execution");
     std::string full_path = "../Source/Data/";
 #else
+    DEBUG_LOG_MESSAGE(LogUtils, LogVerbosity::Warning, "Open file from data path relative to Application Execution");
     std::string full_path = "Data/";
 #endif
     full_path.append(filename);

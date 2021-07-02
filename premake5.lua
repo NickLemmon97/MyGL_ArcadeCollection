@@ -28,28 +28,32 @@ filter "system:windows"
         systemversion "latest"
 
 filter "configurations:Debug"
-       defines { "DEBUG" }
+       defines { "DEBUG", "_DEBUG", "WITH_VS", "EXECUTE_WITH_CONSOLE_VISIBLE"}
+       symbols "On"
+
+filter "configurations:DebugStandalone"
+       defines { "DEBUG", "_DEBUG", "STANDALONE", "EXECUTE_WITH_CONSOLE_VISIBLE"}
        symbols "On"
 
 filter "configurations:Development"
-       defines {"DEVELOPMENT"}
+       defines {"DEVELOPMENT", "EXECUTE_WITH_CONSOLE_VISIBLE"}
        optimize "On"
 
 filter "configurations:Release"
-       defines { "RELEASE" }
+       defines { "RELEASE", "STANDALONE" }
        optimize "On"
 
 filter "configurations:ReleaseConsole"
-       defines { "CONSOLE_RELEASE" }
+       defines { "CONSOLE_RELEASE", "STANDALONE", "EXECUTE_WITH_CONSOLE_VISIBLE" }
        optimize "On"
 
 filter "configurations:Publish"
-        defines {"RELEASE"}
+        defines {"RELEASE", "STANDALONE"}
         optimize "On"
 
 ------------------------------------------------ Solution
 workspace (WorkspaceName)
-    configurations  { "Debug", "Release", "ReleaseConsole", "Development", "Publish" }
+    configurations  { "Debug", "DebugStandalone", "Release", "ReleaseConsole", "Development", "Publish" }
     location        (WorkingDirectory)
     startproject    (ApplicationProjectName)
 
@@ -129,6 +133,11 @@ project (ApplicationProjectName)
     }
 
     filter "configurations:Debug"
+        postbuildcommands{
+          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/ %{cfg.targetdir}/"),
+        }
+
+    filter "configurations:DebugStandalone"
         postbuildcommands{
           ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/ %{cfg.targetdir}/"),
         }
@@ -258,7 +267,6 @@ project (ShaderProjectName)
         "Source/Data/Shaders/**.vert",
         "Source/Data/Shaders/**.frag",
     }
-
 
 
 ------------------------ Debug purpose all files project to view all files from withing VS

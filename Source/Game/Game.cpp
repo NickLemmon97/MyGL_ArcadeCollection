@@ -4,8 +4,6 @@ DECLARE_LOG_CATEGORY(LogGame);
 
 Game::Game()
 {
-	m_Count = 0.0;
-	previousSeconds = 0.0;
 	frameCount = 0;
 
 	LOG_MESSAGE(LogGame, LogVerbosity::Success, "Game Created!");
@@ -32,34 +30,12 @@ void Game::Init()
 
 	m_Mess->Init(verts, 6, GL_LINE_LOOP);
 
-
-	void* loadedptr1 = Utilities::LoadCompleteFileFromData("Shaders/triangle.frag");
-	if (loadedptr1 != nullptr)
-	{
-		delete loadedptr1;
-		loadedptr1 = nullptr;
-	}
-
-	loadedptr1 = Utilities::LoadCompleteFileFromData("Shaders/triangle.vert");
-	if (loadedptr1 != nullptr)
-	{
-		delete loadedptr1;
-		loadedptr1 = nullptr;
-	}
+	m_ShaderProgram = std::make_shared<ShaderProgram>("Shaders/triangle");
 }
 
 void Game::Update(double delta)
 {
-	m_Count += delta;
-
-	if (m_Count > 2.0)
-	{
-
-		DEBUG_LOG_MESSAGE(LogGame, LogVerbosity::Warning, "Update is looping after 2 seconds");
-		m_Count = 0.0;
-	}
-
-	ShowFPS();
+	ShowFPS(delta);
 }
 
 void Game::Draw(const Renderer& renderer)
@@ -84,23 +60,19 @@ void Game::HandleInput(int key, int scancode, int action, int mode)
 
 void Game::HandleMousePosition(double x, double y)
 {
-	char xx[255];
-	_itoa_s(int(x), xx, 10);
-	DEBUG_LOG_MESSAGE(LogGame, LogVerbosity::Log, xx);
-	_itoa_s(int(y), xx, 10);
-	DEBUG_LOG_MESSAGE(LogGame, LogVerbosity::Log, xx);
+	//char xx[255];
+	//_itoa_s(int(x), xx, 10);
+	//DEBUG_LOG_MESSAGE(LogGame, LogVerbosity::Log, xx);
+	//_itoa_s(int(y), xx, 10);
+	//DEBUG_LOG_MESSAGE(LogGame, LogVerbosity::Log, xx);
 }
 
-void Game::ShowFPS()
+void Game::ShowFPS(double delta)
 {
-	double currentSeconds = App::GetAppInstance().GetGLFWTime();
-
-	double elapsedSeconds = currentSeconds - previousSeconds;
-
-	if (elapsedSeconds > 0.5)
+	fpsTime += delta;
+	if (fpsTime > 1)
 	{
-		previousSeconds = currentSeconds;
-		double fps = double(frameCount) / elapsedSeconds;
+		double fps = double(frameCount) / fpsTime;
 		double msPerFrame = 1000 / fps;
 
 		std::ostringstream ostream;
@@ -108,6 +80,7 @@ void Game::ShowFPS()
 		ostream << std::fixed << APP_TITLE << "  " << "FPS: " << fps << "  " << "Frame Time: " << msPerFrame << "ms";
 		App::GetAppInstance().SetWindowTitle(ostream.str().c_str());
 
+		fpsTime = 0.0f;
 		frameCount = 0;
 	}
 

@@ -9,7 +9,7 @@ std::ostream& operator<<(std::ostream& stream, const Logger::LogCategory& other)
 
 void Logger::LogMessage(const char* Category, LogVerbosity verbosity, const char* message)
 {
-#ifdef _WINDOWS
+#if defined _WINDOWS
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	switch (verbosity)
 	{
@@ -51,7 +51,7 @@ void Logger::LogMessage(const char* Category, LogVerbosity verbosity, const char
 
 	std::cout << Category << ": " << message << std::endl;
 
-#ifdef _WINDOWS
+#if defined _WINDOWS
 		SetConsoleTextAttribute(hConsole, 15);
 #else
 	std::cout << WHITE_CONSOLE_TEXT;
