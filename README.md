@@ -6,3 +6,7 @@ A comfortable environtment for me to create what I want in the way I want to
 Requires Premake5 (I have put it in my environment variables, you may need to download it)
 
 run PremakeGenerateBuildFiles.bat to generate a vs2019 project
+
+# Build Note
+The current state of the project assumes vs2019. 
+The supplied glfw and glew dll and libs are only compatible with vs2019, as that is how I am creating the project
