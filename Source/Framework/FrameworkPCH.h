@@ -12,6 +12,7 @@
 
 #include <Constants.h>
 #include <Debugging.h>
+#include <Logger.h>
 
 #include <GameClass.h>
 

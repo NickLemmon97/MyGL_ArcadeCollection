@@ -129,7 +129,7 @@ project (ApplicationProjectName)
         postbuildcommands{
           ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/Framework.dll %{cfg.targetdir}/"),
           ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll %{cfg.targetdir}/"),
-        }
+        nil}
 
     filter {"configurations:Release", "system:windows"}
         kind "WindowedApp"
