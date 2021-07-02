@@ -27,8 +27,6 @@ public:
 
 	static App& GetAppInstance();
 
-	void LogMessage(LogVerbosity verbosity, const char* message);
-
 protected:
 
 	bool Init();

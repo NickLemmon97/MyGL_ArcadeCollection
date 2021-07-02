@@ -1,11 +1,14 @@
 #include <GamePCH.h>
 
+DECLARE_LOG_CATEGORY(LogGame);
 
 Game::Game()
 {
 	m_Count = 0.0;
 	previousSeconds = 0.0;
 	frameCount = 0;
+
+	DEBUG_LOG_MESSAGE(LogGame, LogVerbosity::Error, "Game Created!");
 }
 
 Game::~Game()
@@ -36,7 +39,7 @@ void Game::Update(double delta)
 
 	if (m_Count > 2.0)
 	{
-		App::GetAppInstance().LogMessage(LogVerbosity::Warning, "Update is looping after 2 seconds");
+		DEBUG_LOG_MESSAGE(LogGame, LogVerbosity::Warning, "Update is looping after 2 seconds");
 		m_Count = 0.0;
 	}
 
@@ -52,7 +55,7 @@ void Game::Draw(const Renderer& renderer)
 
 void Game::HandleInput(int key, int scancode, int action, int mode)
 {
-	App::GetAppInstance().LogMessage(LogVerbosity::Warning, "Input is being handled");
+	DEBUG_LOG_MESSAGE(LogGame, LogVerbosity::Warning, "Input is being handled");
 
 	switch (key)
 	{
@@ -61,16 +64,15 @@ void Game::HandleInput(int key, int scancode, int action, int mode)
 			DrawMyShape = !DrawMyShape;
 		break;
 	}
-
 }
 
 void Game::HandleMousePosition(double x, double y)
 {
 	char xx[255];
 	_itoa_s(int(x), xx, 10);
-	App::GetAppInstance().LogMessage(LogVerbosity::Log, xx);
+	DEBUG_LOG_MESSAGE(LogGame, LogVerbosity::Log, xx);
 	_itoa_s(int(y), xx, 10);
-	App::GetAppInstance().LogMessage(LogVerbosity::Log, xx);
+	DEBUG_LOG_MESSAGE(LogGame, LogVerbosity::Log, xx);
 }
 
 void Game::ShowFPS()

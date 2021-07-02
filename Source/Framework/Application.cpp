@@ -1,4 +1,7 @@
 #include <FrameworkPCH.h>
+#include <Application.h>
+
+DECLARE_LOG_CATEGORY(LogApplication);
 
 static App* _sInstance;
 
@@ -9,6 +12,8 @@ App::App()
 	m_pRenderer = new Renderer();
 
 	m_glfwTime = 0.0;
+
+	DEBUG_LOG_MESSAGE(LogApplication, LogVerbosity::Error, "Applicaiton Created");
 }
 
 App::~App()
@@ -180,24 +185,3 @@ App& App::GetAppInstance()
 {
 	return *_sInstance;
 }
-
-void App::LogMessage(LogVerbosity verbosity, const char* message)
-{
-	switch (verbosity)
-	{
-	case LogVerbosity::Log:
-		std::cout << WHITE_CONSOLE_TEXT;
-		break;
-
-	case LogVerbosity::Warning:
-		std::cout << YELLOW_CONSOLE_TEXT;
-		break;
-
-	case LogVerbosity::Error:
-		std::cout << RED_CONSOLE_TEXT;
-		break;
-	}
-
-	std::cout << message << WHITE_CONSOLE_TEXT << std::endl;
-}
-
