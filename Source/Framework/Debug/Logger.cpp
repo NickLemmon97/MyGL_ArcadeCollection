@@ -9,6 +9,27 @@ std::ostream& operator<<(std::ostream& stream, const Logger::LogCategory& other)
 
 void Logger::LogMessage(const char* Category, LogVerbosity verbosity, const char* message)
 {
+#ifdef _WINDOWS
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	switch (verbosity)
+	{
+	case LogVerbosity::Log:
+		SetConsoleTextAttribute(hConsole, 15);
+		break;
+
+	case LogVerbosity::Warning:
+		SetConsoleTextAttribute(hConsole, 14);
+		break;
+
+	case LogVerbosity::Error:
+		SetConsoleTextAttribute(hConsole, 12);
+		break;
+
+	case LogVerbosity::Success:
+		SetConsoleTextAttribute(hConsole, 10);
+		break;
+	}
+#else
 	switch (verbosity)
 	{
 	case LogVerbosity::Log:
@@ -22,27 +43,23 @@ void Logger::LogMessage(const char* Category, LogVerbosity verbosity, const char
 	case LogVerbosity::Error:
 		std::cout << RED_CONSOLE_TEXT;
 		break;
+	case LogVerbosity::Success:
+		std::cout << GREEN_CONSOLE_TEXT;
+		break;
 	}
+#endif
 
-	std::cout << Category << ": " << message << WHITE_CONSOLE_TEXT << std::endl;
+	std::cout << Category << ": " << message << std::endl;
+
+#ifdef _WINDOWS
+		SetConsoleTextAttribute(hConsole, 15);
+#else
+	std::cout << WHITE_CONSOLE_TEXT;
+#endif
+
 }
 
 void FrameworkAPI Logger::LogMessage(LogVerbosity verbosity, const char* message)
 {
-	switch (verbosity)
-	{
-	case LogVerbosity::Log:
-		std::cout << WHITE_CONSOLE_TEXT;
-		break;
-
-	case LogVerbosity::Warning:
-		std::cout << YELLOW_CONSOLE_TEXT;
-		break;
-
-	case LogVerbosity::Error:
-		std::cout << RED_CONSOLE_TEXT;
-		break;
-	}
-
-	std::cout << message << WHITE_CONSOLE_TEXT << std::endl;
+	LogMessage("", verbosity, message);
 }

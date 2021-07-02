@@ -3,7 +3,7 @@
 
 int main(int argc, char** argv)
 {
-#ifdef DEBUG
+#if defined DEBUG || defined DEVELOPMENT
 #if CHECK_FOR_MEMORY_LEAKS
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF);
 	{
@@ -15,7 +15,7 @@ int main(int argc, char** argv)
 		AppInitializer Game = { g2.get() };
 
 
-#ifdef DEBUG
+#if defined DEBUG || defined DEVELOPMENT
 #if CHECK_FOR_MEMORY_LEAKS
 	}
 	if (_CrtDumpMemoryLeaks())
@@ -23,6 +23,10 @@ int main(int argc, char** argv)
 		std::cerr << RED_CONSOLE_TEXT << "Memory leaks found were found" << WHITE_CONSOLE_TEXT << std::endl;
 	}
 #endif
+#endif
+
+#if defined DEVELOPMENT && defined _WINDOWS
+	system("pause"); //Checking logs during a non visual studio executed development build
 #endif
 
 	return 0;

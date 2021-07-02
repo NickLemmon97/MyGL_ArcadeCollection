@@ -23,13 +23,33 @@ files{
     "Source/ProjectConfig.h",
 }
 
- filter "system:windows"
+filter "system:windows"
         cppdialect "C++17"
         systemversion "latest"
 
+filter "configurations:Debug"
+       defines { "DEBUG" }
+       symbols "On"
+
+filter "configurations:Development"
+       defines {"DEVELOPMENT"}
+       optimize "On"
+
+filter "configurations:Release"
+       defines { "RELEASE" }
+       optimize "On"
+
+filter "configurations:ReleaseConsole"
+       defines { "CONSOLE_RELEASE" }
+       optimize "On"
+
+filter "configurations:Publish"
+        defines {"RELEASE"}
+        optimize "On"
+
 ------------------------------------------------ Solution
 workspace (WorkspaceName)
-    configurations  { "Debug", "Release", "ReleaseConsole" }
+    configurations  { "Debug", "Release", "ReleaseConsole", "Development", "Publish" }
     location        (WorkingDirectory)
     startproject    (ApplicationProjectName)
 
@@ -109,29 +129,39 @@ project (ApplicationProjectName)
     }
 
     filter "configurations:Debug"
-        defines { "DEBUG" }
-        symbols "On"
         postbuildcommands{
           ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/ %{cfg.targetdir}/"),
         }
 
+    filter "configurations:Development"
+        postbuildcommands{
+          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/Framework.dll %{cfg.targetdir}/"),
+          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll %{cfg.targetdir}/"),
+        }
+
     filter "configurations:Release"
-        defines { "NDEBUG" }
-        optimize "On"
         postbuildcommands{
           ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/Framework.dll %{cfg.targetdir}/"),
           ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll %{cfg.targetdir}/"),
         }
 
     filter "configurations:ReleaseConsole"
-        defines { "NDEBUG" }
-        optimize "On"
         postbuildcommands{
           ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/Framework.dll %{cfg.targetdir}/"),
           ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll %{cfg.targetdir}/"),
-        nil}
+        }
+
+    filter "configurations:Publish"
+        postbuildcommands{
+          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/Framework.dll %{cfg.targetdir}/"),
+          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll %{cfg.targetdir}/"),
+        }
 
     filter {"configurations:Release", "system:windows"}
+        kind "WindowedApp"
+        entrypoint ("mainCRTStartup")
+
+    filter {"configurations:Publish", "system:windows"}
         kind "WindowedApp"
         entrypoint ("mainCRTStartup")
 
@@ -176,18 +206,6 @@ project (GameProjectName)
         "Framework",
     }
 
-    filter "configurations:Debug"
-      defines { "DEBUG" }
-      symbols "On"
-
-    filter "configurations:Release"
-      defines { "NDEBUG" }
-      optimize "On"
-
-    filter "configurations:ReleaseConsole"
-      defines { "NDEBUG" }
-      optimize "On"
-
     filter {}
 
 
@@ -224,18 +242,6 @@ project (FrameworkProjectName)
         "glew32",
         "glfw3dll",
     }
-
-    filter "configurations:Debug"
-      defines { "DEBUG" }
-      symbols "On"
-
-    filter "configurations:Release"
-      defines { "NDEBUG" }
-      optimize "On"
-
-    filter "configurations:ReleaseConsole"
-      defines { "NDEBUG" }
-      optimize "On"
 
       filter {}
 

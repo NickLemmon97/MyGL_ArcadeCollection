@@ -1,5 +1,9 @@
 #pragma once
 
+#ifdef _WINDOWS 
+#include <Windows.h>
+#endif
+
 #include <functional>
 #include <iostream>
 #include <memory>
@@ -13,6 +17,8 @@
 #include <Constants.h>
 #include <Debug/Debugging.h>
 #include <Debug/Logger.h>
+
+#include <Utilities/Utilities.h>
 
 #include <GameClass.h>
 

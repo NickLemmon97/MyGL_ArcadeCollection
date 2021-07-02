@@ -13,7 +13,7 @@ App::App()
 
 	m_glfwTime = 0.0;
 
-	DEBUG_LOG_MESSAGE(LogApplication, LogVerbosity::Error, "Applicaiton Created");
+	LOG_MESSAGE(LogApplication, LogVerbosity::Success, "Applicaiton Created");
 }
 
 App::~App()

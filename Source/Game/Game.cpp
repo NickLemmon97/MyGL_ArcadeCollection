@@ -8,7 +8,7 @@ Game::Game()
 	previousSeconds = 0.0;
 	frameCount = 0;
 
-	DEBUG_LOG_MESSAGE(LogGame, LogVerbosity::Error, "Game Created!");
+	LOG_MESSAGE(LogGame, LogVerbosity::Success, "Game Created!");
 }
 
 Game::~Game()
@@ -31,6 +31,21 @@ void Game::Init()
 	};
 
 	m_Mess->Init(verts, 6, GL_LINE_LOOP);
+
+
+	void* loadedptr1 = Utilities::LoadCompleteFileFromData("Shaders/triangle.frag");
+	if (loadedptr1 != nullptr)
+	{
+		delete loadedptr1;
+		loadedptr1 = nullptr;
+	}
+
+	loadedptr1 = Utilities::LoadCompleteFileFromData("Shaders/triangle.vert");
+	if (loadedptr1 != nullptr)
+	{
+		delete loadedptr1;
+		loadedptr1 = nullptr;
+	}
 }
 
 void Game::Update(double delta)
@@ -39,6 +54,7 @@ void Game::Update(double delta)
 
 	if (m_Count > 2.0)
 	{
+
 		DEBUG_LOG_MESSAGE(LogGame, LogVerbosity::Warning, "Update is looping after 2 seconds");
 		m_Count = 0.0;
 	}
