@@ -1,6 +1,10 @@
 #pragma once
 
+<<<<<<< HEAD
 #ifdef DEBUG
+=======
+#ifdef _DEBUG
+>>>>>>> 324a7d51fb6e75d4e8256223bc5b379d8845a53a
 #define CHECK_FOR_MEMORY_LEAKS 1
 #else
 #define CHECK_FOR_MEMORY_LEAKS 0
