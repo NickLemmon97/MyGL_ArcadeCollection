@@ -1,5 +1,5 @@
 #include <FrameworkPCH.h>
-#include <Logger.h>
+#include "Logger.h"
 
 std::ostream& operator<<(std::ostream& stream, const Logger::LogCategory& other)
 {

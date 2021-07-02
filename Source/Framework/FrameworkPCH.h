@@ -11,8 +11,8 @@
 #include "../ProjectConfig.h"
 
 #include <Constants.h>
-#include <Debugging.h>
-#include <Logger.h>
+#include <Debug/Debugging.h>
+#include <Debug/Logger.h>
 
 #include <GameClass.h>
 
