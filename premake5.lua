@@ -29,7 +29,7 @@ files{
 
 ------------------------------------------------ Solution
 workspace (WorkspaceName)
-    configurations  { "Debug", "Release" }
+    configurations  { "Debug", "Release", "ReleaseConsole" }
     location        (WorkingDirectory)
     startproject    (ApplicationProjectName)
 
@@ -98,31 +98,38 @@ project (ApplicationProjectName)
     }
 
     links {
-        "opengl32",
-        "glew32s",
-        "glfw3",
         "Framework",
         (GameName),
     }
 
     postbuildcommands{
         ("{COPY} %{prj.location}../Source/Data %{prj.location}bin/"..outputdir.."/Game/Data"),
+        ("{COPY} %{prj.location}../Source/ThirdParty/lib/glew32.dll %{cfg.targetdir}/"),
+        ("{COPY} %{prj.location}../Source/ThirdParty/lib/glfw3.dll %{cfg.targetdir}/"),
     }
 
     filter "configurations:Debug"
-      defines { "DEBUG" }
-      symbols "On"
-      postbuildcommands{
-        ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/ %{cfg.targetdir}/"),
-      }
+        defines { "DEBUG" }
+        symbols "On"
+        postbuildcommands{
+          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/ %{cfg.targetdir}/"),
+        }
 
     filter "configurations:Release"
-      defines { "NDEBUG" }
-      optimize "On"
-       postbuildcommands{
-        ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/Framework.dll %{cfg.targetdir}/"),
-        ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll %{cfg.targetdir}/"),
-    }
+        defines { "NDEBUG" }
+        optimize "On"
+        postbuildcommands{
+          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/Framework.dll %{cfg.targetdir}/"),
+          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll %{cfg.targetdir}/"),
+        }
+
+    filter "configurations:ReleaseConsole"
+        defines { "NDEBUG" }
+        optimize "On"
+        postbuildcommands{
+          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/Framework.dll %{cfg.targetdir}/"),
+          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll %{cfg.targetdir}/"),
+        }
 
     filter {"configurations:Release", "system:windows"}
         kind "WindowedApp"
@@ -166,9 +173,6 @@ project (GameProjectName)
     }
 
     links {
-        "opengl32",
-        "glew32s",
-        "glfw3",
         "Framework",
     }
 
@@ -177,6 +181,10 @@ project (GameProjectName)
       symbols "On"
 
     filter "configurations:Release"
+      defines { "NDEBUG" }
+      optimize "On"
+
+    filter "configurations:ReleaseConsole"
       defines { "NDEBUG" }
       optimize "On"
 
@@ -213,8 +221,8 @@ project (FrameworkProjectName)
 
     links {
         "opengl32",
-        "glew32s",
-        "glfw3",
+        "glew32",
+        "glfw3dll",
     }
 
     filter "configurations:Debug"
@@ -222,6 +230,10 @@ project (FrameworkProjectName)
       symbols "On"
 
     filter "configurations:Release"
+      defines { "NDEBUG" }
+      optimize "On"
+
+    filter "configurations:ReleaseConsole"
       defines { "NDEBUG" }
       optimize "On"
 
@@ -240,6 +252,15 @@ project (ShaderProjectName)
         "Source/Data/Shaders/**.vert",
         "Source/Data/Shaders/**.frag",
     }
+
+
+
+------------------------ Debug purpose all files project to view all files from withing VS
+--project "ALL_FILES"
+--    kind "none"
+--    files{
+--        "**.*"
+--    }
 
 
 -------------------------ThirdParty workspace to view ThirdParty code
