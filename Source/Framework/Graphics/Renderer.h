@@ -6,10 +6,13 @@ public:
 	Renderer();
 	~Renderer();
 
+	void Init();
+
+	void BeginDraw() const;
+	void EndDraw() const;
+
 	void DrawTriangle(/*required params*/) const;
 	void Draw(const class Mesh&) const;
 
-	void DrawMyMesh() const;
-
-	Mesh m;
+	std::unique_ptr<ShaderProgram> m_Shader;
 };

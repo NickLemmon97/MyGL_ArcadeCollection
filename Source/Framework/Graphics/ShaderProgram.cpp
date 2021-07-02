@@ -31,7 +31,7 @@ ShaderProgram::~ShaderProgram()
     Cleanup();
 }
 
-void ShaderProgram::LoadShader(const char* filename)
+bool ShaderProgram::LoadShader(const char* filename)
 {
     std::string vertex{ filename };
     vertex.append(".vert");
@@ -39,41 +39,122 @@ void ShaderProgram::LoadShader(const char* filename)
     std::string fragment{ filename };
     fragment.append(".frag");
 
-    LoadShader(vertex.c_str(), fragment.c_str());
+    return LoadShader(vertex.c_str(), fragment.c_str());
 }
 
-void ShaderProgram::LoadShader(const char* vertex, const char* fragment)
+bool ShaderProgram::LoadShader(const char* vertex, const char* fragment)
 {
     m_VertexShaderCode = Utilities::LoadCompleteFileFromData(vertex);
-    m_FragmentShaderCode = Utilities::LoadCompleteFileFromData(fragment);
-
     if (m_VertexShaderCode == nullptr)
     {
-        LOG_MESSAGE(LogShader, LogVerbosity::Error, "Failed to load Vertex Shader");
+        DEBUG_LOG_MESSAGE(LogShader, LogVerbosity::Error, "Failed to load Vertex Shader");
+        return false;
     }
 
+    m_FragmentShaderCode = Utilities::LoadCompleteFileFromData(fragment);
     if (m_FragmentShaderCode == nullptr)
     {
-        LOG_MESSAGE(LogShader, LogVerbosity::Error, "Failed to load Fragment Shader");
+        DEBUG_LOG_MESSAGE(LogShader, LogVerbosity::Error, "Failed to load Fragment Shader");
+        return false;
+    }
+
+    return ReloadShaderProgram();
+}
+
+bool ShaderProgram::ReloadShaderProgram()
+{
+    assert(m_VertexShaderCode != nullptr);
+    assert(m_FragmentShaderCode != nullptr);
+
+    m_VertexShader = glCreateShader(GL_VERTEX_SHADER);
+    m_FragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+
+    CompileShader(m_VertexShader, m_VertexShaderCode);
+    CompileShader(m_FragmentShader, m_FragmentShaderCode);
+
+    if (m_VertexShader == 0 || m_FragmentShader == 0)
+    {
+        Cleanup();
+        return false;
+    }
+
+    m_Program = glCreateProgram();
+    glAttachShader(m_Program, m_VertexShader);
+    glAttachShader(m_Program, m_FragmentShader);
+
+    glLinkProgram(m_Program);
+
+    int linked = 0;
+    glGetProgramiv(m_Program, GL_LINK_STATUS, &linked);
+    if (linked == 0)
+    {
+        int infolen = 0;
+        glGetProgramiv(m_Program, GL_INFO_LOG_LENGTH, &infolen);
+
+        char* infobuffer = new char[infolen + 1];
+        glGetProgramInfoLog(m_Program, infolen + 1, nullptr, infobuffer);
+        DEBUG_LOG_MESSAGE(LogShader, LogVerbosity::Error, infobuffer);
+        assert(false);
+        delete[] infobuffer;
+
+        Cleanup();
+        return false;
+    }
+
+    return true;
+}
+
+void ShaderProgram::CompileShader(GLuint& shaderHandle, const char* shaderString)
+{
+    const char* strings[] = { shaderString };
+    glShaderSource(shaderHandle, 1, strings, nullptr);
+
+    glCompileShader(shaderHandle);
+
+    int compiled = 0;
+    glGetShaderiv(shaderHandle, GL_COMPILE_STATUS, &compiled);
+    if (compiled == 0)
+    {
+        int infolen = 0;
+        glGetShaderiv(shaderHandle, GL_INFO_LOG_LENGTH, &infolen);
+
+        char* infobuffer = new char[infolen + 1];
+        glGetShaderInfoLog(shaderHandle, infolen + 1, nullptr, infobuffer);
+        DEBUG_LOG_MESSAGE(LogShader, LogVerbosity::Error, infobuffer);
+        assert(false);
+        delete[] infobuffer;
+
+        glDeleteShader(shaderHandle);
+        shaderHandle = 0;
     }
 }
 
 void ShaderProgram::Cleanup()
 {
     if (m_VertexShaderCode != nullptr)
-    {
-        delete m_VertexShaderCode;
-    }
+        delete[] m_VertexShaderCode;
     m_VertexShaderCode = nullptr;
 
     if (m_FragmentShaderCode != nullptr)
-    {
-        delete m_FragmentShaderCode;
-    }
+        delete[] m_FragmentShaderCode;
     m_FragmentShaderCode = nullptr;
+
+    glDetachShader(m_Program, m_VertexShader);
+    glDetachShader(m_Program, m_FragmentShader);
+
+    if (m_VertexShader)
+        glDeleteShader(m_VertexShader);
+    if (m_FragmentShader)
+        glDeleteShader(m_FragmentShader);
+    if (m_Program)
+        glDeleteProgram(m_Program);
+
+    m_VertexShader = 0;
+    m_FragmentShader = 0;
+    m_Program = 0;
 }
 
 GLuint ShaderProgram::GetProgram()
 {
-    return GLuint();
+    return m_Program;
 }

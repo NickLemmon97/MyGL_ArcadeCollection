@@ -29,8 +29,6 @@ void Game::Init()
 	};
 
 	m_Mess->Init(verts, 6, GL_LINE_LOOP);
-
-	m_ShaderProgram = std::make_shared<ShaderProgram>("Shaders/triangle");
 }
 
 void Game::Update(double delta)
@@ -40,14 +38,18 @@ void Game::Update(double delta)
 
 void Game::Draw(const Renderer& renderer)
 {
+	renderer.BeginDraw();
+
 	DrawMyShape
 		? renderer.Draw(*m_Triangle.get())
 		: renderer.Draw(*m_Mess.get());
+
+	renderer.EndDraw();
 }
 
 void Game::HandleInput(int key, int scancode, int action, int mode)
 {
-	DEBUG_LOG_MESSAGE(LogGame, LogVerbosity::Warning, "Input is being handled");
+	//DEBUG_LOG_MESSAGE(LogGame, LogVerbosity::Warning, "Input is being handled");
 
 	switch (key)
 	{

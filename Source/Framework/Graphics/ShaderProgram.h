@@ -8,8 +8,12 @@ public:
 	ShaderProgram(const char* vertex, const char* fragment);
 	~ShaderProgram();
 
-	void LoadShader(const char* filename);
-	void LoadShader(const char* vertex, const char* fragment);
+	bool LoadShader(const char* filename);
+	bool LoadShader(const char* vertex, const char* fragment);
+
+	bool ReloadShaderProgram();
+
+	void CompileShader(GLuint& shader, const char* shaderstring);
 
 	void Cleanup();
 

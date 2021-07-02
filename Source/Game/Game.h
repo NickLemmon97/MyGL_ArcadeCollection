@@ -19,7 +19,6 @@ private:
 
 	std::shared_ptr<class Mesh> m_Triangle;
 	std::shared_ptr<class Mesh> m_Mess;
-	std::shared_ptr<class ShaderProgram> m_ShaderProgram;
 
 	void ShowFPS(double delta);
 

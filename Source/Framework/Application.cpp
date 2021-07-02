@@ -9,11 +9,7 @@ App::App()
 {
 	_sInstance = this;
 
-	m_pRenderer = new Renderer();
-
 	m_glfwTime = 0.0;
-
-	LOG_MESSAGE(LogApplication, LogVerbosity::Success, "Applicaiton Created");
 }
 
 App::~App()
@@ -61,7 +57,14 @@ bool App::Init()
 		return false;
 	}
 
+
+	m_pRenderer = new Renderer();
+	m_pRenderer->Init();
+
+
 	SetupInputCallbacks();
+
+	LOG_MESSAGE(LogApplication, LogVerbosity::Success, "Application was Initialized");
 
 	return true;
 }
@@ -83,9 +86,6 @@ void App::Run()
 		std::cerr << RED_CONSOLE_TEXT << "Game Draw function was not set and application will close" << std::endl;
 		return;
 	}
-
-	//Initialize the clear color just once here
-	glClearColor(0.23f, 0.56f, 0.89f, 1.0f);
 
 	double previousTime = 0.0;
 

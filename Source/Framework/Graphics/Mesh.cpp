@@ -3,13 +3,15 @@
 Mesh::Mesh()
 	: m_Vbo{ 0 }
 	, m_Vao{ 0 }
-	, PrimitiveType{ GL_LINE_LOOP }
+	, PrimitiveType{ GL_TRIANGLE_FAN }
 	, m_NumVerts{0}
 {
 }
 
 Mesh::~Mesh()
 {
+	glDeleteVertexArrays(1, &m_Vao);
+	glDeleteBuffers(1, &m_Vbo);
 }
 
 void Mesh::Init(VertexFormat* vertices, GLuint count, GLenum primitive /*= GL_LINE_LOOP*/)
@@ -39,5 +41,5 @@ void Mesh::MakeTriangle()
 	VertexFormat{-0.5f, -0.5f }
 	};
 	
-	Init(Vertices, 3, GL_LINE_LOOP);
+	Init(Vertices, 3, GL_TRIANGLES);
 }

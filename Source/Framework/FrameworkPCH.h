@@ -4,6 +4,7 @@
 #include <Windows.h>
 #endif
 
+#include <assert.h>
 #include <functional>
 #include <iostream>
 #include <memory>
