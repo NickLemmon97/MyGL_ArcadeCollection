@@ -18,16 +18,16 @@ void Game::Init()
 	m_Triangle->MakeTriangle();
 
 	m_Mess = std::make_shared<Mesh>();
-	std::vector<GLfloat> verts = {
-		 0.8f, 0.0f,
-		 0.4f, 0.6f,
-		 0.1f, 0.8f,
-		-0.3f, 0.4f,
-		-0.7f, 0.1f,
-		-0.3f, -0.6f
+	VertexFormat verts[] = {
+	VertexFormat{  0.8f, 0.0f},
+	VertexFormat{  0.4f, 0.6f},
+	VertexFormat{  0.1f, 0.8f},
+	VertexFormat{ -0.3f, 0.4f},
+	VertexFormat{ -0.7f, 0.1f},
+	VertexFormat{-0.3f, -0.6f}
 	};
-	m_Mess->SetVertices(verts);
 
+	m_Mess->Init(verts, 6, GL_LINE_LOOP);
 }
 
 void Game::Update(double delta)
@@ -67,9 +67,9 @@ void Game::HandleInput(int key, int scancode, int action, int mode)
 void Game::HandleMousePosition(double x, double y)
 {
 	char xx[255];
-	_itoa_s(x, xx, 10);
+	_itoa_s(int(x), xx, 10);
 	App::GetAppInstance().LogMessage(LogVerbosity::Log, xx);
-	_itoa_s(y, xx, 10);
+	_itoa_s(int(y), xx, 10);
 	App::GetAppInstance().LogMessage(LogVerbosity::Log, xx);
 }
 

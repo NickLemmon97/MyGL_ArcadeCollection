@@ -25,6 +25,13 @@ bool AppInitializer::Setup()
 		return false;
 	}
 
+	SetupFunctionCallbacks();
+
+	return true;
+}
+
+void AppInitializer::SetupFunctionCallbacks()
+{
 	App::GameLoopFunc loop = std::bind(&IGameClass::Update, Game_, std::placeholders::_1);
 	Application_->SetGameLoop(loop);
 
@@ -40,6 +47,4 @@ bool AppInitializer::Setup()
 
 	App::GameCursorPosFunc cursor = std::bind(&IGameClass::HandleMousePosition, Game_, std::placeholders::_1, std::placeholders::_2);
 	Application_->SetGameCursorFunc(cursor);
-
-	return true;
 }

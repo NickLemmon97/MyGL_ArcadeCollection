@@ -1,9 +1,10 @@
 #include <FrameworkPCH.h>
 
 Mesh::Mesh()
-	: m_Vbo(0)
-	, m_Vao(0)
-	, PrimitiveType(GL_LINE_STRIP)
+	: m_Vbo{ 0 }
+	, m_Vao{ 0 }
+	, PrimitiveType{ GL_LINE_LOOP }
+	, m_NumVerts{0}
 {
 }
 
@@ -11,50 +12,32 @@ Mesh::~Mesh()
 {
 }
 
-void Mesh::SetVertices(GLfloat* vertices, size_t count)
+void Mesh::Init(VertexFormat* vertices, GLuint count, GLenum primitive /*= GL_LINE_LOOP*/)
 {
-	for (int i = 0; i < count; i++)
-	{
-		m_Vertices.push_back(vertices[i]);
-	}
+	glGenBuffers(1, &m_Vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, m_Vbo);
+	glBufferData(GL_ARRAY_BUFFER,
+				 sizeof(VertexFormat) * count,
+				 vertices,
+				 GL_STATIC_DRAW);
 
-	SetupBuffers();
-}
+	glGenVertexArrays(1, &m_Vao);
+	glBindVertexArray(m_Vao);
 
-void Mesh::SetVertices(const std::vector<GLfloat>& verts)
-{
-	for (auto& v : verts)
-	{
-		m_Vertices.push_back(v);
-	}
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 
-	SetupBuffers();
+	PrimitiveType = primitive;
+	m_NumVerts = count;
 }
 
 void Mesh::MakeTriangle()
 {
-	m_Vertices = {
-		 0.0f,  0.5f,
-		 0.5f, -0.5f,
-		-0.5f, -0.5f
+	VertexFormat Vertices[] = {
+	VertexFormat{ 0.0f,  0.5f },
+	VertexFormat{ 0.5f, -0.5f },
+	VertexFormat{-0.5f, -0.5f }
 	};
-
-	SetupBuffers();
-}
-
-void Mesh::SetupBuffers()
-{
-	glGenBuffers(1, &m_Vbo);
 	
-	glBindBuffer(GL_ARRAY_BUFFER, m_Vbo);
-
-	glBufferData(GL_ARRAY_BUFFER, 
-		sizeof(GLfloat) * (m_Vertices.size()), 
-		m_Vertices.data(), 
-		GL_STATIC_DRAW);
-
-	glGenVertexArrays(1, &m_Vao);
-
-	glBindVertexArray(m_Vao);
-
+	Init(Vertices, 3, GL_LINE_LOOP);
 }

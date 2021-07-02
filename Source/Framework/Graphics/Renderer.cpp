@@ -41,6 +41,7 @@ void Renderer::DrawTriangle() const
 
 void Renderer::Draw(const Mesh& mesh) const
 {
+	glBindBuffer(GL_ARRAY_BUFFER, mesh.m_Vbo);
 	glBindVertexArray(mesh.m_Vao);
 
 	GLint loc = 0;
@@ -48,7 +49,5 @@ void Renderer::Draw(const Mesh& mesh) const
 
 	glVertexAttribPointer(loc, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
-	glDrawArrays(mesh.PrimitiveType, 0, mesh.m_Vertices.size() - 1);
-
-	glBindVertexArray(0);
+	glDrawArrays(mesh.PrimitiveType, 0, mesh.m_NumVerts);
 }

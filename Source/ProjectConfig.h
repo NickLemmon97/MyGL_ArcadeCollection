@@ -4,8 +4,10 @@
 */
 #ifdef GameDLLExport
 #define GameAPI __declspec(dllexport)
+#define GameImpl
 #else
 #define GameAPI __declspec(dllimport)
+#define GameImpl extern
 #endif
 
 #ifdef FrameworkDLLExport

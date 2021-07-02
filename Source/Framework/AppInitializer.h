@@ -15,6 +15,8 @@ public:
 
 private:
 
+	void SetupFunctionCallbacks();
+
 	std::shared_ptr<class App> Application_;
 	class IGameClass* Game_;
 };

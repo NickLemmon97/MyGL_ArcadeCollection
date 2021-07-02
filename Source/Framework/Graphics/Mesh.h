@@ -4,7 +4,7 @@
 
 struct VertexFormat
 {
-
+	GLfloat xPos, yPos;
 };
 
 class FrameworkAPI Mesh
@@ -15,21 +15,18 @@ public:
 	Mesh();
 	~Mesh();
 
-	void SetVertices(GLfloat* vertices, size_t count);
-	void SetVertices(const std::vector<GLfloat>& verts);
+	void Init(VertexFormat* vertices, GLuint count, GLenum primitive = GL_LINE_LOOP);
 
 	void MakeTriangle();
 
 protected:
-
-	void SetupBuffers();
 
 	GLenum PrimitiveType;
 
 	GLuint m_Vbo;
 	GLuint m_Vao;
 
-	std::vector<GLfloat> m_Vertices;
+	GLuint m_NumVerts;
 
 private:
 

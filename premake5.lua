@@ -242,7 +242,7 @@ project (ShaderProjectName)
     }
 
 
--------------------------Test a third part folder
+-------------------------ThirdParty workspace to view ThirdParty code
 workspace "ThirdParty"
     configurations  { "Debug", "Release" }
     location        (WorkingDirectory)

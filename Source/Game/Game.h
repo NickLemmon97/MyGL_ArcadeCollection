@@ -1,6 +1,7 @@
 #pragma once
 #include <GameClass.h>
 
+GameImpl template class GameAPI std::shared_ptr<class Mesh>;
 
 class GameAPI Game : public IGameClass
 {
