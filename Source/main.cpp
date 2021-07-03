@@ -33,7 +33,7 @@ int main(int argc, char** argv)
 #endif
 
 #if defined DEBUG && defined _WINDOWS
-	system("pause"); //Checking logs during a non visual studio executed development build
+	system("pause");
 #endif
 
 	return 0;

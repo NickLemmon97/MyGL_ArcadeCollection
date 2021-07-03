@@ -1,10 +1,12 @@
 #include "FrameworkPCH.h"
 #include "Utilities.h"
+#include <sstream>
+#include <fstream>
 
 DECLARE_LOG_CATEGORY(LogUtils);
 
 /*
-* Loads a file and returns the contents - Referenced from old framework
+* Loads a file and returns the contents
 */
 char* Utilities::LoadCompleteFile(const char* filename, long* length /*= nullptr*/)
 {
@@ -40,13 +42,8 @@ char* Utilities::LoadCompleteFile(const char* filename, long* length /*= nullptr
 */
 char* Utilities::LoadCompleteFileFromData(const char* filename, long* length/*= nullptr*/)
 {
-#ifdef WITH_VS
-    DEBUG_LOG_MESSAGE(LogUtils, LogVerbosity::Warning, "Open file from data path relative to Visual Studio Execution");
-    std::string full_path = "../Source/Data/";
-#else
     DEBUG_LOG_MESSAGE(LogUtils, LogVerbosity::Warning, "Open file from data path relative to Application Execution");
     std::string full_path = "Data/";
-#endif
     full_path.append(filename);
     return LoadCompleteFile(full_path.c_str(), length);
 }

@@ -2,9 +2,14 @@
 
 //FrameworkImpl template class FrameworkAPI std::vector<GLfloat>;
 
+typedef glm::vec2 VertexPosition;
+typedef glm::vec3 VertexColor;
+
+
 struct VertexFormat
 {
-	GLfloat xPos, yPos;
+	VertexPosition vertexPosition;
+	VertexColor vertexColor;
 };
 
 class FrameworkAPI Mesh
@@ -18,6 +23,9 @@ public:
 	void Init(VertexFormat* vertices, GLuint count, GLenum primitive = GL_LINE_LOOP);
 
 	void MakeTriangle();
+
+	void Draw(const class Renderer& renderer);
+	void Draw();
 
 protected:
 

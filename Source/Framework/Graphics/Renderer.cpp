@@ -37,11 +37,10 @@ void Renderer::EndDraw() const
 
 void Renderer::DrawTriangle() const
 {
-	GLfloat Vertices[] =
-	{
-		 0.0f,  0.5f,
-		 0.5f, -0.5f,
-		-0.5f, -0.5f
+	VertexFormat Vertices[] = {
+	VertexFormat{ { 0.0f,  0.5f}, {1.0f, 1.0f, 1.0f} },
+	VertexFormat{ { 0.5f, -0.5f}, {1.0f, 1.0f, 1.0f} },
+	VertexFormat{ {-0.5f, -0.5f}, {1.0f, 1.0f, 1.0f} }
 	};
 
 	GLuint vbo;
@@ -55,10 +54,14 @@ void Renderer::DrawTriangle() const
 	glBindVertexArray(vao);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	GLint loc = 0;
-	glEnableVertexAttribArray(loc);
 
-	glVertexAttribPointer(loc, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	GLint loc_pos = 0;
+	glEnableVertexAttribArray(loc_pos);
+	glVertexAttribPointer(loc_pos, 2, GL_FLOAT, GL_FALSE, sizeof(VertexFormat), (void*)0);
+
+	GLint loc_col = 1;
+	glEnableVertexAttribArray(loc_col);
+	glVertexAttribPointer(loc_col, 3, GL_FLOAT, GL_FALSE, sizeof(VertexFormat), (void*)8);
 
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 
@@ -71,10 +74,13 @@ void Renderer::Draw(const Mesh& mesh) const
 	glBindBuffer(GL_ARRAY_BUFFER, mesh.m_Vbo);
 	glBindVertexArray(mesh.m_Vao);
 
-	GLint loc = 0;
-	glEnableVertexAttribArray(loc);
+	GLint loc_pos = 0;
+	glEnableVertexAttribArray(loc_pos);
+	glVertexAttribPointer(loc_pos, 2, GL_FLOAT, GL_FALSE, sizeof(VertexFormat), (void*)0);
 
-	glVertexAttribPointer(loc, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	GLint loc_col = 1;
+	glEnableVertexAttribArray(loc_col);
+	glVertexAttribPointer(loc_col, 3, GL_FLOAT, GL_TRUE, sizeof(VertexFormat), (void*)8);
 
 	glDrawArrays(mesh.PrimitiveType, 0, mesh.m_NumVerts);
 

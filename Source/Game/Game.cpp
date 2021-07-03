@@ -5,8 +5,6 @@ DECLARE_LOG_CATEGORY(LogGame);
 Game::Game()
 {
 	frameCount = 0;
-
-	LOG_MESSAGE(LogGame, LogVerbosity::Success, "Game Created!");
 }
 
 Game::~Game()
@@ -20,15 +18,18 @@ void Game::Init()
 
 	m_Mess = std::make_shared<Mesh>();
 	VertexFormat verts[] = {
-	VertexFormat{  0.8f,  0.0f},
-	VertexFormat{  0.4f,  0.6f},
-	VertexFormat{  0.1f,  0.8f},
-	VertexFormat{ -0.3f,  0.4f},
-	VertexFormat{ -0.7f,  0.1f},
-	VertexFormat{ -0.3f, -0.6f}
+				// POSITION		--	COLOUR
+	VertexFormat{ { 0.8f,  0.0f}, {1.0f, 0.8f, 0.2f} },
+	VertexFormat{ { 0.4f,  0.6f}, {0.0f, 0.8f, 0.2f} },
+	VertexFormat{ { 0.1f,  0.8f}, {0.5f, 0.2f, 0.2f} },
+	VertexFormat{ {-0.3f,  0.4f}, {1.0f, 0.8f, 0.2f} },
+	VertexFormat{ {-0.7f,  0.1f}, {1.0f, 0.1f, 0.2f} },
+	VertexFormat{ {-0.3f, -0.6f}, {1.0f, 0.1f, 0.5f} }
 	};
 
-	m_Mess->Init(verts, 6, GL_LINE_LOOP);
+	m_Mess->Init(verts, 6, GL_TRIANGLE_FAN);
+
+	LOG_MESSAGE(LogGame, LogVerbosity::Success, "Game Created!");
 }
 
 void Game::Update(double delta)

@@ -28,11 +28,7 @@ filter "system:windows"
         systemversion "latest"
 
 filter "configurations:Debug"
-       defines { "DEBUG", "_DEBUG", "WITH_VS", "EXECUTE_WITH_CONSOLE_VISIBLE"}
-       symbols "On"
-
-filter "configurations:DebugStandalone"
-       defines { "DEBUG", "_DEBUG", "STANDALONE", "EXECUTE_WITH_CONSOLE_VISIBLE"}
+       defines { "DEBUG", "_DEBUG", "EXECUTE_WITH_CONSOLE_VISIBLE"}
        symbols "On"
 
 filter "configurations:Development"
@@ -53,7 +49,7 @@ filter "configurations:Publish"
 
 ------------------------------------------------ Solution
 workspace (WorkspaceName)
-    configurations  { "Debug", "DebugStandalone", "Release", "ReleaseConsole", "Development", "Publish" }
+    configurations  { "Debug", "Release", "ReleaseConsole", "Development", "Publish" }
     location        (WorkingDirectory)
     startproject    (ApplicationProjectName)
 
@@ -95,6 +91,7 @@ project (ProjectConfigProjectName)
 project (ApplicationProjectName)
     targetname  "Player"
     location    (WorkingDirectory)
+    debugdir    (WorkingDirectory.."/bin/" ..outputdir.. "/Game")
     kind        "ConsoleApp"
     language    "C++"
 
@@ -133,11 +130,6 @@ project (ApplicationProjectName)
     }
 
     filter "configurations:Debug"
-        postbuildcommands{
-          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/ %{cfg.targetdir}/"),
-        }
-
-    filter "configurations:DebugStandalone"
         postbuildcommands{
           ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/ %{cfg.targetdir}/"),
         }
