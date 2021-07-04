@@ -33,8 +33,14 @@ std::string Utilities::LoadCompleteFile(std::string& filename)
 */
 std::string Utilities::LoadCompleteFileFromData(std::string& filename)
 {
-    DEBUG_LOG_MESSAGE(LogUtils, LogVerbosity::Warning, "Open file from data path relative to Application Execution");
     std::string full_path = "Data/";
     full_path.append(filename);
     return LoadCompleteFile(full_path);
+}
+
+std::string Utilities::LoadShaderFromData(std::string& filename)
+{
+    std::string full_path = "Shaders/";
+    full_path.append(filename);
+    return LoadCompleteFileFromData(full_path);
 }

@@ -13,12 +13,6 @@ public:
 
 	void Draw(const class Mesh&) const;
 
-
-	void BeginBatch() const;
-	void DrawBatch() const;
-	void EndBatch() const;
-
-
 private:
 	std::unique_ptr<ShaderProgram> m_Shader;
 

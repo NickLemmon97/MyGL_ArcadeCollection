@@ -16,14 +16,7 @@ void Renderer::Init()
 	glClearColor(0.23f, 0.56f, 0.89f, 1.0f);
 
 	m_Shader = std::make_unique<ShaderProgram>();
-
-	if (m_Shader->LoadShader("Shaders/basic") == false)
-	{
-		DEBUG_LOG_MESSAGE(LogRenderer, LogVerbosity::Error, "Renderer Failed to load Shader");
-	}
-
-	m_BatchShader = std::make_unique<ShaderProgram>();
-	if (m_BatchShader->LoadShader("Shaders/LineShader") == false)
+	if (m_Shader->LoadShader("basic") == false)
 	{
 		DEBUG_LOG_MESSAGE(LogRenderer, LogVerbosity::Error, "Renderer Failed to load Shader");
 	}
@@ -57,19 +50,4 @@ void Renderer::Draw(const Mesh& mesh) const
 	glDrawArrays(mesh.PrimitiveType, 0, mesh.m_NumVerts);
 
 	glBindVertexArray(0);
-}
-
-void Renderer::BeginBatch() const
-{
-	glClear(GL_COLOR_BUFFER_BIT);
-
-	glUseProgram(m_Shader->GetProgram());
-}
-
-void Renderer::DrawBatch() const
-{
-}
-
-void Renderer::EndBatch() const
-{
 }

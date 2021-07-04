@@ -16,7 +16,7 @@ ShaderProgram::ShaderProgram(std::string shader)
     LoadShader(shader);
 }
 
-ShaderProgram::ShaderProgram(std::string& vertex, std::string& fragment)
+ShaderProgram::ShaderProgram(std::string vertex, std::string fragment)
     : m_Program{ 0 }
 {
     LoadShader(vertex, fragment);
@@ -45,9 +45,9 @@ bool ShaderProgram::LoadShader(std::string&& vert, std::string&& frag)
 
 bool ShaderProgram::LoadShader(std::string& vertex, std::string& fragment)
 {
-    m_VertexShaderCode = Utilities::LoadCompleteFileFromData(vertex);
+    m_VertexShaderCode = Utilities::LoadShaderFromData(vertex);
 
-    m_FragmentShaderCode = Utilities::LoadCompleteFileFromData(fragment);
+    m_FragmentShaderCode = Utilities::LoadShaderFromData(fragment);
 
     return ReloadShaderProgram();
 }

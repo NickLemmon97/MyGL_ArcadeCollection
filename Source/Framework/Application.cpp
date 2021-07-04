@@ -10,6 +10,9 @@ App::App()
 	_sInstance = this;
 
 	m_glfwTime = 0.0;
+
+	m_WindowHeight = INITIAL_WINDOW_HEIGHT;
+	m_WindowWidth = INITIAL_WINDOW_WIDTH;
 }
 
 App::~App()
@@ -34,7 +37,7 @@ bool App::Init()
 
 	SetGLWindowHints();
 
-	m_pWindow = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, APP_TITLE, nullptr, nullptr);
+	m_pWindow = glfwCreateWindow(INITIAL_WINDOW_WIDTH, INITIAL_WINDOW_HEIGHT, APP_TITLE, nullptr, nullptr);
 
 	if (m_pWindow == nullptr)
 	{
@@ -57,12 +60,10 @@ bool App::Init()
 		return false;
 	}
 
-
 	m_pRenderer = new Renderer();
 	m_pRenderer->Init();
 
-
-	SetupInputCallbacks();
+	SetupGLFWCallbacks();
 
 	LOG_MESSAGE(LogApplication, LogVerbosity::Success, "Application was Initialized");
 
@@ -110,6 +111,13 @@ void App::Draw()
 	GameDraw(*m_pRenderer);
 
 	glfwSwapBuffers(m_pWindow);
+}
+
+void App::HandleWindowResize(GLFWwindow* window, int width, int height)
+{
+	_sInstance->SetWindowWidth( width );
+	_sInstance->SetWindowHeight(height);
+	glViewport(0, 0, width, height);
 }
 
 void App::HandleInput(GLFWwindow* window, int key, int scancode, int action, int mode)
@@ -160,10 +168,12 @@ void App::SetGLWindowHints()
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 }
 
-void App::SetupInputCallbacks()
+void App::SetupGLFWCallbacks()
 {
 	glfwSetKeyCallback(m_pWindow, HandleInput);
 	glfwSetCursorPosCallback(m_pWindow, HandleCursorPos);
+
+	glfwSetFramebufferSizeCallback(m_pWindow, HandleWindowResize);
 }
 
 GLFWwindow* App::GetGLFWWindow()
@@ -184,4 +194,24 @@ double App::GetGLFWTime()
 App& App::GetAppInstance()
 {
 	return *_sInstance;
+}
+
+int App::GetWindowHeight()
+{
+	return m_WindowHeight;
+}
+
+int App::GetWindowWidth()
+{
+	return m_WindowWidth;
+}
+
+void App::SetWindowHeight(int height)
+{
+	m_WindowHeight = height;
+}
+
+void App::SetWindowWidth(int width)
+{
+	m_WindowWidth = width;
 }

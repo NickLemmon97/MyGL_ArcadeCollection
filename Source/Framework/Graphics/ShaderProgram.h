@@ -7,7 +7,7 @@ class FrameworkAPI ShaderProgram
 public:
 	ShaderProgram();
 	ShaderProgram(std::string shader);
-	ShaderProgram(std::string& vertex, std::string& fragment);
+	ShaderProgram(std::string vertex, std::string fragment);
 	~ShaderProgram();
 
 	bool LoadShader(std::string filename);

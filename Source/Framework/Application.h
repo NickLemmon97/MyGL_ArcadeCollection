@@ -10,8 +10,8 @@ class FrameworkAPI App
 	//Allow the AppInitializer to Initialize and run our application
 	friend class AppInitializer;
 
-	typedef std::function<void(double)>                                      GameLoopFunc;
-	typedef std::function<void(const class Renderer&)>                       GameDrawFunc;
+	typedef std::function<void(double)>                                       GameLoopFunc;
+	typedef std::function<void(const class Renderer&)>                        GameDrawFunc;
 	typedef std::function<void(int key, int scancode, int action, int mode)> GameInputFunc;
 	typedef std::function<void(double x, double y)>                      GameCursorPosFunc;
 
@@ -27,6 +27,11 @@ public:
 
 	static App& GetAppInstance();
 
+	int GetWindowHeight();
+	int GetWindowWidth();
+	void SetWindowHeight(int height);
+	void SetWindowWidth(int width);
+
 protected:
 
 	bool Init();
@@ -37,6 +42,7 @@ protected:
 	
 	void Draw();
 
+	static void HandleWindowResize(struct GLFWwindow* window, int width, int height);
 	static void HandleInput(struct GLFWwindow* window, int key, int scancode, int action, int mode);
 	static void HandleCursorPos(struct GLFWwindow* window, double x, double y);
 
@@ -46,9 +52,8 @@ protected:
 	void SetGameCursorFunc(GameCursorPosFunc cursor);
 
 private:
-
 	void SetGLWindowHints();
-	void SetupInputCallbacks();
+	void SetupGLFWCallbacks();
 
 	struct GLFWwindow* m_pWindow = nullptr;
 
@@ -58,6 +63,9 @@ private:
 	GameDrawFunc  GameDraw;
 	GameInputFunc GameInput;
 	GameCursorPosFunc GameCursorFunc;
+
+	int m_WindowHeight;
+	int m_WindowWidth;
 
 	double m_glfwTime;
 };
