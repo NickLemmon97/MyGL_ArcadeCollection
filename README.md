@@ -1,5 +1,5 @@
 # atfGL Framework
-An in progress framework to practice OpenGL and framework setup with the intent to make small games. 
+An in progress framework using C++17 to practice OpenGL and framework setup with the intent to make small games. 
 A comfortable environtment for me to create what I want in the way I want to
 
 # Building
