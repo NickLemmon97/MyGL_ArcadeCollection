@@ -2,6 +2,7 @@
 #include <GameClass.h>
 
 GameImpl template class GameAPI std::shared_ptr<class Mesh>;
+//GameImpl template class GameAPI std::vector<glm::vec2>;
 
 class GameAPI Game : public IGameClass
 {
@@ -24,6 +25,8 @@ private:
 
 	double fpsTime = 0.0;
 	int frameCount = 0;
+
+	glm::vec2 m_Position;
 
 	bool DrawMyShape = true;
 };

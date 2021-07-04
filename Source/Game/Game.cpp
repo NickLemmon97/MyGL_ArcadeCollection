@@ -5,6 +5,7 @@ DECLARE_LOG_CATEGORY(LogGame);
 Game::Game()
 {
 	frameCount = 0;
+	m_Position = { 0.0f,0.0f };
 }
 
 Game::~Game()
@@ -29,7 +30,7 @@ void Game::Init()
 
 	m_Mess->Init(verts, 6, GL_TRIANGLE_FAN);
 
-	LOG_MESSAGE(LogGame, LogVerbosity::Success, "Game Created!");
+	LOG_MESSAGE(LogGame, LogVerbosity::Success, "Game Created!");	
 }
 
 void Game::Update(double delta)
@@ -40,11 +41,11 @@ void Game::Update(double delta)
 void Game::Draw(const Renderer& renderer)
 {
 	renderer.BeginDraw();
-
+	
 	DrawMyShape
 		? renderer.Draw(*m_Triangle.get())
 		: renderer.Draw(*m_Mess.get());
-
+	
 	renderer.EndDraw();
 }
 

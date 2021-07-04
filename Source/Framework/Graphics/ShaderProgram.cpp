@@ -10,18 +10,14 @@ ShaderProgram::ShaderProgram()
 {
 }
 
-ShaderProgram::ShaderProgram(const char* shader)
-    : m_VertexShader{ 0 }
-    , m_FragmentShader{ 0 }
-    , m_Program{ 0 }
+ShaderProgram::ShaderProgram(std::string shader)
+    : m_Program{ 0 }
 {
     LoadShader(shader);
 }
 
-ShaderProgram::ShaderProgram(const char* vertex, const char* fragment)
-    : m_VertexShader{ 0 }
-    , m_FragmentShader{ 0 }
-    , m_Program{0 }
+ShaderProgram::ShaderProgram(std::string& vertex, std::string& fragment)
+    : m_Program{ 0 }
 {
     LoadShader(vertex, fragment);
 }
@@ -31,7 +27,7 @@ ShaderProgram::~ShaderProgram()
     Cleanup();
 }
 
-bool ShaderProgram::LoadShader(const char* filename)
+bool ShaderProgram::LoadShader(std::string filename)
 {
     std::string vertex{ filename };
     vertex.append(".vert");
@@ -39,38 +35,31 @@ bool ShaderProgram::LoadShader(const char* filename)
     std::string fragment{ filename };
     fragment.append(".frag");
 
-    return LoadShader(vertex.c_str(), fragment.c_str());
+    return LoadShader(vertex, fragment);
 }
 
-bool ShaderProgram::LoadShader(const char* vertex, const char* fragment)
+bool ShaderProgram::LoadShader(std::string&& vert, std::string&& frag)
+{
+    return LoadShader(vert, frag);
+}
+
+bool ShaderProgram::LoadShader(std::string& vertex, std::string& fragment)
 {
     m_VertexShaderCode = Utilities::LoadCompleteFileFromData(vertex);
-    if (m_VertexShaderCode == nullptr)
-    {
-        DEBUG_LOG_MESSAGE(LogShader, LogVerbosity::Error, "Failed to load Vertex Shader");
-        return false;
-    }
 
     m_FragmentShaderCode = Utilities::LoadCompleteFileFromData(fragment);
-    if (m_FragmentShaderCode == nullptr)
-    {
-        DEBUG_LOG_MESSAGE(LogShader, LogVerbosity::Error, "Failed to load Fragment Shader");
-        return false;
-    }
 
     return ReloadShaderProgram();
 }
 
 bool ShaderProgram::ReloadShaderProgram()
 {
-    assert(m_VertexShaderCode != nullptr);
-    assert(m_FragmentShaderCode != nullptr);
 
     m_VertexShader = glCreateShader(GL_VERTEX_SHADER);
     m_FragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 
-    CompileShader(m_VertexShader, m_VertexShaderCode);
-    CompileShader(m_FragmentShader, m_FragmentShaderCode);
+    CompileShader(m_VertexShader, m_VertexShaderCode.c_str());
+    CompileShader(m_FragmentShader, m_FragmentShaderCode.c_str());
 
     if (m_VertexShader == 0 || m_FragmentShader == 0)
     {
@@ -131,14 +120,6 @@ void ShaderProgram::CompileShader(GLuint& shaderHandle, const char* shaderString
 
 void ShaderProgram::Cleanup()
 {
-    if (m_VertexShaderCode != nullptr)
-        delete[] m_VertexShaderCode;
-    m_VertexShaderCode = nullptr;
-
-    if (m_FragmentShaderCode != nullptr)
-        delete[] m_FragmentShaderCode;
-    m_FragmentShaderCode = nullptr;
-
     glDetachShader(m_Program, m_VertexShader);
     glDetachShader(m_Program, m_FragmentShader);
 

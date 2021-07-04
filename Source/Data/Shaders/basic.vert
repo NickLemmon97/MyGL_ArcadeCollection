@@ -9,5 +9,5 @@ void main()
 {
 	gl_Position = vec4(in_pos, 0, 1);
 
-	col = vec3(in_col.xy, 1.0f);
+	col = in_col;
 };

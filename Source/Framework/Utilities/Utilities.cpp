@@ -5,45 +5,36 @@
 
 DECLARE_LOG_CATEGORY(LogUtils);
 
-/*
-* Loads a file and returns the contents
-*/
-char* Utilities::LoadCompleteFile(const char* filename, long* length /*= nullptr*/)
+std::string Utilities::LoadCompleteFile(std::string& filename)
 {
-    char* filecontents = nullptr;
+    std::stringstream filecontents;
+    std::ifstream file;
 
-    FILE* filehandle;
-    errno_t error = fopen_s(&filehandle, filename, "rb");
+    try {
+        file.open(filename, std::ios::in);
 
-    if (filehandle)
-    {
-        LOG_MESSAGE(LogUtils, LogVerbosity::Success, "File Opened");
-        fseek(filehandle, 0, SEEK_END);
-        long size = ftell(filehandle);
-        rewind(filehandle);
-
-        filecontents = new char[size + 1];
-        fread(filecontents, size, 1, filehandle);
-        filecontents[size] = 0;
-
-        if (length)
-            *length = size;
-
-        fclose(filehandle);
-
-        return filecontents;
+        if (!file.fail())
+        {
+            filecontents << file.rdbuf();
+            file.close();
+        }
     }
-    LOG_MESSAGE(LogUtils, LogVerbosity::Error, "File failed to open file");
-    return nullptr;
+    catch (std::exception e)
+    {
+        DEBUG_LOG_MESSAGE(LogUtils, LogVerbosity::Error, "Failed load complete file");
+        LOG_MESSAGE(LogUtils, LogVerbosity::Error, e.what());
+    }
+
+    return std::move(filecontents.str());
 }
 
 /*
 *   Loads a file from a given name and prefixes the Data folder path
 */
-char* Utilities::LoadCompleteFileFromData(const char* filename, long* length/*= nullptr*/)
+std::string Utilities::LoadCompleteFileFromData(std::string& filename)
 {
     DEBUG_LOG_MESSAGE(LogUtils, LogVerbosity::Warning, "Open file from data path relative to Application Execution");
     std::string full_path = "Data/";
     full_path.append(filename);
-    return LoadCompleteFile(full_path.c_str(), length);
+    return LoadCompleteFile(full_path);
 }

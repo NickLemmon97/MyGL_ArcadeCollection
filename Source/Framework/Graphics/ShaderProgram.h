@@ -6,19 +6,19 @@ class FrameworkAPI ShaderProgram
 {
 public:
 	ShaderProgram();
-	ShaderProgram(const char* shader);
-	ShaderProgram(const char* vertex, const char* fragment);
+	ShaderProgram(std::string shader);
+	ShaderProgram(std::string& vertex, std::string& fragment);
 	~ShaderProgram();
 
-	bool LoadShader(const char* filename);
-	bool LoadShader(const char* vertex, const char* fragment);
+	bool LoadShader(std::string filename);
+	bool LoadShader(std::string&& vert, std::string&& frag);
+	bool LoadShader(std::string& vertex, std::string& fragment);
 
 	bool ReloadShaderProgram();
 
 	void CompileShader(GLuint& shader, const char* shaderstring);
 
 	void Cleanup();
-
 
 	GLuint GetProgram();
 
@@ -32,8 +32,8 @@ protected:
 
 	GLint GetUniformLocation(const GLchar* name);
 
-	char* m_FragmentShaderCode = nullptr;
-	char* m_VertexShaderCode   = nullptr;
+	std::string m_FragmentShaderCode;
+	std::string m_VertexShaderCode;
 
 	GLuint m_VertexShader, m_FragmentShader, m_Program;
 

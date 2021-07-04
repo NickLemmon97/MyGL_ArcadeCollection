@@ -11,8 +11,16 @@ public:
 	void BeginDraw() const;
 	void EndDraw() const;
 
-	void DrawTriangle(/*required params*/) const;
 	void Draw(const class Mesh&) const;
 
+
+	void BeginBatch() const;
+	void DrawBatch() const;
+	void EndBatch() const;
+
+
+private:
 	std::unique_ptr<ShaderProgram> m_Shader;
+
+	std::unique_ptr<ShaderProgram> m_BatchShader;
 };
