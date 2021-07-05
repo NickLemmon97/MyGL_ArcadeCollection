@@ -3,7 +3,7 @@
 Mesh::Mesh()
 	: m_Vbo{ 0 }
 	, m_Vao{ 0 }
-	, PrimitiveType{ GL_TRIANGLE_FAN }
+	, m_PrimitiveType { GL_TRIANGLE_FAN }
 	, m_NumVerts{0}
 {
 }
@@ -14,8 +14,11 @@ Mesh::~Mesh()
 	glDeleteBuffers(1, &m_Vbo);
 }
 
-void Mesh::Init(VertexFormat* vertices, GLuint count, GLenum primitive /*= GL_LINE_LOOP*/)
+void Mesh::Init(VertexFormat* vertices, GLuint count, GLenum primitive)
 {
+	m_PrimitiveType = primitive;
+	m_NumVerts = count;
+
 	glGenBuffers(1, &m_Vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, m_Vbo);
 	glBufferData(GL_ARRAY_BUFFER,
@@ -28,9 +31,11 @@ void Mesh::Init(VertexFormat* vertices, GLuint count, GLenum primitive /*= GL_LI
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+}
 
-	PrimitiveType = primitive;
-	m_NumVerts = count;
+void Mesh::Init(VertexFormat* vertices, GLuint count)
+{
+	Init(vertices, count, m_PrimitiveType);
 }
 
 void Mesh::MakeTriangle()
@@ -44,25 +49,7 @@ void Mesh::MakeTriangle()
 	Init(Vertices, 3, GL_TRIANGLES);
 }
 
-void Mesh::Draw(const Renderer& renderer)
+void Mesh::SetPrimitiveType(GLenum primitive)
 {
-	Draw();
-}
-
-void Mesh::Draw()
-{
-	glBindBuffer(GL_ARRAY_BUFFER, m_Vbo);
-	glBindVertexArray(m_Vao);
-
-	GLint loc_pos = 0;
-	glVertexAttribPointer(loc_pos, 2, GL_FLOAT, GL_FALSE, sizeof(VertexFormat), (void*)0);
-	glEnableVertexAttribArray(loc_pos);
-
-	GLint loc_col = 1;
-	glVertexAttribPointer(loc_col, 3, GL_FLOAT, GL_FALSE, sizeof(VertexFormat), (void*)8);
-	glEnableVertexAttribArray(loc_col);
-
-	glDrawArrays(PrimitiveType, 0, m_NumVerts);
-
-	glBindVertexArray(0);
+	m_PrimitiveType = primitive;
 }

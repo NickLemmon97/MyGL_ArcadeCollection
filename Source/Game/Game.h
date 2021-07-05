@@ -1,13 +1,10 @@
 #pragma once
 #include <GameClass.h>
 
-GameImpl template class GameAPI std::shared_ptr<class Mesh>;
-//GameImpl template class GameAPI std::vector<glm::vec2>;
-
-class GameAPI Game : public IGameClass
+class Game : public IGameClass
 {
 public:
-	Game();
+	GameAPI Game();
 	~Game();
 
 	void Init() override;
@@ -16,17 +13,13 @@ public:
 	void HandleInput(int key, int scancode, int action, int mode) override;
 	void HandleMousePosition(double x, double y) override;
 
+protected:
+	std::vector<std::shared_ptr<class GameObject>> m_GameObjects;
+
+//Stats
 private:
-
-	std::shared_ptr<class Mesh> m_Triangle;
-	std::shared_ptr<class Mesh> m_Mess;
-
 	void ShowFPS(double delta);
 
 	double fpsTime = 0.0;
 	int frameCount = 0;
-
-	glm::vec2 m_Position;
-
-	bool DrawMyShape = true;
 };

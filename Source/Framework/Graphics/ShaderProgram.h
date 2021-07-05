@@ -2,7 +2,7 @@
 
 #include <map>
 
-class FrameworkAPI ShaderProgram
+class ShaderProgram
 {
 public:
 	ShaderProgram();

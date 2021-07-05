@@ -6,3 +6,6 @@
 #include <sstream>
 
 #include <Game.h>
+#include <GameObject.h>
+
+#include <MyGameObject.h>

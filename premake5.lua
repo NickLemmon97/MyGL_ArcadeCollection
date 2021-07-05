@@ -6,7 +6,7 @@ DLL_LibOutput =  ("/bin/" ..outputdir.. "/Libs");
 
 
 --Name of the current game project
-GameName = "TestGame"
+GameName = "Game"
 
 
 --Project names as a variable

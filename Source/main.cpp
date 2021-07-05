@@ -11,8 +11,8 @@ int main(int argc, char** argv)
 #endif
 
 
-		std::shared_ptr<Game> g2 = std::make_shared<Game>();
-		AppInitializer Game = { g2.get() };
+		std::shared_ptr<Game> theGame = std::make_shared<Game>();
+		AppInitializer theApp = { theGame.get() };
 
 
 #if defined DEBUG

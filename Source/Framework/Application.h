@@ -1,11 +1,6 @@
 #pragma once
 
-FrameworkImpl template class FrameworkAPI std::function<void(double)>;
-FrameworkImpl template class FrameworkAPI std::function<void(const class Renderer&)>;
-FrameworkImpl template class FrameworkAPI std::function<void(int key, int scancode, int action, int mode)>;
-FrameworkImpl template class FrameworkAPI std::function<void(double x, double y)>;
-
-class FrameworkAPI App
+class App
 {
 	//Allow the AppInitializer to Initialize and run our application
 	friend class AppInitializer;
@@ -21,11 +16,11 @@ public:
 
 	struct GLFWwindow* GetGLFWWindow();
 
-	void SetWindowTitle(const char* title);
+	void FrameworkAPI SetWindowTitle(const char* title);
 
-	double GetGLFWTime();
+	double FrameworkAPI GetGLFWTime();
 
-	static App& GetAppInstance();
+	static FrameworkAPI App& GetAppInstance();
 
 	int GetWindowHeight();
 	int GetWindowWidth();

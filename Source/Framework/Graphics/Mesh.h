@@ -12,6 +12,7 @@ struct VertexFormat
 	VertexColor vertexColor;
 };
 
+
 class FrameworkAPI Mesh
 {
 	friend class Renderer;
@@ -20,16 +21,16 @@ public:
 	Mesh();
 	~Mesh();
 
-	void Init(VertexFormat* vertices, GLuint count, GLenum primitive = GL_LINE_LOOP);
+	void Init(VertexFormat* vertices, GLuint count, GLenum primitive);
+	void Init(VertexFormat* vertices, GLuint count);
 
 	void MakeTriangle();
 
-	void Draw(const class Renderer& renderer);
-	void Draw();
+	void SetPrimitiveType(GLenum primitive);
 
 protected:
 
-	GLenum PrimitiveType;
+	GLenum m_PrimitiveType;
 
 	GLuint m_Vbo;
 	GLuint m_Vao;
