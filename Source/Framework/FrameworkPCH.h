@@ -30,3 +30,5 @@
 #include <Graphics/ShaderProgram.h>
 #include <Graphics/Mesh.h>
 #include <Graphics/Renderer.h>
+
+typedef glm::vec3 MyColor;

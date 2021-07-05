@@ -19,6 +19,9 @@ void Game::Init()
 	{
 		go->Init();
 	}
+
+	m_Shader = std::make_shared<ShaderProgram>("simple");
+
 	LOG_MESSAGE(LogGame, LogVerbosity::Success, "Game Created!");	
 }
 
@@ -34,14 +37,16 @@ void Game::Update(double delta)
 
 void Game::Draw(const Renderer& renderer)
 {
-	renderer.BeginDraw();
+	//renderer.BeginDraw();
 	
+	m_Shader->Use();
+
 	for (auto& go : m_GameObjects)
 	{
-		go->Draw(renderer);
+		go->Draw(m_Shader.get());
 	}
 
-	renderer.EndDraw();
+	//renderer.EndDraw();
 }
 
 void Game::HandleInput(int key, int scancode, int action, int mode)

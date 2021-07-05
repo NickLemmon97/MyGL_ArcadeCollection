@@ -1,21 +1,20 @@
 #include "GamePCH.h"
 #include "MyGameObject.h"
+#include <Graphics/LineLoop.h>
 
 void MyGameObject::Init()
 {
-	m_Mesh->SetPrimitiveType(GL_TRIANGLE_FAN);
+	MyColor RED = { 1.0f,0.0f,0.0f };
 
-	VertexColor RED = { 1.0f,0.0f,0.0f };
-
-	VertexFormat vertices[] =
+	std::vector<glm::vec2> vertices =
 	{
-		{{  0.5f,  0.5f}, RED},
-		{{  0.5f, -0.5f}, RED},
-		{{ -0.5,  -0.5f}, RED},
-		{{ -0.5f,  0.5f}, RED},
+		{ 0.5f,  0.5f},
+		{ 0.5f, -0.5f},
+		{-0.5,  -0.5f},
+		{-0.5f,  0.5f},
 	};
 
-	m_Mesh->Init(vertices, 4);
+	m_Mesh->Init(vertices, RED);
 
 }
 

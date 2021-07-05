@@ -5,14 +5,14 @@
 class ShaderProgram
 {
 public:
-	ShaderProgram();
-	ShaderProgram(std::string shader);
-	ShaderProgram(std::string vertex, std::string fragment);
-	~ShaderProgram();
+	FrameworkAPI ShaderProgram();
+	FrameworkAPI ShaderProgram(std::string shader);
+	FrameworkAPI ShaderProgram(std::string vertex, std::string fragment);
+	FrameworkAPI ~ShaderProgram();
 
-	bool LoadShader(std::string filename);
-	bool LoadShader(std::string&& vert, std::string&& frag);
-	bool LoadShader(std::string& vertex, std::string& fragment);
+	bool FrameworkAPI LoadShader(std::string filename);
+	bool FrameworkAPI LoadShader(std::string&& vert, std::string&& frag);
+	bool FrameworkAPI LoadShader(std::string& vertex, std::string& fragment);
 
 	bool ReloadShaderProgram();
 
@@ -22,11 +22,12 @@ public:
 
 	GLuint GetProgram();
 
-	void Use();
+	void FrameworkAPI Use();
 
-	void SetUniform(const GLchar* name, const glm::vec2& value);
-	void SetUniform(const GLchar* name, const glm::vec3& value);
-	void SetUniform(const GLchar* name, const glm::vec4& value);
+	void SetUniform(const GLchar* name, const glm::vec2& v);
+	void SetUniform(const GLchar* name, const glm::vec3& v);
+	void SetUniform(const GLchar* name, const glm::vec4& v);
+	void SetUniform(const GLchar* name, const glm::mat4& m);
 
 protected:
 

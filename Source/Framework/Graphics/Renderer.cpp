@@ -16,7 +16,7 @@ void Renderer::Init()
 	glClearColor(0.23f, 0.56f, 0.89f, 1.0f);
 
 	m_Shader = std::make_unique<ShaderProgram>();
-	if (m_Shader->LoadShader("basic") == false)
+	if (m_Shader->LoadShader("simple") == false)
 	{
 		DEBUG_LOG_MESSAGE(LogRenderer, LogVerbosity::Error, "Renderer Failed to load Shader");
 	}

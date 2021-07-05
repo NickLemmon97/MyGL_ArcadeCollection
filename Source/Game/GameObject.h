@@ -6,12 +6,11 @@ public:
 	GameObject();
 	virtual ~GameObject();
 
-	virtual void Init() = 0;
-	virtual void Update(double delta) = 0;
-	virtual void Draw(const class Renderer& renderer);
+	virtual void Init();
+	virtual void Update(double delta);
+	virtual void Draw(ShaderProgram* shader);
 
 protected:
-	std::shared_ptr<class Mesh> m_Mesh;
-
+	std::shared_ptr<class LineLoop> m_Mesh;
 };
 

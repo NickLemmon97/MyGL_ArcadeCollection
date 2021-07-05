@@ -1,4 +1,5 @@
 #include <FrameworkPCH.h>
+#include <glm/gtc/type_ptr.hpp>
 #include "ShaderProgram.h"
 
 DECLARE_LOG_CATEGORY(LogShader);
@@ -146,22 +147,28 @@ void ShaderProgram::Use()
         glUseProgram(m_Program);
 }
 
-void ShaderProgram::SetUniform(const GLchar* name, const glm::vec2& value)
+void ShaderProgram::SetUniform(const GLchar* name, const glm::vec2& v)
 {
     GLint loc = GetUniformLocation(name);
-    glUniform2f(loc, value.x, value.y);
+    glUniform2f(loc, v.x, v.y);
 }
 
-void ShaderProgram::SetUniform(const GLchar* name, const glm::vec3& value)
+void ShaderProgram::SetUniform(const GLchar* name, const glm::vec3& v)
 {
     GLint loc = GetUniformLocation(name);
-    glUniform3f(loc, value.x, value.y, value.z);
+    glUniform3f(loc, v.x, v.y, v.z);
 }
 
-void ShaderProgram::SetUniform(const GLchar* name, const glm::vec4& value)
+void ShaderProgram::SetUniform(const GLchar* name, const glm::vec4& v)
 {
     GLint loc = GetUniformLocation(name);
-    glUniform4f(loc, value.x, value.y, value.z, value.w);
+    glUniform4f(loc, v.x, v.y, v.z, v.w);
+}
+
+void ShaderProgram::SetUniform(const GLchar* name, const glm::mat4& m)
+{
+    GLint loc = GetUniformLocation(name);
+    glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(m));
 }
 
 GLint ShaderProgram::GetUniformLocation(const GLchar* name)

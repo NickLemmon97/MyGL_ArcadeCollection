@@ -2,8 +2,9 @@
 WorkingDirectory = "build"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-DLL_LibOutput =  ("/bin/" ..outputdir.. "/Libs");
+DLL_LibOutput =  ("/bin/" ..outputdir.. "/Libs")
 
+GameOutputDir = (WorkingDirectory.."/bin/" ..outputdir.. "/Game")
 
 --Name of the current game project
 GameName = "Game"
@@ -75,7 +76,7 @@ project (ProjectConfigProjectName)
         ".gitignore",
     }
 
-    targetdir (WorkingDirectory.."/bin/" ..outputdir.. "/Game")
+    targetdir (GameOutputDir)
     objdir  (WorkingDirectory.."/bin-obj/")
 
     --If on windows we are most likely using a visual studio project 
@@ -96,8 +97,8 @@ project (ApplicationProjectName)
     language    "C++"
 
     dependson{
-        (GameProjectName),
-        (FrameworkProjectName),
+       (GameProjectName),
+       (FrameworkProjectName),
     }
     
     includedirs {
@@ -110,7 +111,7 @@ project (ApplicationProjectName)
         "Source/main.cpp",
     }
 
-    targetdir (WorkingDirectory.."/bin/" ..outputdir.. "/Game")
+    targetdir (GameOutputDir)
     objdir  (WorkingDirectory.."/bin-obj/")
 
     libdirs{
@@ -124,7 +125,7 @@ project (ApplicationProjectName)
     }
 
     postbuildcommands{
-        ("{COPY} %{prj.location}../Source/Data %{prj.location}bin/"..outputdir.."/Game/Data"),
+        ("{COPY} %{prj.location}../Source/Data %{cfg.targetdir}/Data"),
         ("{COPY} %{prj.location}../Source/ThirdParty/lib/glew32.dll %{cfg.targetdir}/"),
         ("{COPY} %{prj.location}../Source/ThirdParty/lib/glfw3.dll %{cfg.targetdir}/"),
     }
@@ -132,30 +133,6 @@ project (ApplicationProjectName)
     filter "configurations:Debug"
         postbuildcommands{
           ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/ %{cfg.targetdir}/"),
-        }
-
-    filter "configurations:Development"
-        postbuildcommands{
-          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/Framework.dll %{cfg.targetdir}/"),
-          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll %{cfg.targetdir}/"),
-        }
-
-    filter "configurations:Release"
-        postbuildcommands{
-          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/Framework.dll %{cfg.targetdir}/"),
-          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll %{cfg.targetdir}/"),
-        }
-
-    filter "configurations:ReleaseConsole"
-        postbuildcommands{
-          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/Framework.dll %{cfg.targetdir}/"),
-          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll %{cfg.targetdir}/"),
-        }
-
-    filter "configurations:Publish"
-        postbuildcommands{
-          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/Framework.dll %{cfg.targetdir}/"),
-          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll %{cfg.targetdir}/"),
         }
 
     filter {"configurations:Release", "system:windows"}
@@ -207,6 +184,26 @@ project (GameProjectName)
         "Framework",
     }
 
+    filter "configurations:Development"
+        postbuildcommands{
+          ("{COPY} %{cfg.targetdir}/"..GameName..".dll "..(GameOutputDir)),
+        }
+
+    filter "configurations:Release"
+        postbuildcommands{
+          ("{COPY} %{cfg.targetdir}/"..GameName..".dll "..(GameOutputDir)),
+        }
+
+    filter "configurations:ReleaseConsole"
+        postbuildcommands{
+          ("{COPY} %{cfg.targetdir}/"..GameName..".dll "..(GameOutputDir)),
+        }
+
+    filter "configurations:Publish"
+        postbuildcommands{
+          ("{COPY} %{cfg.targetdir}/"..GameName..".dll "..(GameOutputDir)),
+        }
+
     filter {}
 
 
@@ -243,6 +240,26 @@ project (FrameworkProjectName)
         "glew32",
         "glfw3dll",
     }
+
+    filter "configurations:Development"
+        postbuildcommands{
+          ("{COPY} %{cfg.targetdir}/Framework.dll "..(GameOutputDir)),
+        }
+
+    filter "configurations:Release"
+        postbuildcommands{
+          ("{COPY} %{cfg.targetdir}/Framework.dll "..(GameOutputDir)),
+        }
+
+    filter "configurations:ReleaseConsole"
+        postbuildcommands{
+          ("{COPY} %{cfg.targetdir}/Framework.dll "..(GameOutputDir)),
+        }
+
+    filter "configurations:Publish"
+        postbuildcommands{
+          ("{COPY} %{cfg.targetdir}/Framework.dll "..(GameOutputDir)),
+        }
 
       filter {}
 

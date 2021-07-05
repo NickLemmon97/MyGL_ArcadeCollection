@@ -47,7 +47,8 @@ namespace Logger
 #define DECLARE_LOG_CATEGORY(cat) struct cat : public Logger::TLogCategory<cat>			\
 {																						\
 	public: static const char* GetName() { return #cat; }								\
-};																																		
+};																						
+#define DEFINE_LOG_CATEGORY(cat) struct cat : public Logger::TLogCategory<cat>;
 #define DEBUG_LOG_MESSAGE(type, verbosity, message) Logger::Log<type>(verbosity, message);
 #else
 #define DECLARE_LOG_CATEGORY(cat) 																									
