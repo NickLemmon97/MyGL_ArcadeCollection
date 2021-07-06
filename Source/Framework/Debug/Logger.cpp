@@ -1,12 +1,6 @@
 #include <FrameworkPCH.h>
 #include "Logger.h"
 
-std::ostream& operator<<(std::ostream& stream, const Logger::LogCategory& other)
-{
-	stream << other.GetName();
-	return stream;
-}
-
 void Logger::LogMessage(const char* Category, LogVerbosity verbosity, const char* message)
 {
 #if defined _WINDOWS

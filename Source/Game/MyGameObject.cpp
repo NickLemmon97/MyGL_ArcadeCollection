@@ -12,7 +12,7 @@ void MyGameObject::Init()
 		{-0.5f,  0.5f},
 	};
 
-	m_Mesh->Init(vertices, ColorList::RED);
+	m_Mesh->Init(vertices, ColorList::PURPLE);
 }
 
 void MyGameObject::Update(double delta)

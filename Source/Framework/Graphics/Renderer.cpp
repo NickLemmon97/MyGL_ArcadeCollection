@@ -1,19 +1,13 @@
 #include <FrameworkPCH.h>
 
-DECLARE_LOG_CATEGORY(LogRenderer);
-
-Renderer::Renderer()
-{
-}
-
-Renderer::~Renderer()
-{
-}
-
 void Renderer::Init()
 {
 	//Initialize the clear color just once here
-	glClearColor(0.23f, 0.56f, 0.89f, 1.0f);
+	glClearColor(
+		ColorList::CYAN.r, 
+		ColorList::CYAN.g, 
+		ColorList::CYAN.b, 
+		1.0f);
 
 	m_ShapeShader = std::make_unique<ShaderProgram>();
 	if (m_ShapeShader->LoadShader("shape") == false)

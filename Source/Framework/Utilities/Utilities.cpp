@@ -3,8 +3,6 @@
 #include <sstream>
 #include <fstream>
 
-DECLARE_LOG_CATEGORY(LogUtils);
-
 std::string Utilities::LoadCompleteFile(std::string& filename)
 {
     std::stringstream filecontents;

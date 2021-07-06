@@ -2,8 +2,6 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "ShaderProgram.h"
 
-DECLARE_LOG_CATEGORY(LogShader);
-
 ShaderProgram::ShaderProgram()
     :m_VertexShader    { 0 }
     , m_FragmentShader { 0 }

@@ -1,8 +1,6 @@
 #include <FrameworkPCH.h>
 #include <Application.h>
 
-DECLARE_LOG_CATEGORY(LogApplication);
-
 static App* _sInstance;
 
 App::App()

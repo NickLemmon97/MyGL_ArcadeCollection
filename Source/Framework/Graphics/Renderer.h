@@ -3,8 +3,8 @@
 class Renderer
 {
 public:
-	Renderer();
-	~Renderer();
+	Renderer()  = default;
+	~Renderer() = default;
 
 	void Init();
 	void FrameworkAPI UseShader(std::string&& shaderName);

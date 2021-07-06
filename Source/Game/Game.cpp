@@ -1,7 +1,5 @@
 #include <GamePCH.h>
 
-DECLARE_LOG_CATEGORY(LogGame);
-
 Game::Game()
 {
 	frameCount = 0;
