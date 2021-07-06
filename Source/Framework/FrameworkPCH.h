@@ -21,6 +21,7 @@
 #include <Debug/Logger.h>
 
 #include <Utilities/Utilities.h>
+#include <Utilities/ColorList.h>
 
 #include <GameClass.h>
 
@@ -30,5 +31,4 @@
 #include <Graphics/ShaderProgram.h>
 #include <Graphics/Mesh.h>
 #include <Graphics/Renderer.h>
-
-typedef glm::vec3 MyColor;
+#include <Graphics/Shape.h>

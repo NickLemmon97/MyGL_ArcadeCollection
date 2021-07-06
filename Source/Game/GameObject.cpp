@@ -1,10 +1,9 @@
 #include "GamePCH.h"
 #include "GameObject.h"
-#include <Graphics/LineLoop.h>
 
 GameObject::GameObject()
 {
-	m_Mesh = std::make_shared<LineLoop>();
+	m_Mesh = std::make_shared<Shape>();
 }
 
 GameObject::~GameObject()
@@ -19,7 +18,7 @@ void GameObject::Update(double delta)
 {
 }
 
-void GameObject::Draw(ShaderProgram* shader)
+void GameObject::Draw(const Renderer& renderer)
 {
-	m_Mesh->Draw(shader);
+	renderer.Draw(*m_Mesh.get());
 }

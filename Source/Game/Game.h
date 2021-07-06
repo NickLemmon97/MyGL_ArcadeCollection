@@ -16,7 +16,6 @@ public:
 protected:
 	std::vector<std::shared_ptr<class GameObject>> m_GameObjects;
 
-	std::shared_ptr<class ShaderProgram> m_Shader;
 //Stats
 private:
 	void ShowFPS(double delta);

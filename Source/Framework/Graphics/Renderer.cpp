@@ -15,8 +15,8 @@ void Renderer::Init()
 	//Initialize the clear color just once here
 	glClearColor(0.23f, 0.56f, 0.89f, 1.0f);
 
-	m_Shader = std::make_unique<ShaderProgram>();
-	if (m_Shader->LoadShader("simple") == false)
+	m_ShapeShader = std::make_unique<ShaderProgram>();
+	if (m_ShapeShader->LoadShader("shape") == false)
 	{
 		DEBUG_LOG_MESSAGE(LogRenderer, LogVerbosity::Error, "Renderer Failed to load Shader");
 	}
@@ -24,8 +24,8 @@ void Renderer::Init()
 
 void Renderer::UseShader(std::string&& shaderName)
 {
-	m_Shader = std::make_unique<ShaderProgram>();
-	if (m_Shader->LoadShader(shaderName) == false)
+	m_ShapeShader = std::make_unique<ShaderProgram>();
+	if (m_ShapeShader->LoadShader(shaderName) == false)
 	{
 		DEBUG_LOG_MESSAGE(LogRenderer, LogVerbosity::Error, "Renderer Failed to load Shader");
 	}
@@ -35,11 +35,7 @@ void Renderer::BeginDraw() const
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	glUseProgram(m_Shader->GetProgram());
-}
-
-void Renderer::EndDraw() const
-{
+	m_ShapeShader->Use();
 }
 
 void Renderer::Draw(const Mesh& mesh) const
@@ -56,6 +52,22 @@ void Renderer::Draw(const Mesh& mesh) const
 	glVertexAttribPointer(loc_col, 3, GL_FLOAT, GL_TRUE, sizeof(VertexFormat), (void*)offsetof(VertexFormat, vertexColor));
 
 	glDrawArrays(mesh.m_PrimitiveType, 0, mesh.m_NumVerts);
+
+	glBindVertexArray(0);
+}
+
+void FrameworkAPI Renderer::Draw(const Shape& shape) const
+{
+	glBindBuffer(GL_ARRAY_BUFFER, shape.m_Vbo);
+	glBindVertexArray(shape.m_Vao);
+
+	GLint loc_pos = 0;
+	glEnableVertexAttribArray(loc_pos);
+	glVertexAttribPointer(loc_pos, 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2), (void*)0);
+
+	m_ShapeShader->SetUniform("u_Col", shape.m_Color);
+
+	glDrawArrays(shape.m_PrimitiveType, 0, shape.m_NumVerts);
 
 	glBindVertexArray(0);
 }

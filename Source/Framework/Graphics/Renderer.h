@@ -10,10 +10,10 @@ public:
 	void FrameworkAPI UseShader(std::string&& shaderName);
 
 	void FrameworkAPI BeginDraw() const;
-	void FrameworkAPI EndDraw() const;
 		 
 	void FrameworkAPI Draw(const class Mesh&) const;
+	void FrameworkAPI Draw(const class Shape&) const;
 
 private:
-	std::unique_ptr<ShaderProgram> m_Shader;
+	std::unique_ptr<ShaderProgram> m_ShapeShader;
 };

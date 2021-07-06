@@ -20,8 +20,6 @@ void Game::Init()
 		go->Init();
 	}
 
-	m_Shader = std::make_shared<ShaderProgram>("simple");
-
 	LOG_MESSAGE(LogGame, LogVerbosity::Success, "Game Created!");	
 }
 
@@ -37,22 +35,16 @@ void Game::Update(double delta)
 
 void Game::Draw(const Renderer& renderer)
 {
-	//renderer.BeginDraw();
-	
-	m_Shader->Use();
+	renderer.BeginDraw();
 
 	for (auto& go : m_GameObjects)
 	{
-		go->Draw(m_Shader.get());
+		go->Draw(renderer);
 	}
-
-	//renderer.EndDraw();
 }
 
 void Game::HandleInput(int key, int scancode, int action, int mode)
 {
-	//DEBUG_LOG_MESSAGE(LogGame, LogVerbosity::Warning, "Input is being handled");
-
 	switch (key)
 	{
 	case GLFW_KEY_SPACE:
@@ -89,6 +81,5 @@ void Game::ShowFPS(double delta)
 		fpsTime = 0.0f;
 		frameCount = 0;
 	}
-
 	frameCount++;
 }

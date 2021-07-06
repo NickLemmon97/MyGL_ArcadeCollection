@@ -1,10 +1,10 @@
 #version 330 core
 
-in vec3 col;
+uniform vec3 u_Col;
 
 out vec4 frag_col;
 
 void main()
 {
-	frag_col = vec4(col, 1.0f);
+	frag_col = vec4(u_Col, 1.0f);
 }
