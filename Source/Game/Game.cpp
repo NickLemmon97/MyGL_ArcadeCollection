@@ -1,10 +1,12 @@
 #include <GamePCH.h>
+#include "Trial/Ship.h"
 
 Game::Game()
 {
 	frameCount = 0;
 
 	m_GameObjects.push_back(std::make_shared<MyGameObject>());
+	m_GameObjects.push_back(std::make_shared<Ship>(this));
 }
 
 Game::~Game()
@@ -52,15 +54,29 @@ void Game::HandleInput(int key, int scancode, int action, int mode)
 		}
 		break;
 	}
+
+	for (auto& func : m_InputFunctions)
+	{
+		func(key, scancode, action, mode);
+	}
 }
 
 void Game::HandleMousePosition(double x, double y)
 {
-	//char xx[255];
-	//_itoa_s(int(x), xx, 10);
-	//DEBUG_LOG_MESSAGE(LogGame, LogVerbosity::Log, xx);
-	//_itoa_s(int(y), xx, 10);
-	//DEBUG_LOG_MESSAGE(LogGame, LogVerbosity::Log, xx);
+	for (auto& func : m_CursorPosFuncs)
+	{
+		func(x, y);
+	}
+}
+
+void Game::RegisterForInputCallback(GameCursorPosFunc func)
+{
+	m_CursorPosFuncs.push_back(func);
+}
+
+void Game::RegisterForInputCallback(GameInputFunc func)
+{
+	m_InputFunctions.push_back(func);
 }
 
 void Game::ShowFPS(double delta)

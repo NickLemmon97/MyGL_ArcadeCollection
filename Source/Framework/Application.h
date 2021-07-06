@@ -5,11 +5,6 @@ class App
 	//Allow the AppInitializer to Initialize and run our application
 	friend class AppInitializer;
 
-	typedef std::function<void(double)>                                       GameLoopFunc;
-	typedef std::function<void(const class Renderer&)>                        GameDrawFunc;
-	typedef std::function<void(int key, int scancode, int action, int mode)> GameInputFunc;
-	typedef std::function<void(double x, double y)>                      GameCursorPosFunc;
-
 public:
 	App();
 	~App();

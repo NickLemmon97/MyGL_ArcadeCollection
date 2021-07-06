@@ -32,19 +32,19 @@ bool AppInitializer::Setup()
 
 void AppInitializer::SetupFunctionCallbacks()
 {
-	App::GameLoopFunc loop = std::bind(&IGameClass::Update, Game_, std::placeholders::_1);
+	GameLoopFunc loop = std::bind(&IGameClass::Update, Game_, std::placeholders::_1);
 	Application_->SetGameLoop(loop);
 
-	App::GameDrawFunc draw = std::bind(&IGameClass::Draw, Game_, std::placeholders::_1);
+	GameDrawFunc draw = std::bind(&IGameClass::Draw, Game_, std::placeholders::_1);
 	Application_->SetGameDraw(draw);
 
-	App::GameInputFunc input = std::bind(&IGameClass::HandleInput, Game_,
+	GameInputFunc input = std::bind(&IGameClass::HandleInput, Game_,
 		std::placeholders::_1,
 		std::placeholders::_2,
 		std::placeholders::_3,
 		std::placeholders::_4);
 	Application_->SetGameInput(input);
 
-	App::GameCursorPosFunc cursor = std::bind(&IGameClass::HandleMousePosition, Game_, std::placeholders::_1, std::placeholders::_2);
+	GameCursorPosFunc cursor = std::bind(&IGameClass::HandleMousePosition, Game_, std::placeholders::_1, std::placeholders::_2);
 	Application_->SetGameCursorFunc(cursor);
 }

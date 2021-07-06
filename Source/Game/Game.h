@@ -13,8 +13,13 @@ public:
 	void HandleInput(int key, int scancode, int action, int mode) override;
 	void HandleMousePosition(double x, double y) override;
 
+	void RegisterForInputCallback(GameInputFunc func);
+	void RegisterForInputCallback(GameCursorPosFunc func);
+
 protected:
 	std::vector<std::shared_ptr<class GameObject>> m_GameObjects;
+	std::vector<GameInputFunc> m_InputFunctions;
+	std::vector<GameCursorPosFunc> m_CursorPosFuncs;
 
 //Stats
 private:

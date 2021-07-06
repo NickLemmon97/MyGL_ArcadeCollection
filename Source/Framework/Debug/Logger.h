@@ -24,33 +24,19 @@ enum class LogVerbosity
 
 namespace Logger
 {
-	//struct LogCategory {
-	//public:
-	//	virtual const char* GetName() const = 0;
-	//};
-
 	void FrameworkAPI LogMessage(const char* Category, LogVerbosity verbosity, const char* message);
 	void FrameworkAPI LogMessage(LogVerbosity verbosity, const char* message);
-
-	//template<typename _Ty>
-	//void Log(LogVerbosity verbosity, const char* message)
-	//{
-	//	LogMessage(_Ty::GetName(), verbosity, message);
-	//}
-	//
-	//template<typename _Ty>
-	//struct TLogCategory : public LogCategory {};
 };
 
 
 #if defined EXECUTE_WITH_CONSOLE_VISIBLE
-#if defined DEBUG
-#define DEBUG_LOG_MESSAGE(type, verbosity, message) Logger::LogMessage(#type, verbosity, message);
-#else 
-#define DEBUG_LOG_MESSAGE(type, verbosity, message)
-#endif
 #define LOG_MESSAGE(type, verbosity, message) Logger::LogMessage(#type, verbosity, message);
 #else
 #define LOG_MESSAGE(type, verbosity, message);
+#endif
+
+#ifdef DEBUG
+#define DEBUG_LOG_MESSAGE(type, verbosity, message) Logger::LogMessage(#type, verbosity, message);
+#else 
 #define DEBUG_LOG_MESSAGE(type, verbosity, message)
 #endif

@@ -209,6 +209,26 @@ project (GameProjectName)
         "Framework",
     }
 
+    --filter "configurations:Development"
+    --    postbuildcommands{
+    --      ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll "..(WorkingDirectory.."/bin/" ..outputdir.. "/Game/")),
+    --    }
+    --
+    --filter "configurations:Release"
+    --    postbuildcommands{
+    --      ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll "..(WorkingDirectory.."/bin/" ..outputdir.. "/Game/")),
+    --    }
+    --
+    --filter "configurations:ReleaseConsole"
+    --    postbuildcommands{
+    --      ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll "..(WorkingDirectory.."/bin/" ..outputdir.. "/Game/")),
+    --    }
+    --
+    --filter "configurations:Publish"
+    --    postbuildcommands{
+    --      ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll "..(WorkingDirectory.."/bin/" ..outputdir.. "/Game/")),
+    --    }
+
     filter {}
 
 
@@ -246,7 +266,27 @@ project (FrameworkProjectName)
         "glfw3dll",
     }
 
-      filter {}
+    --filter "configurations:Development"
+    --    postbuildcommands{
+    --      ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/Framework.dll "..(WorkingDirectory.."/bin/" ..outputdir.. "/Game/")),
+    --    }
+    --
+    --filter "configurations:Release"
+    --    postbuildcommands{
+    --      ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/Framework.dll "..(WorkingDirectory.."/bin/" ..outputdir.. "/Game/")),
+    --    }
+    --
+    --filter "configurations:ReleaseConsole"
+    --    postbuildcommands{
+    --      ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/Framework.dll "..(WorkingDirectory.."/bin/" ..outputdir.. "/Game/")),
+    --    }
+    --
+    --filter "configurations:Publish"
+    --    postbuildcommands{
+    --      ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/Framework.dll "..(WorkingDirectory.."/bin/" ..outputdir.. "/Game/")),
+    --    }
+
+    filter {}
 
 
 ------------------------------------------------------- Shaders project
