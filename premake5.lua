@@ -47,6 +47,7 @@ filter "configurations:ReleaseConsole"
 filter "configurations:Publish"
         defines {"RELEASE", "STANDALONE"}
         optimize "On"
+        symbols "Off"
 
 ------------------------------------------------ Solution
 workspace (WorkspaceName)
