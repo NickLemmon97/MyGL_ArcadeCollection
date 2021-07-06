@@ -5,8 +5,9 @@
 
 #include <sstream>
 
-#include <Game.h>
-#include <GameObject.h>
+#include <Core/Game.h>
+#include <Core/GameObject.h>
+
+#include <Core/Button.h>
 
 #include <MyGameObject.h>
-#include <Button.h>

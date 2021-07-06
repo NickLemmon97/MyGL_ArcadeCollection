@@ -181,9 +181,14 @@ project (GameProjectName)
     defines     {"GameDLLExport"}
     pchheader   "GamePCH.h"
     pchsource   "Source/Game/GamePCH.cpp"
+
+    dependson {
+        (FrameworkProjectName),
+    }
     
     includedirs {
         "Source/Game",
+        "Source/Game/Core",
         "Source/Framework",
         "Source/ThirdParty/include",
     }

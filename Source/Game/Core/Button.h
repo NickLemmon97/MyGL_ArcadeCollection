@@ -4,7 +4,8 @@
 class Button : public GameObject
 {
 public:
-	Button(Game* game);
+	Button(class Game* game);
+	Button(class Game* game, glm::vec2 scale, glm::vec2 position);
 	~Button() = default;
 
 	void HandleMouseCursor(double x, double y);
@@ -31,3 +32,15 @@ protected:
 	bool bHasBeenPressedBeforeRelease = false;
 };
 
+
+class ButtonWithX : public Button
+{
+public:
+	ButtonWithX(class Game* game);
+	void Init() override;
+	void Draw(const class Renderer& renderer) override;
+
+protected:
+
+	std::shared_ptr<class Shape> m_X;
+};

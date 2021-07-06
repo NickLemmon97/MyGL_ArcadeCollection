@@ -9,10 +9,10 @@ Game::Game()
 	m_GameObjects.push_back(std::make_shared<MyGameObject>());
 	m_GameObjects.push_back(std::make_shared<Ship>(this));
 
-	m_GameObjects.push_back(std::make_shared<Button>(this));
+	m_GameObjects.push_back(std::make_shared<ButtonWithX>(this));
 	Button* button = static_cast<Button*>(m_GameObjects.at(m_GameObjects.size() - 1).get());
-	std::function<void()> ButtonCallback = std::bind(&Game::Exit, this);
-	button->SetOnClickCallback(ButtonCallback);
+	std::function<void()> exitButtonCallback = std::bind(&Game::Exit, this);
+	button->SetOnClickCallback(exitButtonCallback);
 }
 
 Game::~Game()

@@ -1,7 +1,11 @@
 #include "GamePCH.h"
 #include "Button.h"
 
-Button::Button(Game* game)
+Button::Button(Game* game) : Button(game, { 60.0f,40.0f }, { 80.0f, INITIAL_WINDOW_HEIGHT - 100.0f })
+{
+}
+
+Button::Button(Game* game, glm::vec2 scale, glm::vec2 position)
 {
 	GameMouseInputFunc mouse = std::bind(&Button::HandleMouseButton, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
 	game->RegisterForInputCallback(mouse);
@@ -9,11 +13,8 @@ Button::Button(Game* game)
 	GameCursorPosFunc cursor = std::bind(&Button::HandleMouseCursor, this, std::placeholders::_1, std::placeholders::_2);
 	game->RegisterForInputCallback(cursor);
 
-	m_Scale.x = 200;
-	m_Scale.y = 100;
-
-	m_Position.x = 500;
-	m_Position.y = 200;
+	m_Scale = scale;
+	m_Position = position;
 }
 
 void Button::HandleMouseCursor(double x, double y)
@@ -88,4 +89,40 @@ bool Button::CheckMouseInBounds(double x, double y)
 		 x <= m_Position.x + m_Scale.x &&
 		 y >= m_Position.y - m_Scale.y &&
 		 y <= m_Position.y + m_Scale.y);
+}
+
+ButtonWithX::ButtonWithX(Game* game) : Button(game)
+{
+
+}
+
+void ButtonWithX::Init()
+{
+	Button::Init();
+
+	m_X = std::make_shared<Shape>();
+	std::vector<glm::vec2> points
+	{
+		{0.0f,0.0f},
+		{12.0f,20.0f},
+		{20.0f,12.0f},
+		{0.0f,0.0f},
+		{20.0f,-12.0f},
+		{12.0f,-20.0f},
+		{0.0f,0.0f},
+		{-12.0f,-20.0f},
+		{-20.0f,-12.0f},
+		{0.0f,0.0f},
+		{-20.0f,12.0f},
+		{-12.0f,20.0f},
+	};
+
+	m_X->Init(points, ColorList::WHITE, GL_TRIANGLES);
+}
+
+void ButtonWithX::Draw(const Renderer& renderer)
+{
+	GameObject::Draw(renderer);
+
+	renderer.Draw(*m_X.get(), m_Position);
 }
