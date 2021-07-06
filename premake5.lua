@@ -9,7 +9,6 @@ GameOutputDir = (WorkingDirectory.."/bin/" ..outputdir.. "/Game")
 --Name of the current game project
 GameName = "Game"
 
-
 --Project names as a variable
 WorkspaceName            = "OpenGLFramework"
 
@@ -98,8 +97,8 @@ project (ApplicationProjectName)
     language    "C++"
 
     dependson{
-       (FrameworkProjectName),
-       (GameProjectName),
+       --(FrameworkProjectName),
+       --(GameProjectName),
     }
     
     includedirs {
@@ -216,6 +215,48 @@ project (GameProjectName)
 
     filter {}
 
+  
+------------------------------------------------ Game Project
+project "6. LuaGame"
+    targetname  (GameName)
+    location    (WorkingDirectory)
+    kind        "SharedLib"
+    language    "C++"
+    defines     {"GameDLLExport"}
+    pchheader   "GamePCH.h"
+    pchsource   "Source/LuaGame/GamePCH.cpp"
+    
+    includedirs {
+        "Source/LuaGame",
+        "Source/LuaGame/Core",
+        "Source/Framework",
+        "Source/ThirdParty/include",
+    }
+
+    files {
+        "Source/LuaGame/**.cpp",
+        "Source/LuaGame/**.h",
+    }
+
+    targetdir (WorkingDirectory..DLL_LibOutput)
+    objdir  (WorkingDirectory.."/bin-obj/")
+
+    libdirs{
+        "Source/ThirdParty/lib",
+        (WorkingDirectory..DLL_LibOutput),
+    }
+
+    links {
+        "Framework",
+        "lua54",
+    }
+
+    postbuildcommands{
+      ("{COPY} bin/"..outputdir.."/Libs/"..GameName..".dll bin/" ..outputdir.. "/Game"),
+       ("{COPY} %{prj.location}../Source/ThirdParty/lib/lua54.dll bin/" ..outputdir.. "/Game"),
+    }
+
+    filter {}
 
 
 ------------------------------------------------ Framework Project

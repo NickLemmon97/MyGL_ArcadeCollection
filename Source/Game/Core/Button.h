@@ -33,10 +33,10 @@ protected:
 };
 
 
-class ButtonWithX : public Button
+class ExitButton : public Button
 {
 public:
-	ButtonWithX(class Game* game);
+	ExitButton(class Game* game);
 	void Init() override;
 	void Draw(const class Renderer& renderer) override;
 

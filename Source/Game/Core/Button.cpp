@@ -1,7 +1,7 @@
 #include "GamePCH.h"
 #include "Button.h"
 
-Button::Button(Game* game) : Button(game, { 60.0f,40.0f }, { 80.0f, INITIAL_WINDOW_HEIGHT - 100.0f })
+Button::Button(Game* game) : Button(game, { 60.0f,40.0f }, { 80.0f, INITIAL_WINDOW_HEIGHT - 40.0f })
 {
 }
 
@@ -91,12 +91,14 @@ bool Button::CheckMouseInBounds(double x, double y)
 		 y <= m_Position.y + m_Scale.y);
 }
 
-ButtonWithX::ButtonWithX(Game* game) : Button(game)
-{
 
+ExitButton::ExitButton(Game* game) : Button(game, { 35,20 }, {45, INITIAL_WINDOW_HEIGHT - 35})
+{
+	std::function<void()> exitButtonCallback = std::bind(&Game::Exit, game);
+	SetOnClickCallback(exitButtonCallback);
 }
 
-void ButtonWithX::Init()
+void ExitButton::Init()
 {
 	Button::Init();
 
@@ -120,7 +122,7 @@ void ButtonWithX::Init()
 	m_X->Init(points, ColorList::WHITE, GL_TRIANGLES);
 }
 
-void ButtonWithX::Draw(const Renderer& renderer)
+void ExitButton::Draw(const Renderer& renderer)
 {
 	GameObject::Draw(renderer);
 

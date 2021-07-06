@@ -1,14 +1,8 @@
 #include <GamePCH.h>
-#include "Trial/Ship.h"
-#include "Button.h"
 
 Game::Game()
 {
 	frameCount = 0;
-
-	m_GameObjects.push_back(std::make_shared<MyGameObject>());
-	m_GameObjects.push_back(std::make_shared<Ship>(this));
-	m_GameObjects.push_back(std::make_shared<ExitButton>(this));
 }
 
 Game::~Game()
