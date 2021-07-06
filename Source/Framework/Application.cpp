@@ -143,6 +143,11 @@ void App::HandleCursorPos(GLFWwindow* window, double x, double y)
 	_sInstance->GameCursorFunc(x, _sInstance->GetWindowHeight() - y);
 }
 
+void App::HandleMouseInput(GLFWwindow* window, int button, int action, int mods)
+{
+	_sInstance->GameMouseInput(button, action, mods);
+}
+
 void App::SetGameLoop(GameLoopFunc loop)
 {
 	GameLoop = loop;
@@ -163,6 +168,11 @@ void App::SetGameCursorFunc(GameCursorPosFunc cursor)
 	GameCursorFunc = cursor;
 }
 
+void App::SetGameMouseInputFunc(GameMouseInputFunc mouse)
+{
+	GameMouseInput = mouse;
+}
+
 void App::SetGLWindowHints()
 {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -177,6 +187,7 @@ void App::SetupGLFWCallbacks()
 {
 	glfwSetKeyCallback(m_pWindow, HandleInput);
 	glfwSetCursorPosCallback(m_pWindow, HandleCursorPos);
+	glfwSetMouseButtonCallback(m_pWindow, HandleMouseInput);
 
 	glfwSetFramebufferSizeCallback(m_pWindow, HandleWindowResize);
 }
@@ -219,4 +230,9 @@ void App::SetWindowHeight(int height)
 void App::SetWindowWidth(int width)
 {
 	m_WindowWidth = width;
+}
+
+void App::RequestExit()
+{
+	glfwSetWindowShouldClose(m_pWindow, GL_TRUE);
 }

@@ -20,10 +20,10 @@ void Ship::Init()
 {
 	std::vector<glm::vec2> vertices =
 	{
-		{   0.0f,  500.0f},
-		{ 300.0f, -500.0f},
-		{   0.0f, -300.0f},
-		{-300.0f, -500.0f},
+		{  0.0f,  50.0f},
+		{ 30.0f, -50.0f},
+		{  0.0f, -30.0f},
+		{-30.0f, -50.0f},
 	};
 
 	m_Mesh->Init(vertices, ColorList::WHITE, GL_LINE_LOOP);
@@ -31,5 +31,4 @@ void Ship::Init()
 
 void Ship::Update(double delta)
 {
-
 }

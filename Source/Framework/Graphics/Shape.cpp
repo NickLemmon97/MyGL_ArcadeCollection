@@ -72,3 +72,13 @@ void Shape::MakeRectangle(float width, float height, const glm::vec3& col, GLenu
 
 	Init(points, col, primitive);
 }
+
+void Shape::SetColor(const glm::vec3& col)
+{
+	m_Color = col;
+}
+
+void Shape::SetPrimitive(GLenum primitive)
+{
+	m_PrimitiveType = primitive;
+}

@@ -16,13 +16,6 @@
 
 #include "../ProjectConfig.h"
 
-
-typedef std::function<void(double)>                                       GameLoopFunc;
-typedef std::function<void(const class Renderer&)>                        GameDrawFunc;
-typedef std::function<void(int key, int scancode, int action, int mode)> GameInputFunc;
-typedef std::function<void(double x, double y)>                      GameCursorPosFunc;
-
-
 #include <Constants.h>
 #include <Debug/Debugging.h>
 #include <Debug/Logger.h>

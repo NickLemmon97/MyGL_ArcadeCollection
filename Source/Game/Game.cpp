@@ -1,5 +1,6 @@
 #include <GamePCH.h>
 #include "Trial/Ship.h"
+#include "Button.h"
 
 Game::Game()
 {
@@ -7,10 +8,20 @@ Game::Game()
 
 	m_GameObjects.push_back(std::make_shared<MyGameObject>());
 	m_GameObjects.push_back(std::make_shared<Ship>(this));
+
+	m_GameObjects.push_back(std::make_shared<Button>(this));
+	Button* button = static_cast<Button*>(m_GameObjects.at(m_GameObjects.size() - 1).get());
+	std::function<void()> ButtonCallback = std::bind(&Game::Exit, this);
+	button->SetOnClickCallback(ButtonCallback);
 }
 
 Game::~Game()
 {
+}
+
+void Game::Exit()
+{
+	App::Get().RequestExit();
 }
 
 void Game::Init()
@@ -69,9 +80,22 @@ void Game::HandleMousePosition(double x, double y)
 	}
 }
 
+void Game::HandleMouseInput(int button, int action, int mods)
+{
+	for (auto& func : m_MouseInputFuncs)
+	{
+		func(button, action, mods);
+	}
+}
+
 void Game::RegisterForInputCallback(GameCursorPosFunc func)
 {
 	m_CursorPosFuncs.push_back(func);
+}
+
+void Game::RegisterForInputCallback(GameMouseInputFunc func)
+{
+	m_MouseInputFuncs.push_back(func);
 }
 
 void Game::RegisterForInputCallback(GameInputFunc func)

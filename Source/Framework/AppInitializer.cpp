@@ -47,4 +47,7 @@ void AppInitializer::SetupFunctionCallbacks()
 
 	GameCursorPosFunc cursor = std::bind(&IGameClass::HandleMousePosition, Game_, std::placeholders::_1, std::placeholders::_2);
 	Application_->SetGameCursorFunc(cursor);
+
+	GameMouseInputFunc mouse = std::bind(&IGameClass::HandleMouseInput, Game_, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
+	Application_->SetGameMouseInputFunc(mouse);
 }

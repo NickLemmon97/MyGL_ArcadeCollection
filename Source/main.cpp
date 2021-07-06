@@ -3,7 +3,7 @@
 
 int main(int argc, char** argv)
 {
-#if defined DEBUG
+#if defined DEBUG && defined _WINDOWS
 #if CHECK_FOR_MEMORY_LEAKS
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF);
 	{
@@ -15,7 +15,7 @@ int main(int argc, char** argv)
 		AppInitializer theApp = { theGame.get() };
 
 
-#if defined DEBUG
+#if defined DEBUG && defined _WINDOWS
 #if CHECK_FOR_MEMORY_LEAKS
 	}
 	if (_CrtDumpMemoryLeaks())

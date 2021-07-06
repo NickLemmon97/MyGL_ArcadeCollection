@@ -18,6 +18,9 @@ public:
 	void MakeSqaure(float width, const glm::vec3& col, GLenum primitive = GL_LINE_LOOP);
 	void MakeRectangle(float width, float height, const glm::vec3& col, GLenum primitive = GL_LINE_LOOP);
 
+	void SetColor(const glm::vec3& col);
+	void SetPrimitive(GLenum primitive);
+
 protected:
 	glm::vec3 m_Color;
 
