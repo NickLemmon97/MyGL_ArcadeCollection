@@ -4,15 +4,9 @@
 
 void MyGameObject::Init()
 {
-	std::vector<glm::vec2> vertices =
-	{
-		{ 0.5f,  0.5f},
-		{ 0.5f, -0.5f},
-		{-0.5,  -0.5f},
-		{-0.5f,  0.5f},
-	};
-
-	m_Mesh->Init(vertices, ColorList::PURPLE);
+	m_Mesh->MakeSqaure(INITIAL_WINDOW_HEIGHT/2, ColorList::PURPLE);
+	m_Position.x = INITIAL_WINDOW_WIDTH  * 0.5;
+	m_Position.y = INITIAL_WINDOW_HEIGHT * 0.5;
 }
 
 void MyGameObject::Update(double delta)

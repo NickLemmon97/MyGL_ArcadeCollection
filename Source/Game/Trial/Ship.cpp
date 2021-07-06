@@ -9,20 +9,24 @@ Ship::Ship(Game* game)
 
 void Ship::HandleCursorPos(double x, double y)
 {
-	DEBUG_LOG_MESSAGE(LogShip, LogVerbosity::Log, "Handling cursor position");
+	float nx = x;
+	float ny = y;
+
+	m_Position.x = nx;
+	m_Position.y = ny;
 }
 
 void Ship::Init()
 {
 	std::vector<glm::vec2> vertices =
 	{
-		{ 0.0f,  0.5f},
-		{ 0.3f, -0.8f},
-		{ 0.0f, -0.3f},
-		{-0.3f,  -0.8f},
+		{   0.0f,  500.0f},
+		{ 300.0f, -500.0f},
+		{   0.0f, -300.0f},
+		{-300.0f, -500.0f},
 	};
 
-	m_Mesh->Init(vertices, ColorList::WHITE);
+	m_Mesh->Init(vertices, ColorList::WHITE, GL_LINE_LOOP);
 }
 
 void Ship::Update(double delta)

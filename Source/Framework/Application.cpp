@@ -60,6 +60,9 @@ bool App::Init()
 
 	m_pRenderer = new Renderer();
 	m_pRenderer->Init();
+	m_pRenderer->SetProjection(
+		float(INITIAL_WINDOW_WIDTH) ,
+		float(INITIAL_WINDOW_HEIGHT));
 
 	SetupGLFWCallbacks();
 
@@ -116,6 +119,8 @@ void App::HandleWindowResize(GLFWwindow* window, int width, int height)
 	_sInstance->SetWindowWidth( width );
 	_sInstance->SetWindowHeight(height);
 	glViewport(0, 0, width, height);
+
+	_sInstance->m_pRenderer->SetProjection(1.0f/float(width)/2.0f, 1.0f/float(height)/2.0f);
 }
 
 void App::HandleInput(GLFWwindow* window, int key, int scancode, int action, int mode)
@@ -135,7 +140,7 @@ void App::HandleInput(GLFWwindow* window, int key, int scancode, int action, int
 
 void App::HandleCursorPos(GLFWwindow* window, double x, double y)
 {
-	_sInstance->GameCursorFunc(x, y);
+	_sInstance->GameCursorFunc(x, _sInstance->GetWindowHeight() - y);
 }
 
 void App::SetGameLoop(GameLoopFunc loop)
@@ -164,6 +169,8 @@ void App::SetGLWindowHints()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+
+	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 }
 
 void App::SetupGLFWCallbacks()
@@ -189,7 +196,7 @@ double App::GetGLFWTime()
 	return m_glfwTime;
 }
 
-App& App::GetAppInstance()
+App& App::Get()
 {
 	return *_sInstance;
 }

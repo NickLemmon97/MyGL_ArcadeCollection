@@ -14,8 +14,8 @@ public:
 	void Init(std::vector<glm::vec2>& points, const glm::vec3& col);
 	void Init(std::vector<glm::vec2>& points, const glm::vec3& col, GLenum primitive);
 
-	void MakeCircle(float radius, glm::vec3& col, GLenum primitive = GL_LINE_LOOP);
-	void MakeSqaure(float width, glm::vec3& col, GLenum primitive = GL_LINE_LOOP);
+	void MakeCircle(float radius, const glm::vec3& col, GLenum primitive = GL_LINE_LOOP);
+	void MakeSqaure(float width, const glm::vec3& col, GLenum primitive = GL_LINE_LOOP);
 	void MakeRectangle(float width, float height, const glm::vec3& col, GLenum primitive = GL_LINE_LOOP);
 
 protected:

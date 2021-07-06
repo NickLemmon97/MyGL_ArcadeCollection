@@ -12,7 +12,11 @@ public:
 	void FrameworkAPI BeginDraw() const;
 		 
 	void FrameworkAPI Draw(const class Mesh&) const;
+
 	void FrameworkAPI Draw(const class Shape&) const;
+	void FrameworkAPI Draw(const class Shape&, const glm::vec2& pos) const;
+
+	void SetProjection(float w, float h);
 
 private:
 	std::unique_ptr<ShaderProgram> m_ShapeShader;

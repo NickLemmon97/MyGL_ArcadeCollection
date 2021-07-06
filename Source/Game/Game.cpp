@@ -90,7 +90,7 @@ void Game::ShowFPS(double delta)
 		std::ostringstream ostream;
 		ostream.precision(3);
 		ostream << std::fixed << APP_TITLE << "  " << "FPS: " << fps << "  " << "Frame Time: " << msPerFrame << "ms";
-		App::GetAppInstance().SetWindowTitle(ostream.str().c_str());
+		App::Get().SetWindowTitle(ostream.str().c_str());
 
 		fpsTime = 0.0f;
 		frameCount = 0;

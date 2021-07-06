@@ -12,4 +12,6 @@ public:
 
 protected:
 	std::shared_ptr<class Shape> m_Mesh;
+
+	glm::vec2 m_Position;
 };

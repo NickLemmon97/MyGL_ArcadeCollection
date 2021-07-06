@@ -4,9 +4,17 @@ layout (location = 0) in vec2 in_pos;
 
 uniform vec2 u_pos;
 
+uniform vec2 u_campos;
+uniform vec2 u_ProjectionScale;
+
 out vec3 col;
 
 void main()
 {
-	gl_Position = vec4(in_pos.x + u_pos.x, in_pos.y + u_pos.y, 0, 1);
+	vec2 pos = in_pos;
+	pos += u_pos;
+	pos += u_campos;
+	pos *= u_ProjectionScale;
+
+	gl_Position = vec4(pos, 0, 1);
 }

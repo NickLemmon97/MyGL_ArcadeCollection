@@ -11,4 +11,5 @@ public:
 protected:
 	void HandleCursorPos(double x, double y);
 
+	glm::vec2 m_Pos;
 };

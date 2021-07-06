@@ -15,10 +15,11 @@ public:
 
 	double FrameworkAPI GetGLFWTime();
 
-	static FrameworkAPI App& GetAppInstance();
+	static FrameworkAPI App& Get();
 
-	int GetWindowHeight();
-	int GetWindowWidth();
+	int FrameworkAPI GetWindowHeight();
+	int FrameworkAPI GetWindowWidth();
+
 	void SetWindowHeight(int height);
 	void SetWindowWidth(int width);
 

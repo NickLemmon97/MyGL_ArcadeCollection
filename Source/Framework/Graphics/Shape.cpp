@@ -49,19 +49,26 @@ void Shape::Init(std::vector<glm::vec2>& points, const glm::vec3& col, GLenum pr
 	glBindVertexArray(0);
 }
 
-void Shape::MakeCircle(float radius, glm::vec3& col, GLenum primitive)
+void Shape::MakeCircle(float radius,const glm::vec3& col, GLenum primitive)
 {
 
 	//Init(col, primitive);
 }
 
-void Shape::MakeSqaure(float width, glm::vec3& col, GLenum primitive)
+void Shape::MakeSqaure(float width,const glm::vec3& col, GLenum primitive)
 {
 	MakeRectangle(width, width, col, primitive);
 }
 
 void Shape::MakeRectangle(float width, float height, const glm::vec3& col, GLenum primitive)
 {
+	std::vector<glm::vec2> points =
+	{
+		{ width,  height},
+		{ width, -height},
+		{-width, -height},
+		{-width,  height}
+	};
 
-	//Init(col, primitive);
+	Init(points, col, primitive);
 }
