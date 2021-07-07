@@ -6,6 +6,8 @@ DLL_LibOutput =  ("/bin/" ..outputdir.. "/Libs")
 
 GameOutputDir = (WorkingDirectory.."/bin/" ..outputdir.. "/Game")
 
+UseLuaGame = true;
+
 --Name of the current game project
 GameName = "Game"
 
@@ -17,6 +19,7 @@ ShaderProjectName        = "2. Shaders"
 ApplicationProjectName   = "3. Player"
 FrameworkProjectName     = "4. Framework"
 GameProjectName          = ("5. "..GameName)
+LuaGameProjectName       = ("6. Lua"..GameName)
 
 
 files{
@@ -102,10 +105,16 @@ project (ApplicationProjectName)
     }
     
     includedirs {
-        "Source/Game",
         "Source/Framework",
         "Source/ThirdParty/include",
     }
+
+    if (UseLuaGame)
+    then
+        includedirs {"Source/LuaGame"}
+    else
+        includedirs {"Source/Game"}
+    end
 
     files {
         "Source/main.cpp",
@@ -217,7 +226,7 @@ project (GameProjectName)
 
   
 ------------------------------------------------ Game Project
-project "6. LuaGame"
+project (LuaGameProjectName)
     targetname  (GameName)
     location    (WorkingDirectory)
     kind        "SharedLib"
@@ -236,6 +245,7 @@ project "6. LuaGame"
     files {
         "Source/LuaGame/**.cpp",
         "Source/LuaGame/**.h",
+        "Source/Data/LuaScripts/**.lua",
     }
 
     targetdir (WorkingDirectory..DLL_LibOutput)
@@ -254,6 +264,7 @@ project "6. LuaGame"
     postbuildcommands{
       ("{COPY} bin/"..outputdir.."/Libs/"..GameName..".dll bin/" ..outputdir.. "/Game"),
        ("{COPY} %{prj.location}../Source/ThirdParty/lib/lua54.dll bin/" ..outputdir.. "/Game"),
+       ("{COPY} %{prj.location}../Source/Data/LuaScripts %{prj.location}bin/"..outputdir.."/Game/Data/LuaScripts"),
     }
 
     filter {}

@@ -5,7 +5,7 @@ class Game : public IGameClass
 {
 public:
 	GameAPI Game();
-	~Game();
+	GameAPI ~Game();
 
 	void Exit();
 
@@ -26,6 +26,8 @@ protected:
 	std::vector<GameInputFunc> m_InputFunctions;
 	std::vector<GameCursorPosFunc> m_CursorPosFuncs;
 	std::vector<GameMouseInputFunc> m_MouseInputFuncs;
+
+	lua_State* script;
 
 //Stats
 private:

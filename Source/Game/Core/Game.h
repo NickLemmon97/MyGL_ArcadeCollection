@@ -5,7 +5,7 @@ class Game : public IGameClass
 {
 public:
 	GameAPI Game();
-	~Game();
+	GameAPI ~Game();
 
 	void Exit();
 

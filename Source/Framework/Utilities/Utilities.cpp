@@ -36,6 +36,13 @@ std::string Utilities::LoadCompleteFileFromData(std::string& filename)
     return LoadCompleteFile(full_path);
 }
 
+std::string Utilities::LoadCompleteFileFromData(std::string&& filename)
+{
+    std::string full_path = "Data/";
+    full_path.append(filename);
+    return LoadCompleteFile(full_path);
+}
+
 std::string Utilities::LoadShaderFromData(std::string& filename)
 {
     std::string full_path = "Shaders/";
