@@ -5,8 +5,10 @@ A comfortable environtment for me to create what I want in the way I want to
 # Building
 Requires Premake5 (I have put it in my environment variables, you may need to download it)
 
+The premake file now has a UseLuaGame flag at the top. Since I have everything in 1 project this is currently how I will be differentiating between which version of the game to use.
+
 run PremakeGenerateBuildFiles.bat to generate a vs2019 project
 
 # Build Note
 The current state of the project assumes vs2019. 
-The supplied glfw and glew dll and libs are only compatible with vs2019, as that is how I am creating the project
+The supplied lua, glfw and glew dll and libs are only compatible with vs2019, as that is how I am creating the project
