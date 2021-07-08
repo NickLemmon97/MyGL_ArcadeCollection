@@ -25,6 +25,8 @@ public:
 
 	void FrameworkAPI RequestExit();
 
+	FrameworkAPI class Renderer& GetRenderer();
+
 protected:
 
 	bool Init();

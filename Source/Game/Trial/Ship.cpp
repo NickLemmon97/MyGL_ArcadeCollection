@@ -26,6 +26,8 @@ void Ship::Init()
 		{-30.0f, -50.0f},
 	};
 
+	m_Scale = {30, 50},
+
 	m_Mesh->Init(vertices, ColorList::WHITE, GL_LINE_LOOP);
 }
 

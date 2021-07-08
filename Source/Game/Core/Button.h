@@ -26,8 +26,6 @@ protected:
 
 	std::function<void()> OnClickCallback;
 
-	glm::vec2 m_Scale;
-
 	bool bIsMouseInBounds = false;
 	bool bHasBeenPressedBeforeRelease = false;
 };

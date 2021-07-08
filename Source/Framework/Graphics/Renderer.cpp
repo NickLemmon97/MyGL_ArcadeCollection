@@ -2,12 +2,7 @@
 
 void Renderer::Init()
 {
-	//Initialize the clear color just once here
-	glClearColor(
-		ColorList::CYAN.r, 
-		ColorList::CYAN.g, 
-		ColorList::CYAN.b, 
-		1.0f);
+	SetBackgroundColor(ColorList::CYAN);
 
 	m_ShapeShader = std::make_unique<ShaderProgram>();
 	if (m_ShapeShader->LoadShader("shape") == false)
@@ -70,6 +65,15 @@ void FrameworkAPI Renderer::Draw(const Shape& shape, const glm::vec2& pos) const
 	glDrawArrays(shape.m_PrimitiveType, 0, shape.m_NumVerts);
 
 	glBindVertexArray(0);
+}
+
+void FrameworkAPI Renderer::SetBackgroundColor(glm::vec3 color)
+{
+	glClearColor(
+		color.r,
+		color.g,
+		color.b,
+		1.0f);
 }
 
 void Renderer::SetProjection(float w, float h)

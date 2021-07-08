@@ -22,6 +22,8 @@ void Game::Exit()
 
 void Game::Init()
 {
+	App::Get().GetRenderer().SetBackgroundColor(ColorList::BLACK);
+
 	for (auto& go : m_GameObjects)
 	{
 		go->Init();
@@ -37,6 +39,15 @@ void Game::Update(double delta)
 	for (auto& go : m_GameObjects)
 	{
 		go->Update(delta);
+	}
+
+	if (m_GameObjects[1]->IsOverlappingWithOther(m_GameObjects[2]->GetPosition(), m_GameObjects[2]->GetScale()))
+	{
+		m_GameObjects[1]->HandleBeginOverlap();
+	}
+	else
+	{
+		m_GameObjects[1]->HandleEndOverlap();
 	}
 }
 

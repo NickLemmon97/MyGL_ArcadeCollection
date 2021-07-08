@@ -16,6 +16,8 @@ public:
 	void FrameworkAPI Draw(const class Shape&) const;
 	void FrameworkAPI Draw(const class Shape&, const glm::vec2& pos) const;
 
+	void FrameworkAPI SetBackgroundColor(glm::vec3 color);
+
 	void SetProjection(float w, float h);
 
 private:

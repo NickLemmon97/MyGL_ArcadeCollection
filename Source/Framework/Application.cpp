@@ -236,3 +236,8 @@ void App::RequestExit()
 {
 	glfwSetWindowShouldClose(m_pWindow, GL_TRUE);
 }
+
+Renderer& App::GetRenderer()
+{
+	return *m_pRenderer;
+}
