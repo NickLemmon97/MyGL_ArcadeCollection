@@ -217,7 +217,7 @@ project (GameProjectName)
     }
 
     postbuildcommands{
-      ("{COPY} bin/"..outputdir.."/Libs/"..GameName..".dll bin/" ..outputdir.. "/Game"),
+      ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll bin/" ..outputdir.. "/Game"),
     }
 
     filter {}
@@ -260,7 +260,7 @@ project (LuaGameProjectName)
     }
 
     postbuildcommands{
-      ("{COPY} bin/"..outputdir.."/Libs/"..GameName..".dll bin/" ..outputdir.. "/Game"),
+      ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll bin/" ..outputdir.. "/Game"),
        ("{COPY} %{prj.location}../Source/ThirdParty/lib/lua54.dll bin/" ..outputdir.. "/Game"),
        ("{COPY} %{prj.location}../Source/Data/LuaScripts %{prj.location}bin/"..outputdir.."/Game/Data/LuaScripts"),
     }
@@ -302,7 +302,7 @@ project (FrameworkProjectName)
     }
 
     postbuildcommands{
-      ("{COPY} bin/"..outputdir.."/Libs/Framework.dll bin/"..outputdir.."/Game"),
+      ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/Framework.dll bin/"..outputdir.."/Game"),
     }
 
     filter {}
@@ -329,6 +329,9 @@ project (ShaderProjectName)
 --        "**.*"
 --    }
 
+GenThirdPartyWorkspace = false
+
+if (GenThirdPartyWorkspace ) then
 
 -------------------------ThirdParty workspace to view ThirdParty code
 workspace "ThirdParty"
@@ -357,3 +360,5 @@ project "ThirdParty"
         "Source/ThirdParty/**.h",
         "Source/ThirdParty/**.cpp",
     }
+
+end
