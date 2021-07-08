@@ -1,5 +1,6 @@
 
-color = {1.0,0.5,0.0}
+color = {0.0,1.0,0.0}
+pos   = {50, 50}
 
 function init()
 	print("[LUA] Game Object Init Test")

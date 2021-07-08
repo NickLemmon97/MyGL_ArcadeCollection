@@ -26,7 +26,30 @@ void GameObject::Init()
 
 	if (lua_istable(L, -1))
 	{
+		lua_rawgeti(L, -1, 1);
+		Color.r = lua_tonumber(L, -1);
+		lua_pop(L, -1);
 
+		lua_rawgeti(L, -1, 2);
+		Color.g = lua_tonumber(L, -1);
+		lua_pop(L, -1);
+
+		lua_rawgeti(L, -1, 3);
+		Color.b = lua_tonumber(L, -1);
+		lua_pop(L, -1);
+	}
+
+	lua_getglobal(L, "pos");
+
+	if (lua_istable(L, -1))
+	{
+		lua_rawgeti(L, -1, 1);
+		m_Position.x = lua_tonumber(L, -1);
+		lua_pop(L, -1);
+
+		lua_rawgeti(L, -1, 2);
+		m_Position.y = lua_tonumber(L, -1);
+		lua_pop(L, -1);
 	}
 
 	lua_getglobal(L, "init");

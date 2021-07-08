@@ -20,14 +20,14 @@ public:
 	void RegisterForInputCallback(GameCursorPosFunc func);
 	void RegisterForInputCallback(GameMouseInputFunc func);
 
+	class GameObject* AddGameObject();
+
 protected:
 	std::vector<std::shared_ptr<class GameObject>> m_GameObjects;
 
 	std::vector<GameInputFunc> m_InputFunctions;
 	std::vector<GameCursorPosFunc> m_CursorPosFuncs;
 	std::vector<GameMouseInputFunc> m_MouseInputFuncs;
-
-	lua_State* script;
 
 //Stats
 private:
