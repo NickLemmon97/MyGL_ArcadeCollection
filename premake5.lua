@@ -6,7 +6,7 @@ DLL_LibOutput =  ("/bin/" ..outputdir.. "/Libs")
 
 GameOutputDir = (WorkingDirectory.."/bin/" ..outputdir.. "/Game")
 
-UseLuaGame = true;
+UseLuaGame = false;
 
 --Name of the current game project
 GameName = "Game"
@@ -21,6 +21,8 @@ FrameworkProjectName     = "4. Framework"
 GameProjectName          = ("5. "..GameName)
 LuaGameProjectName       = ("6. Lua"..GameName)
 
+--A global to show where the third party libraries are for your system
+ThirdPartyLibFolder = "";
 
 files{
     "Source/ProjectConfig.h",
@@ -29,6 +31,7 @@ files{
 filter "system:windows"
         cppdialect "C++17"
         systemversion "latest"
+        ThirdPartyLibFolder = "Source/ThirdParty/lib"
 
 filter "configurations:Debug"
        defines { "DEBUG", "_DEBUG", "EXECUTE_WITH_CONSOLE_VISIBLE"}
@@ -109,11 +112,8 @@ project (ApplicationProjectName)
         "Source/ThirdParty/include",
     }
 
-    if (UseLuaGame)
-    then
-        includedirs {"Source/LuaGame"}
-    else
-        includedirs {"Source/Game"}
+    if (UseLuaGame) then includedirs {"Source/LuaGame"}
+    else includedirs {"Source/Game"}
     end
 
     files {
@@ -124,7 +124,6 @@ project (ApplicationProjectName)
     objdir  (WorkingDirectory.."/bin-obj/")
 
     libdirs{
-        "Source/ThirdParty/lib",
         (WorkingDirectory..DLL_LibOutput),
     }
 
@@ -135,8 +134,8 @@ project (ApplicationProjectName)
 
     postbuildcommands{
         ("{COPY} %{prj.location}../Source/Data %{prj.location}bin/"..outputdir.."/Game/Data"),
-        ("{COPY} %{prj.location}../Source/ThirdParty/lib/glew32.dll %{cfg.targetdir}/"),
-        ("{COPY} %{prj.location}../Source/ThirdParty/lib/glfw3.dll %{cfg.targetdir}/"),
+        ("{COPY} %{prj.location}../"..(ThirdPartyLibFolder).."/glew32.dll %{cfg.targetdir}/"),
+        ("{COPY} %{prj.location}../"..(ThirdPartyLibFolder).."/glfw3.dll %{cfg.targetdir}/"),
     }
 
     filter "configurations:Debug"
@@ -210,7 +209,6 @@ project (GameProjectName)
     objdir  (WorkingDirectory.."/bin-obj/")
 
     libdirs{
-        "Source/ThirdParty/lib",
         (WorkingDirectory..DLL_LibOutput),
     }
 
@@ -225,7 +223,7 @@ project (GameProjectName)
     filter {}
 
   
------------------------------------------------- Game Project
+------------------------------------------------ Lua Game Project
 project (LuaGameProjectName)
     targetname  (GameName)
     location    (WorkingDirectory)
@@ -252,7 +250,7 @@ project (LuaGameProjectName)
     objdir  (WorkingDirectory.."/bin-obj/")
 
     libdirs{
-        "Source/ThirdParty/lib",
+        (ThirdPartyLibFolder),
         (WorkingDirectory..DLL_LibOutput),
     }
 
@@ -294,7 +292,7 @@ project (FrameworkProjectName)
     objdir  (WorkingDirectory.."/bin-obj/")
 
     libdirs{
-        "Source/ThirdParty/lib",
+        (ThirdPartyLibFolder),
     }
 
     links {
