@@ -1,9 +1,11 @@
 #include <FrameworkPCH.h>
 #include <GamePCH.h>
 
+#define TEMP_DONT_USE
+
 int main(int argc, char** argv)
 {
-#if defined DEBUG && defined _WINDOWS
+#if defined DEBUG && defined _WINDOWS && !defined TEMP_DONT_USE
 #if CHECK_FOR_MEMORY_LEAKS
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF);
 	{
@@ -15,7 +17,7 @@ int main(int argc, char** argv)
 		AppInitializer theApp = { theGame.get() };
 
 
-#if defined DEBUG && defined _WINDOWS
+#if defined DEBUG && defined _WINDOWS && !defined TEMP_DONT_USE
 #if CHECK_FOR_MEMORY_LEAKS
 	}
 	if (_CrtDumpMemoryLeaks())

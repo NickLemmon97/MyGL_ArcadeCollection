@@ -2,17 +2,11 @@
 #include "Debugging.h"
 
 //Debug logging
-#if !_HAS_CXX20
-constexpr char* RED_CONSOLE_TEXT = "\33[31m";
-constexpr char* WHITE_CONSOLE_TEXT = "\33[97m";
-constexpr char* YELLOW_CONSOLE_TEXT = "\33[33m";
-constexpr char* GREEN_CONSOLE_TEXT = "\33[32m";
-#else
 static const char* RED_CONSOLE_TEXT = "\33[31m";
 static const char* WHITE_CONSOLE_TEXT = "\33[97m";
 static const char* YELLOW_CONSOLE_TEXT = "\33[33m";
 static const char* GREEN_CONSOLE_TEXT = "\33[32m";
-#endif
+
 
 enum class LogVerbosity
 {

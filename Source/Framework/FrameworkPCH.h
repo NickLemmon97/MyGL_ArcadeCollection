@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __FRAMEWORK_PCH__
+#define __FRAMEWORK_PCH__
 
 #ifdef _WINDOWS 
 #include <Windows.h>
@@ -32,3 +33,6 @@
 #include <Graphics/Mesh.h>
 #include <Graphics/Renderer.h>
 #include <Graphics/Shape.h>
+
+
+#endif //__FRAMEWORK_PCH__

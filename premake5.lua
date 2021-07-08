@@ -1,4 +1,5 @@
------------------------------------------------- Global
+------------------------------------------------ Globals
+-- Directoory names
 WorkingDirectory = "build"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
@@ -6,6 +7,7 @@ DLL_LibOutput =  ("/bin/" ..outputdir.. "/Libs")
 
 GameOutputDir = (WorkingDirectory.."/bin/" ..outputdir.. "/Game")
 
+--project flags
 UseLuaGame = false;
 
 --Name of the current game project
@@ -13,20 +15,31 @@ GameName = "Game"
 
 --Project names as a variable
 WorkspaceName            = "OpenGLFramework"
-
+if _ACTION == "gmake2" then
+ProjectConfigProjectName = "proj"
+ShaderProjectName        = "shade"
+ApplicationProjectName   = "Player"
+FrameworkProjectName     = "Framework"
+GameProjectName          = (GameName)
+else --Order them for a nicer finding of projects while in VS ~
 ProjectConfigProjectName = "1. Project Config"
 ShaderProjectName        = "2. Shaders"
 ApplicationProjectName   = "3. Player"
 FrameworkProjectName     = "4. Framework"
 GameProjectName          = ("5. "..GameName)
-LuaGameProjectName       = ("6. Lua"..GameName)
+end
 
 --A global to show where the third party libraries are for your system
 ThirdPartyLibFolder = "";
 
+--All configuration settings
 files{
     "Source/ProjectConfig.h",
 }
+
+if _ACTION == "gmake2" then 
+    defines {"TEMP_DONT_USE"}
+end
 
 filter "system:windows"
         cppdialect "C++17"
@@ -70,7 +83,7 @@ workspace (WorkspaceName)
             "_WINDOWS",
         }
 
-
+if _ACTION ~= "gmake2" then
 ---------------------------------------------------- Project Configuration files
 project (ProjectConfigProjectName)
     location (WorkingDirectory)
@@ -93,6 +106,7 @@ project (ProjectConfigProjectName)
             "PremakeGenerateBuildFiles.bat",
         }
 
+end
 
 ------------------------------------------------ Main Executable Project
 project (ApplicationProjectName)
@@ -102,10 +116,12 @@ project (ApplicationProjectName)
     kind        "ConsoleApp"
     language    "C++"
 
+    if _ACTION == gmake2 then
     dependson{
-       --(FrameworkProjectName),
-       --(GameProjectName),
+       (FrameworkProjectName),
+       (GameProjectName),
     }
+    end
     
     includedirs {
         "Source/Framework",
@@ -131,7 +147,8 @@ project (ApplicationProjectName)
         "Framework",
         (GameName),
     }
-
+--TODO FIND SEARCH
+if _ACTION ~= "gmake2" then
     postbuildcommands{
         ("{COPY} %{prj.location}../Source/Data %{prj.location}bin/"..outputdir.."/Game/Data"),
         ("{COPY} %{prj.location}../"..(ThirdPartyLibFolder).."/glew32.dll %{cfg.targetdir}/"),
@@ -142,6 +159,7 @@ project (ApplicationProjectName)
         postbuildcommands{
           ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/ %{cfg.targetdir}/"),
         }
+end
 
     filter "configurations:Development"
         postbuildcommands{
@@ -178,7 +196,7 @@ project (ApplicationProjectName)
     filter {}
 
 
-
+if UseLuaGame == false then
 ------------------------------------------------ Game Project
 project (GameProjectName)
     targetname  (GameName)
@@ -215,16 +233,16 @@ project (GameProjectName)
     links {
         "Framework",
     }
-
+if _ACTION ~= "gmake2" then
     postbuildcommands{
       ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll bin/" ..outputdir.. "/Game"),
     }
-
+end
     filter {}
 
-  
+else
 ------------------------------------------------ Lua Game Project
-project (LuaGameProjectName)
+project (GameProjectName.."Lua")
     targetname  (GameName)
     location    (WorkingDirectory)
     kind        "SharedLib"
@@ -267,6 +285,7 @@ project (LuaGameProjectName)
 
     filter {}
 
+end
 
 ------------------------------------------------ Framework Project
 project (FrameworkProjectName)
@@ -300,14 +319,15 @@ project (FrameworkProjectName)
         "glew32",
         "glfw3dll",
     }
-
+if _ACTION ~= "gmake2" then
     postbuildcommands{
       ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/Framework.dll bin/"..outputdir.."/Game"),
     }
-
+end
     filter {}
 
 
+if _ACTION ~= "gmake2" then
 ------------------------------------------------------- Shaders project
 project (ShaderProjectName)
     location (WorkingDirectory)
@@ -320,7 +340,7 @@ project (ShaderProjectName)
         "Source/Data/Shaders/**.vert",
         "Source/Data/Shaders/**.frag",
     }
-
+end
 
 ------------------------ Debug purpose all files project to view all files from withing VS
 --project "ALL_FILES"
