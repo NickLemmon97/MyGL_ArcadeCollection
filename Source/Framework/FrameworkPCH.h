@@ -30,7 +30,6 @@
 #include <AppInitializer.h>
 
 #include <Graphics/ShaderProgram.h>
-#include <Graphics/Mesh.h>
 #include <Graphics/Renderer.h>
 #include <Graphics/Shape.h>
 

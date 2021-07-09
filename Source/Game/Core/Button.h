@@ -17,6 +17,7 @@ public:
 
 	void SetHovered();
 	void SetUnHovered();
+	void SetPressed();
 
 	void SetOnClickCallback(std::function<void()> pressed);
 

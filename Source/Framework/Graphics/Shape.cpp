@@ -38,7 +38,7 @@ void Shape::Init(std::vector<glm::vec2>& points, const glm::vec3& col, GLenum pr
 	glGenBuffers(1, &m_Vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, m_Vbo);
 	glBufferData(GL_ARRAY_BUFFER,
-		sizeof(VertexFormat) * m_NumVerts,
+		sizeof(glm::vec2) * m_NumVerts,
 		points.data(),
 		GL_STATIC_DRAW);
 

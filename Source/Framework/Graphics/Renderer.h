@@ -10,10 +10,7 @@ public:
 	void FrameworkAPI UseShader(std::string&& shaderName);
 
 	void FrameworkAPI BeginDraw() const;
-		 
-	void FrameworkAPI Draw(const class Mesh&) const;
 
-	void FrameworkAPI Draw(const class Shape&) const;
 	void FrameworkAPI Draw(const class Shape&, const glm::vec2& pos) const;
 
 	void FrameworkAPI SetBackgroundColor(glm::vec3 color);

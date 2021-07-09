@@ -19,11 +19,12 @@ Button::Button(Game* game, glm::vec2 scale, glm::vec2 position)
 
 void Button::HandleMouseCursor(double x, double y)
 {
-	bIsMouseInBounds = CheckMouseInBounds(x, y);
+	bIsMouseInBounds = IsOverlappingWithOther({ x, y }, { 0,0 });
 
 	if (bIsMouseInBounds)
 	{
-		SetHovered();
+		if(!bHasBeenPressedBeforeRelease)
+			SetHovered();
 	}
 	else
 	{
@@ -39,6 +40,7 @@ void Button::HandleMouseButton(int button, int action, int mods)
 		if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
 		{
 			bHasBeenPressedBeforeRelease = true;
+			SetPressed();
 		}
 		if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE && bHasBeenPressedBeforeRelease)
 		{
@@ -56,10 +58,6 @@ void Button::HandleClicked()
 		DEBUG_LOG_MESSAGE(LogButton, LogVerbosity::Success, "Button Clicked!");
 		OnClickCallback();
 	}
-	else
-	{
-		DEBUG_LOG_MESSAGE(LogButton, LogVerbosity::Error, "Button Clicked with no callback set");
-	}
 }
 
 void Button::Init()
@@ -75,6 +73,12 @@ void Button::SetHovered()
 void Button::SetUnHovered()
 {
 	m_Mesh->SetPrimitive(GL_TRIANGLE_FAN);
+	m_Mesh->SetColor(ColorList::RED);
+}
+
+void Button::SetPressed()
+{
+	m_Mesh->SetColor(ColorList::GREEN);
 }
 
 void Button::SetOnClickCallback(std::function<void()> pressed)

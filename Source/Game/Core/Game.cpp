@@ -2,6 +2,13 @@
 #include "Trial/Ship.h"
 #include "Button.h"
 
+#include "DeathRace/Car.h"
+//#include "DeathRace/Person.h"
+
+
+//int CarIdx;
+//int ShipIdx;
+
 Game::Game()
 {
 	frameCount = 0;
@@ -9,6 +16,7 @@ Game::Game()
 	m_GameObjects.push_back(std::make_shared<MyGameObject>());
 	m_GameObjects.push_back(std::make_shared<Ship>(this));
 	m_GameObjects.push_back(std::make_shared<ExitButton>(this));
+	m_GameObjects.push_back(std::make_shared<Car>(this));
 }
 
 Game::~Game()
@@ -22,7 +30,7 @@ void Game::Exit()
 
 void Game::Init()
 {
-	App::Get().GetRenderer().SetBackgroundColor(ColorList::BLACK);
+	App::Get().GetRenderer().SetBackgroundColor(ColorList::DARKGRAY);
 
 	for (auto& go : m_GameObjects)
 	{
@@ -41,6 +49,7 @@ void Game::Update(double delta)
 		go->Update(delta);
 	}
 
+
 	if (m_GameObjects[1]->IsOverlappingWithOther(m_GameObjects[2]->GetPosition(), m_GameObjects[2]->GetScale()))
 	{
 		m_GameObjects[1]->HandleBeginOverlap();
@@ -49,6 +58,16 @@ void Game::Update(double delta)
 	{
 		m_GameObjects[1]->HandleEndOverlap();
 	}
+
+	if (m_GameObjects[3]->IsOverlappingWithOther(m_GameObjects[1]->GetPosition(), m_GameObjects[1]->GetScale()))
+	{
+		m_GameObjects[3]->HandleBeginOverlap();
+	}
+	else
+	{
+		m_GameObjects[3]->HandleEndOverlap();
+	}
+
 }
 
 void Game::Draw(const Renderer& renderer)
