@@ -25,7 +25,7 @@ namespace Logger
 
 #if defined EXECUTE_WITH_CONSOLE_VISIBLE
 #define LOG_MESSAGE(type, verbosity, message) Logger::LogMessage(#type, verbosity, message);
-#define quick_log(verb, message) Logger::LogMessage("QuickLog", LogVerbosity::verb, message)
+#define quick_log(verb, message) Logger::LogMessage("QuickLog", LogVerbosity::verb, message);
 #else
 #define LOG_MESSAGE(type, verbosity, message);
 #define quick_log(verb, message)

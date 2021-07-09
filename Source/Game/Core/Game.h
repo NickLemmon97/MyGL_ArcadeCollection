@@ -33,4 +33,5 @@ private:
 
 	double fpsTime = 0.0;
 	int frameCount = 0;
+
 };

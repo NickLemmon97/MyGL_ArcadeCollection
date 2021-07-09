@@ -1,7 +1,13 @@
+//#include <AppInitializer.h>
+//#include <Core/Game.h>
 #include <FrameworkPCH.h>
 #include <GamePCH.h>
 
-#define TEMP_DONT_USE
+#include <iostream>
+
+using namespace std;
+
+int AcknowledgeUserInput();
 
 int main(int argc, char** argv)
 {
@@ -12,9 +18,23 @@ int main(int argc, char** argv)
 #endif
 #endif
 
+		cout << "Welcome to a collection of games!" << endl;
 
-		std::shared_ptr<Game> theGame = std::make_shared<Game>();
-		AppInitializer theApp = { theGame.get() };
+		while (int input = AcknowledgeUserInput() != 0)
+		{
+			system("cls");
+
+			switch (input)
+			{
+			case 0:
+				break;
+			default:
+				std::shared_ptr<Game> theGame = std::make_shared<Game>();
+				AppInitializer theApp = { theGame.get() };
+			}
+
+			system("cls");
+		}
 
 
 #if defined DEBUG && defined _WINDOWS && !defined TEMP_DONT_USE
@@ -41,3 +61,27 @@ int main(int argc, char** argv)
 	return 0;
 }
 
+int AcknowledgeUserInput()
+{
+	int num;
+
+	cout << "Please select a game by inputing the number:\n"
+		<< "1. Default\n"
+		<< "0. Exit"
+		<< endl;
+
+	cin >> num;
+	while (true)
+	{
+		if (cin.fail())
+		{
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cin >> num;
+		}
+
+		if (!cin.fail()) break;
+	}
+
+	return num;
+}

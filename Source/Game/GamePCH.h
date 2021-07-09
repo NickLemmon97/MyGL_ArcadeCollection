@@ -1,10 +1,11 @@
-#ifndef __GAME_PCH
-#define __GAME_PCH
+#ifndef __GAME_PCH__
+#define __GAME_PCH__
 
 #include "../ProjectConfig.h"
 #include <FrameworkPCH.h>
 
 #include <sstream>
+#include <string>
 
 #include <Core/Game.h>
 #include <Core/GameObject.h>
