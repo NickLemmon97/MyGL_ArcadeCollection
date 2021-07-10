@@ -23,6 +23,7 @@ protected:
 
 	glm::vec2 m_Position;
 	glm::vec2 m_Scale;
+	float m_Rotation;
 
 	std::shared_ptr<class Shape> m_DebugCollider;
 };

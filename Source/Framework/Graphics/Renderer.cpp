@@ -27,7 +27,7 @@ void Renderer::BeginDraw() const
 	m_ShapeShader->Use();
 }
 
-void Renderer::Draw(const Shape& shape, const glm::vec2& pos) const
+void Renderer::Draw(const Shape& shape, const glm::vec2& pos, float rotation) const
 {
 	glBindBuffer(GL_ARRAY_BUFFER, shape.m_Vbo);
 	glBindVertexArray(shape.m_Vao);
@@ -38,6 +38,7 @@ void Renderer::Draw(const Shape& shape, const glm::vec2& pos) const
 
 	m_ShapeShader->SetUniform("u_Col", shape.m_Color);
 	m_ShapeShader->SetUniform("u_pos", pos);
+	m_ShapeShader->SetUniform("u_rotation", rotation);
 
 	glDrawArrays(shape.m_PrimitiveType, 0, shape.m_NumVerts);
 
@@ -56,6 +57,6 @@ void Renderer::SetBackgroundColor(glm::vec3 color)
 void Renderer::SetProjection(float w, float h)
 {
 	m_ShapeShader->Use();
-	m_ShapeShader->SetUniform("u_campos", glm::vec2(-w/2, -h/2));
-	m_ShapeShader->SetUniform("u_ProjectionScale", glm::vec2{ 1/(w/2), 1/(h/2) });
+	m_ShapeShader->SetUniform("u_campos", glm::vec2(-w, -h));
+	m_ShapeShader->SetUniform("u_ProjectionScale", glm::vec2{ 1/w, 1/h });
 }

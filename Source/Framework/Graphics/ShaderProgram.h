@@ -24,6 +24,7 @@ public:
 
 	void FrameworkAPI Use();
 
+	void SetUniform(const GLchar* name, const float f);
 	void SetUniform(const GLchar* name, const glm::vec2& v);
 	void SetUniform(const GLchar* name, const glm::vec3& v);
 	void SetUniform(const GLchar* name, const glm::vec4& v);

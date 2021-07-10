@@ -145,6 +145,12 @@ void ShaderProgram::Use()
         glUseProgram(m_Program);
 }
 
+void ShaderProgram::SetUniform(const GLchar* name, const float f)
+{
+    GLint loc = GetUniformLocation(name);
+    glUniform1f(loc, f);
+}
+
 void ShaderProgram::SetUniform(const GLchar* name, const glm::vec2& v)
 {
     GLint loc = GetUniformLocation(name);

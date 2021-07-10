@@ -6,6 +6,7 @@ GameObject::GameObject()
 	m_Mesh = std::make_shared<Shape>();
 	m_Position = { 0.0f,0.0f };
 	m_Scale = { 0.0f,0.0f };
+	m_Rotation = 0.0f;
 
 #ifdef DEBUG
 	m_DebugCollider = std::make_shared<Shape>();
@@ -29,9 +30,9 @@ void GameObject::Update(double delta)
 
 void GameObject::Draw(const Renderer& renderer)
 {
-	renderer.Draw(*m_Mesh.get(), m_Position);
+	renderer.Draw(*m_Mesh.get(), m_Position, m_Rotation);
 #ifdef DEBUG
-	renderer.Draw(*m_DebugCollider.get(), m_Position);
+	renderer.Draw(*m_DebugCollider.get(), m_Position, m_Rotation);
 #endif
 }
 

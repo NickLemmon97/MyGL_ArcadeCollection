@@ -7,11 +7,11 @@ uniform vec2 u_pos;
 uniform vec2 u_campos;
 uniform vec2 u_ProjectionScale;
 
-out vec3 col;
+uniform float u_rotation;
 
 void main()
 {
-	vec2 pos = in_pos;
+	vec2 pos = u_pos + vec2(in_pos.x * cos(u_rotation) - in_pos.y * sin(u_rotation), in_pos.x*sin(u_rotation) + in_pos.y * cos(u_rotation));
 	pos += u_pos;
 	pos += u_campos;
 	pos *= u_ProjectionScale;

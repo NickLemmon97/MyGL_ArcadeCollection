@@ -79,19 +79,21 @@ void Car::Init()
 		{width, -farh},
 	};
 
+	float sizeModifier = 12;
+
 	//Modifiers to avoid rewriting the above code in anyway
 	for (auto& v : points)
 	{
 		v.y += 1;
-		v *= 4;
+		v *= sizeModifier;
 	}
 
 	m_Mesh->Init(points, ColorList::WHITE, GL_LINE_LOOP);
 
-	m_Scale = { 20,24 };
+	m_Scale = { width * sizeModifier, farh * sizeModifier };
 
 	m_Position = {
-		App::Get().GetWindowWidth() * 0.5,
+		App::Get().GetWindowWidth()  * 0.5,
 		App::Get().GetWindowHeight() * 0.5
 	};
 
@@ -133,57 +135,56 @@ void Car::Update(double delta)
 
 void Car::HandleKeyboardInput(int key, int scancode, int action, int mode)
 {
-	switch (key)
+	if (action == GLFW_PRESS)
 	{
+		DEBUG_LOG_MESSAGE(LogCar, LogVerbosity::Log, "Key Down");
+		bIsMoving++;
 
-	case GLFW_KEY_LEFT:
-		[[fallthrough]];
-	case GLFW_KEY_A:
-		SetDirection(LEFT);
-		break;
+		switch (key)
+		{
+		case GLFW_KEY_LEFT:
+			[[fallthrough]];
+		case GLFW_KEY_A:
+			SetDirection(LEFT);
+			break;
 
-	case GLFW_KEY_RIGHT:
-		[[fallthrough]];
-	case GLFW_KEY_D:
-		SetDirection(RIGHT);
-		break;
+		case GLFW_KEY_RIGHT:
+			[[fallthrough]];
+		case GLFW_KEY_D:
+			SetDirection(RIGHT);
+			break;
 
-	case GLFW_KEY_UP:
-		[[fallthrough]];
-	case GLFW_KEY_W:
-		SetDirection(UP);
-		break;
+		case GLFW_KEY_UP:
+			[[fallthrough]];
+		case GLFW_KEY_W:
+			SetDirection(UP);
+			break;
 
-	case GLFW_KEY_DOWN:
-		[[fallthrough]];
-	case GLFW_KEY_S:
-		SetDirection(DOWN);
-		break;
+		case GLFW_KEY_DOWN:
+			[[fallthrough]];
+		case GLFW_KEY_S:
+			SetDirection(DOWN);
+			break;
+		}
 	}
 
-	switch (key)
+	if (action == GLFW_RELEASE)
 	{
-	case GLFW_KEY_LEFT: [[fallthrough]];
-	case GLFW_KEY_A:	[[fallthrough]];
-	case GLFW_KEY_RIGHT:[[fallthrough]];
-	case GLFW_KEY_D:	[[fallthrough]];
-	case GLFW_KEY_UP:   [[fallthrough]];
-	case GLFW_KEY_W:    [[fallthrough]];
-	case GLFW_KEY_DOWN: [[fallthrough]];
-	case GLFW_KEY_S:
-
-		if (action == GLFW_PRESS)
+		switch (key)
 		{
-			DEBUG_LOG_MESSAGE(LogCar, LogVerbosity::Log, "Key Down");
-			bIsMoving++;
+		case GLFW_KEY_LEFT: [[fallthrough]];
+		case GLFW_KEY_A:	[[fallthrough]];
+		case GLFW_KEY_RIGHT:[[fallthrough]];
+		case GLFW_KEY_D:	[[fallthrough]];
+		case GLFW_KEY_UP:   [[fallthrough]];
+		case GLFW_KEY_W:    [[fallthrough]];
+		case GLFW_KEY_DOWN: [[fallthrough]];
+		case GLFW_KEY_S:
+		
+		DEBUG_LOG_MESSAGE(LogCar, LogVerbosity::Log, "Key Up");
+		bIsMoving--;
+		if (bIsMoving < 0) bIsMoving = 0;
 		}
-		if (action == GLFW_RELEASE)
-		{
-			DEBUG_LOG_MESSAGE(LogCar, LogVerbosity::Log, "Key Up");
-			bIsMoving--;
-			if (bIsMoving < 0) bIsMoving = 0;
-		}
-		break;
 	}
 }
 
@@ -194,9 +195,16 @@ void Car::SetDirection(Direction d)
 	switch (d)
 	{
 	case UP: 
+		m_Rotation = 3.14f;
+		break;
 	case DOWN:
+		m_Rotation = 0.0f;
+		break;
 	case LEFT:
+		m_Rotation = 4.71f;
+		break;
 	case RIGHT:
+		m_Rotation = 1.57f;
 		break;
 	}
 }

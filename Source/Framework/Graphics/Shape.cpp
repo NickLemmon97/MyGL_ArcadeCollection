@@ -53,8 +53,6 @@ void Shape::Init(std::vector<glm::vec2>& points, const glm::vec3& col, GLenum pr
 
 void Shape::MakeCircle(float radius,const glm::vec3& col, GLenum primitive)
 {
-
-	//Init(col, primitive);
 }
 
 void Shape::MakeSqaure(float width,const glm::vec3& col, GLenum primitive)

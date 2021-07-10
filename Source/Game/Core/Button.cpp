@@ -130,5 +130,5 @@ void ExitButton::Draw(const Renderer& renderer)
 {
 	GameObject::Draw(renderer);
 
-	renderer.Draw(*m_X.get(), m_Position);
+	renderer.Draw(*m_X.get(), m_Position, m_Rotation);
 }

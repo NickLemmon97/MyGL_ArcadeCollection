@@ -22,7 +22,7 @@ bool App::Init()
 {
 	if (!glfwInit())
 	{
-		std::cerr << RED_CONSOLE_TEXT << "Failed to initialize glfw" << std::endl;
+		DEBUG_LOG_MESSAGE(LogApplication, LogVerbosity::Error, "Failed to initialize glfw");
 		return false;
 	}
 
@@ -32,8 +32,7 @@ bool App::Init()
 
 	if (m_pWindow == nullptr)
 	{
-		std::cerr << RED_CONSOLE_TEXT << "Failed to create a GLFW window" << std::endl;
-
+		DEBUG_LOG_MESSAGE(LogApplication, LogVerbosity::Error, "Failed to create a GLFW window");
 		glfwTerminate();
 
 		return false;
@@ -44,8 +43,7 @@ bool App::Init()
 	glewExperimental = GL_FALSE;
 	if (glewInit() != GLEW_OK)
 	{
-		std::cerr << RED_CONSOLE_TEXT << "Failed to initialize glew" << std::endl;
-
+		DEBUG_LOG_MESSAGE(LogApplication, LogVerbosity::Error, "Failed to initialize glew");
 		glfwTerminate();
 
 		return false;

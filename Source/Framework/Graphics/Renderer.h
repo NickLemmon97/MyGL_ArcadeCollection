@@ -11,7 +11,7 @@ public:
 
 	void FrameworkAPI BeginDraw() const;
 
-	void FrameworkAPI Draw(const class Shape&, const glm::vec2& pos) const;
+	void FrameworkAPI Draw(const class Shape&, const glm::vec2& pos, float rotation) const;
 
 	void FrameworkAPI SetBackgroundColor(glm::vec3 color);
 
