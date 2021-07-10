@@ -19,7 +19,7 @@ void Game::DisplayRules()
 {
 	std::cout 
 		<< "\n----------------------------------\n"
-		<< "NO RULES TO DISPLAY FOR THIS GAME!" 
+		<< "NO RULES TO DISPLAY FOR THIS GAME!\n" 
 		<< "----------------------------------\n"
 		<< std::endl;
 }

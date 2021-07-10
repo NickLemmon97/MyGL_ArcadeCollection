@@ -58,7 +58,7 @@ filter "configurations:Publish"
 
 ------------------------------------------------ Solution
 workspace (WorkspaceName)
-    configurations  { "Debug", "Release", "ReleaseConsole", "Development", "Publish" }
+    configurations  { "Debug", "ReleaseConsole", "Development"}
     location        (WorkingDirectory)
     startproject    (ApplicationProjectName)
 
@@ -98,7 +98,7 @@ project (ProjectConfigProjectName)
 project (ApplicationProjectName)
     targetname  "Player"
     location    (WorkingDirectory)
-    debugdir    (WorkingDirectory.."/bin/" ..outputdir.. "/Game")
+    debugdir    "Source"
     kind        "ConsoleApp"
     language    "C++"
     
