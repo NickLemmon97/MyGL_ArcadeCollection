@@ -3,6 +3,7 @@
 AppInitializer::AppInitializer(IGameClass* game)
 {
 	Game_ = game;
+	Game_->DisplayRules();
 	Run();
 }
 

@@ -5,6 +5,7 @@ class IGameClass
 public:
 	virtual ~IGameClass() = default;
 
+	virtual void DisplayRules() = 0;
 	virtual void Init() = 0;
 	virtual void Update(double delta) = 0;
 	virtual void Draw(const class Renderer& renderer) = 0;

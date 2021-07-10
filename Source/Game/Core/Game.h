@@ -8,6 +8,7 @@ public:
 	virtual ~Game();
 
 	void Exit();
+	void DisplayRules();
 
 	void Init() override;
 	void Update(double delta) override;

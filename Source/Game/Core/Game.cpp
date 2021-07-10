@@ -15,6 +15,15 @@ void Game::Exit()
 	App::Get().RequestExit();
 }
 
+void Game::DisplayRules()
+{
+	std::cout 
+		<< "\n----------------------------------\n"
+		<< "NO RULES TO DISPLAY FOR THIS GAME!" 
+		<< "----------------------------------\n"
+		<< std::endl;
+}
+
 void Game::Init()
 {
 	for (auto& go : m_GameObjects)

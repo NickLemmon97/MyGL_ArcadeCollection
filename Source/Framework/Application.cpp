@@ -3,6 +3,10 @@
 
 static App* _sInstance;
 
+#ifdef DEBUG
+void ShowFPS(double delta);
+#endif
+
 App::App()
 {
 	_sInstance = this;
@@ -101,6 +105,10 @@ void App::Run()
 		previousTime = m_glfwTime;
 
 		GameLoop(deltaTime);
+
+#ifdef DEBUG
+		ShowFPS(deltaTime);
+#endif
 
 		Draw();
 	} 
@@ -242,3 +250,30 @@ Renderer& App::GetRenderer()
 {
 	return *m_pRenderer;
 }
+
+#ifdef DEBUG
+float fpsTime = 0.0f;
+int frameCount = 0;
+
+#include <sstream>
+
+void ShowFPS(double delta)
+{
+	fpsTime += delta;
+	if (fpsTime > 1)
+	{
+		double fps = double(frameCount) / fpsTime;
+		double msPerFrame = 1000 / fps;
+
+		std::ostringstream ostream;
+		ostream.precision(3);
+		ostream << std::fixed << "Debug Game" << "  " << "FPS: " << fps << "  " << "Frame Time: " << msPerFrame << "ms";
+		App::Get().SetWindowTitle(ostream.str().c_str());
+
+		fpsTime = 0.0f;
+		frameCount = 0;
+	}
+	frameCount++;
+}
+#endif
+
