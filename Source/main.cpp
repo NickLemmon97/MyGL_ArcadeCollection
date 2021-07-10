@@ -40,7 +40,9 @@ int main(int argc, char** argv)
 
 		while (int input = AcknowledgeUserInput())
 		{
+#if defined _WINDOWS
 			system("cls");
+#endif
 
 			switch (input)
 			{
@@ -64,7 +66,9 @@ int main(int argc, char** argv)
 				break;
 			}
 
+#if defined _WINDOWS
 			system("cls");
+#endif
 		}
 
 

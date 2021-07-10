@@ -46,10 +46,10 @@ bool GameObject::IsOverlappingWithOther(const glm::vec2 pos, const glm::vec2 sca
 
 void GameObject::HandleBeginOverlap()
 {
-	m_Mesh->SetColor(ColorList::BLACK);
+
 }
 
 void GameObject::HandleEndOverlap()
 {
-	m_Mesh->SetColor(ColorList::WHITE);
+
 }

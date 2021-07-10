@@ -17,6 +17,8 @@ void TrialGame::Init()
 {
 	Game::Init();
 
+	App::Get().GetRenderer().SetBackgroundColor(ColorList::GREEN);
+
 	LOG_MESSAGE(LogGame, LogVerbosity::Success, "Trrial Game Created!");	
 }
 

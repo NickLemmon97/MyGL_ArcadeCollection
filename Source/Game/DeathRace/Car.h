@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-
+#include <stack>
 
 class Car : public GameObject
 {
@@ -14,6 +14,10 @@ class Car : public GameObject
 	Direction m_Direction = DOWN;
 
 	int bIsMoving = 0;
+
+	float m_Speed;
+
+	std::stack<Direction> m_Directions;
 
 public:
 	Car(Game* game);

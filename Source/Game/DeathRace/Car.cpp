@@ -8,7 +8,7 @@ Car::Car(Game* game)
 	GameInputFunc input = bind(&Car::HandleKeyboardInput, this, placeholders::_1, placeholders::_2, placeholders::_3, placeholders::_4);
 	game->RegisterForInputCallback(input);
 
-	m_Position = { 100.0f, 100.0f };
+	m_Speed = 100.0f;
 }
 
 Car::~Car()
@@ -89,12 +89,46 @@ void Car::Init()
 	m_Mesh->Init(points, ColorList::WHITE, GL_LINE_LOOP);
 
 	m_Scale = { 20,24 };
+
+	m_Position = {
+		App::Get().GetWindowWidth() * 0.5,
+		App::Get().GetWindowHeight() * 0.5
+	};
+
 	GameObject::Init();
 }
 
 void Car::Update(double delta)
 {
+	GameObject::Update(delta);
 
+	if (m_Directions.size() > 0)
+	{
+		float speed = m_Speed* delta;
+		switch (m_Direction)
+		{
+		case UP:
+			m_Position.y += speed;
+			if (m_Position.y > INITIAL_WINDOW_HEIGHT)
+				m_Position.y = INITIAL_WINDOW_HEIGHT;
+			break;
+		case DOWN:
+			m_Position.y = m_Position.y - speed;
+			if (m_Position.y < 0)
+				m_Position.y = 0;
+			break;
+		case LEFT:
+			m_Position.x -= speed;
+			if (m_Position.x < 0)
+				m_Position.x = 0;
+			break;
+		case RIGHT:
+			m_Position.x += speed;
+			if (m_Position.x > INITIAL_WINDOW_WIDTH)
+				m_Position.x = INITIAL_WINDOW_WIDTH;
+			break;
+		}
+	}
 }
 
 void Car::HandleKeyboardInput(int key, int scancode, int action, int mode)
@@ -138,10 +172,18 @@ void Car::HandleKeyboardInput(int key, int scancode, int action, int mode)
 	case GLFW_KEY_DOWN: [[fallthrough]];
 	case GLFW_KEY_S:
 
-		if (action == GLFW_KEY_DOWN)
-			bIsMoving++;
-		if (action == GLFW_KEY_UP)
-			bIsMoving--;
+		if (action == GLFW_PRESS)
+		{
+			DEBUG_LOG_MESSAGE(LogCar, LogVerbosity::Log, "Key Down");
+			m_Directions.push(m_Direction);
+		}
+		if (action == GLFW_RELEASE)
+		{
+			DEBUG_LOG_MESSAGE(LogCar, LogVerbosity::Log, "Key Up");
+			m_Directions.pop();
+			if(m_Directions.size() > 0)
+				m_Direction=m_Directions.top();
+		}
 
 		break;
 	}
@@ -153,7 +195,7 @@ void Car::SetDirection(Direction d)
 
 	switch (d)
 	{
-	case UP:
+	case UP: 
 	case DOWN:
 	case LEFT:
 	case RIGHT:

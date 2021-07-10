@@ -71,16 +71,19 @@ void Game::HandleMouseInput(int button, int action, int mods)
 
 void Game::RegisterForInputCallback(GameCursorPosFunc func)
 {
+	DEBUG_LOG_MESSAGE(LogGame, LogVerbosity::Log, "Registered a Cursor Position Callback Funciton");
 	m_CursorPosFuncs.push_back(func);
 }
 
 void Game::RegisterForInputCallback(GameMouseInputFunc func)
 {
+	DEBUG_LOG_MESSAGE(LogGame, LogVerbosity::Log, "Registered a Mouse Input Callback Funciton");
 	m_MouseInputFuncs.push_back(func);
 }
 
 void Game::RegisterForInputCallback(GameInputFunc func)
 {
+	DEBUG_LOG_MESSAGE(LogGame, LogVerbosity::Log, "Registered a Keyboard Input Callback Funciton");
 	m_InputFunctions.push_back(func);
 }
 
