@@ -6,6 +6,11 @@ AppInitializer::AppInitializer(IGameClass* game)
 	Run();
 }
 
+AppInitializer::~AppInitializer()
+{
+	Game_ = nullptr;
+}
+
 void AppInitializer::Run()
 {
 	Application_ = std::make_shared<App>();

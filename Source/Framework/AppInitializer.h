@@ -8,6 +8,7 @@ class FrameworkAPI AppInitializer
 {
 public:
 	AppInitializer(class IGameClass* game);
+	~AppInitializer();
 
 	void Run();
 

@@ -6,12 +6,11 @@
 
 #include <sstream>
 #include <string>
+#include <memory>
 
 #include <Core/Game.h>
 #include <Core/GameObject.h>
 
 #include <Core/Button.h>
-
-#include <MyGameObject.h>
 
 #endif //__GAME_PCH

@@ -12,6 +12,22 @@
 #define GameImpl extern
 #endif
 
+#ifdef TrialGameDLLExport
+#define TrialGameAPI __declspec(dllexport)
+#define TrialGameImpl
+#else	
+#define TrialGameAPI __declspec(dllimport)
+#define TrialGameImpl extern
+#endif
+
+#ifdef DeathRaceDLLExport
+#define DeathRaceAPI __declspec(dllexport)
+#define DeathRaceImpl
+#else
+#define DeathRaceAPI __declspec(dllimport)
+#define DeathRaceImpl extern
+#endif
+
 #ifdef FrameworkDLLExport
 #define FrameworkAPI __declspec(dllexport)
 #define FrameworkImpl 

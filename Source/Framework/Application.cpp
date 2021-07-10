@@ -15,14 +15,7 @@ App::App()
 
 App::~App()
 {
-	_sInstance = nullptr;
-
-	if (m_pRenderer != nullptr)
-	{
-		delete m_pRenderer;
-	}
-	m_pRenderer = nullptr;
-
+	Close();
 }
 
 bool App::Init()
@@ -74,6 +67,14 @@ bool App::Init()
 void App::Close()
 {
 	glfwTerminate();
+
+	_sInstance = nullptr;
+
+	if (m_pRenderer != nullptr)
+	{
+		delete m_pRenderer;
+	}
+	m_pRenderer = nullptr;
 }
 
 void App::Run()

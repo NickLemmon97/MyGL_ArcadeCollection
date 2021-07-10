@@ -1,11 +1,11 @@
 #pragma once
 #include <GameClass.h>
 
-class Game : public IGameClass
+class GameAPI Game : public IGameClass
 {
 public:
-	GameAPI Game();
-	GameAPI ~Game();
+	Game();
+	virtual ~Game();
 
 	void Exit();
 

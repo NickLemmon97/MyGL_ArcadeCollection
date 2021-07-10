@@ -20,6 +20,9 @@ ApplicationProjectName   = "3. Player"
 FrameworkProjectName     = "4. Framework"
 GameProjectName          = ("5. "..GameName)
 
+DeathRace = "DeathRace"
+Asteroids = "Asteroids"
+
 --A global to show where the third party libraries are for your system
 ThirdPartyLibFolder = "Source/ThirdParty/lib"
 
@@ -109,6 +112,8 @@ project (ApplicationProjectName)
     dependson{
         (FrameworkProjectName),
         (GameProjectName),
+        (DeathRace),
+        "TrialGame",
     }
 
     files {
@@ -125,6 +130,8 @@ project (ApplicationProjectName)
     links {
         "Framework",
         (GameName),
+        (DeathRace),
+        "TrialGame",
     }
 
     postbuildcommands{
@@ -195,8 +202,10 @@ project (GameProjectName)
     }
 
     files {
-        "Source/Game/**.cpp",
-        "Source/Game/**.h",
+        "Source/Game/Core/**.cpp",
+        "Source/Game/Core/**.h",
+        "Source/Game/GamePCH.cpp",
+        "Source/Game/GamePCH.h",
     }
 
     targetdir (WorkingDirectory..DLL_LibOutput)
@@ -212,6 +221,95 @@ project (GameProjectName)
 
     postbuildcommands{
       ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll bin/" ..outputdir.. "/Game"),
+    }
+
+    filter {}
+
+------------------------------------------------ DeathRace Project
+project (DeathRace)
+    targetname  (DeathRace)
+    location    (WorkingDirectory)
+    kind        "SharedLib"
+    language    "C++"
+    defines     {"DeathRaceDLLExport"}
+
+    dependson {
+        (FrameworkProjectName),
+    }
+    
+    includedirs {
+        "Source/Game",
+        "Source/Game/Core",
+        "Source/Framework",
+        "Source/ThirdParty/include",
+    }
+
+    files {
+        "Source/Game/DeathRace/**.cpp",
+        "Source/Game/DeathRace/**.h",
+        "Source/Game/GamePCH.cpp",
+        "Source/Game/GamePCH.h",
+    }
+
+    targetdir (WorkingDirectory..DLL_LibOutput)
+    objdir  (WorkingDirectory.."/bin-obj/")
+
+    libdirs{
+        (WorkingDirectory..DLL_LibOutput),
+    }
+
+    links {
+        "Framework",
+        "Game",
+    }
+
+    postbuildcommands{
+      ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..DeathRace..".dll bin/" ..outputdir.. "/Game"),
+    }
+
+    filter {}
+
+    ------------------------------------------------ DeathRace Project
+project "TrialGame"
+    targetname  "TrialGame"
+    location    (WorkingDirectory)
+    kind        "SharedLib"
+    language    "C++"
+    defines     {"TrialGameDLLExport"}
+
+    dependson {
+        (FrameworkProjectName),
+        (GameProjectName),
+    }
+    
+    includedirs {
+        "Source/Game",
+        "Source/Game/Core",
+        "Source/Framework",
+        "Source/ThirdParty/include",
+    }
+
+    files {
+        "Source/Game/Trial/**.cpp",
+        "Source/Game/Trial/**.h",
+        "Source/Game/GamePCH.cpp",
+        "Source/Game/GamePCH.h",
+    }
+
+    targetdir (WorkingDirectory..DLL_LibOutput)
+    objdir  (WorkingDirectory.."/bin-obj/")
+
+    libdirs{
+        (WorkingDirectory..DLL_LibOutput),
+    }
+
+    links {
+        "Framework",
+        "Game",
+    }
+
+    postbuildcommands{
+      ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/TrialGame.dll bin/" ..outputdir.. "/Game"),
     }
 
     filter {}
