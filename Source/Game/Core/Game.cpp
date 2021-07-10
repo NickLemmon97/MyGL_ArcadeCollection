@@ -3,8 +3,6 @@
 
 Game::Game()
 {
-	frameCount = 0;
-
 	m_GameObjects.push_back(std::make_shared<ExitButton>(this));
 }
 
@@ -27,8 +25,6 @@ void Game::Init()
 
 void Game::Update(double delta)
 {
-	ShowFPS(delta);
-
 	for (auto& go : m_GameObjects)
 	{
 		go->Update(delta);
@@ -86,23 +82,3 @@ void Game::RegisterForInputCallback(GameInputFunc func)
 	DEBUG_LOG_MESSAGE(LogGame, LogVerbosity::Log, "Registered a Keyboard Input Callback Funciton");
 	m_InputFunctions.push_back(func);
 }
-
-void Game::ShowFPS(double delta)
-{
-	fpsTime += delta;
-	if (fpsTime > 1)
-	{
-		double fps = double(frameCount) / fpsTime;
-		double msPerFrame = 1000 / fps;
-
-		std::ostringstream ostream;
-		ostream.precision(3);
-		ostream << std::fixed << APP_TITLE << "  " << "FPS: " << fps << "  " << "Frame Time: " << msPerFrame << "ms";
-		App::Get().SetWindowTitle(ostream.str().c_str());
-
-		fpsTime = 0.0f;
-		frameCount = 0;
-	}
-	frameCount++;
-}
-

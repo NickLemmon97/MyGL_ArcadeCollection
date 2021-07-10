@@ -66,8 +66,6 @@ bool App::Init()
 
 void App::Close()
 {
-	glfwTerminate();
-
 	_sInstance = nullptr;
 
 	if (m_pRenderer != nullptr)
@@ -75,6 +73,10 @@ void App::Close()
 		delete m_pRenderer;
 	}
 	m_pRenderer = nullptr;
+
+	glfwDestroyWindow(m_pWindow);
+
+	glfwTerminate();
 }
 
 void App::Run()

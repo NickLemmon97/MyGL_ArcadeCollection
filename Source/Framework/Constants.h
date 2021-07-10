@@ -1,7 +1,7 @@
 #pragma once
 
 //Constants
-static const char* APP_TITLE = "OpenGL Shapes";
+static const char* APP_TITLE = "Arcade Collection";
 
 constexpr int INITIAL_WINDOW_HEIGHT = 720;
 constexpr int INITIAL_WINDOW_WIDTH  = 1280;

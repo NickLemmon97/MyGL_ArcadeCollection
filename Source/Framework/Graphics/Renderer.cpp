@@ -27,7 +27,7 @@ void Renderer::BeginDraw() const
 	m_ShapeShader->Use();
 }
 
-void FrameworkAPI Renderer::Draw(const Shape& shape, const glm::vec2& pos) const
+void Renderer::Draw(const Shape& shape, const glm::vec2& pos) const
 {
 	glBindBuffer(GL_ARRAY_BUFFER, shape.m_Vbo);
 	glBindVertexArray(shape.m_Vao);
@@ -44,7 +44,7 @@ void FrameworkAPI Renderer::Draw(const Shape& shape, const glm::vec2& pos) const
 	glBindVertexArray(0);
 }
 
-void FrameworkAPI Renderer::SetBackgroundColor(glm::vec3 color)
+void Renderer::SetBackgroundColor(glm::vec3 color)
 {
 	glClearColor(
 		color.r,

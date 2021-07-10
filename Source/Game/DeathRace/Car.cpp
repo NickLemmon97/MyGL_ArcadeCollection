@@ -102,7 +102,7 @@ void Car::Update(double delta)
 {
 	GameObject::Update(delta);
 
-	if (m_Directions.size() > 0)
+	if (bIsMoving > 0)
 	{
 		float speed = m_Speed* delta;
 		switch (m_Direction)
@@ -175,16 +175,14 @@ void Car::HandleKeyboardInput(int key, int scancode, int action, int mode)
 		if (action == GLFW_PRESS)
 		{
 			DEBUG_LOG_MESSAGE(LogCar, LogVerbosity::Log, "Key Down");
-			m_Directions.push(m_Direction);
+			bIsMoving++;
 		}
 		if (action == GLFW_RELEASE)
 		{
 			DEBUG_LOG_MESSAGE(LogCar, LogVerbosity::Log, "Key Up");
-			m_Directions.pop();
-			if(m_Directions.size() > 0)
-				m_Direction=m_Directions.top();
+			bIsMoving--;
+			if (bIsMoving < 0) bIsMoving = 0;
 		}
-
 		break;
 	}
 }

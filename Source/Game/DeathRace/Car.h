@@ -17,8 +17,6 @@ class Car : public GameObject
 
 	float m_Speed;
 
-	std::stack<Direction> m_Directions;
-
 public:
 	Car(Game* game);
 	~Car();

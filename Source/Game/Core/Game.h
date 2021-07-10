@@ -27,11 +27,4 @@ protected:
 	std::vector<GameCursorPosFunc> m_CursorPosFuncs;
 	std::vector<GameMouseInputFunc> m_MouseInputFuncs;
 
-//Stats
-private:
-	void ShowFPS(double delta);
-
-	double fpsTime = 0.0;
-	int frameCount = 0;
-
 };
