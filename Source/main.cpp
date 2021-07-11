@@ -2,7 +2,7 @@
 #include <GamePCH.h>
 
 #include "Game/DeathRace/DeathGame.h"
-#include "Game/Trial/TrialGame.h"
+#include "Game/TrialGame/TrialGame.h"
 
 #include <iostream>
 

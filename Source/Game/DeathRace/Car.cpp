@@ -111,23 +111,23 @@ void Car::Update(double delta)
 		{
 		case UP:
 			m_Position.y += speed;
-			if (m_Position.y > INITIAL_WINDOW_HEIGHT)
-				m_Position.y = INITIAL_WINDOW_HEIGHT;
+			if (m_Position.y + (m_Scale.y/2) > INITIAL_WINDOW_HEIGHT)
+				m_Position.y = INITIAL_WINDOW_HEIGHT - (m_Scale.y / 2);
 			break;
 		case DOWN:
 			m_Position.y = m_Position.y - speed;
-			if (m_Position.y < 0)
-				m_Position.y = 0;
+			if (m_Position.y - (m_Scale.y / 2) < 0)
+				m_Position.y = 0 + (m_Scale.y / 2);
 			break;
 		case LEFT:
 			m_Position.x -= speed;
-			if (m_Position.x < 0)
-				m_Position.x = 0;
+			if (m_Position.x - (m_Scale.x / 2) < 0)
+				m_Position.x = 0 + (m_Scale.x / 2);
 			break;
 		case RIGHT:
 			m_Position.x += speed;
-			if (m_Position.x > INITIAL_WINDOW_WIDTH)
-				m_Position.x = INITIAL_WINDOW_WIDTH;
+			if (m_Position.x + (m_Scale.x / 2) > INITIAL_WINDOW_WIDTH)
+				m_Position.x = INITIAL_WINDOW_WIDTH - (m_Scale.x / 2);
 			break;
 		}
 	}
@@ -196,15 +196,19 @@ void Car::SetDirection(Direction d)
 	{
 	case UP: 
 		m_Rotation = 3.14f;
+		m_Scale = { 5 * 12, 7 * 12 };
 		break;
 	case DOWN:
 		m_Rotation = 0.0f;
+		m_Scale = { 5 * 12, 7 * 12 };
 		break;
 	case LEFT:
 		m_Rotation = 4.71f;
+		m_Scale = { 7 * 12, 5 * 12};
 		break;
 	case RIGHT:
 		m_Rotation = 1.57f;
+		m_Scale = { 7 * 12, 5 * 12 };
 		break;
 	}
 }

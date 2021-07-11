@@ -10,6 +10,17 @@ DeathRace::~DeathRace()
 {
 }
 
+void DeathRace::DisplayRules()
+{
+	std::cout
+		<< "-----------------------------------------------\n"
+		<< "RULES:\n"
+		<< "Move the player car around with WASD/Arrow Keys\n"
+		<< "Hit all the other objects on screen\n"
+		<< "-----------------------------------------------"
+		<< std::endl;
+}
+
 void DeathRace::Init()
 {
 	Game::Init();

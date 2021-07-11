@@ -7,6 +7,8 @@ public:
 	DeathRace();
 	~DeathRace();
 
+	void DisplayRules();
+
 	void Init() override;
 	void Update(double delta) override;
 };

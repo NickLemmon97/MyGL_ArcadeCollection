@@ -18,7 +18,7 @@ void Game::Exit()
 void Game::DisplayRules()
 {
 	std::cout 
-		<< "\n----------------------------------\n"
+		<< "----------------------------------\n"
 		<< "NO RULES TO DISPLAY FOR THIS GAME!\n" 
 		<< "----------------------------------\n"
 		<< std::endl;

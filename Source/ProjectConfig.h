@@ -45,6 +45,12 @@
 #define GameAPI 
 #define GameImpl 
 
+#define DeathRaceAPI 
+#define DeathRaceImpl
+
+#define TrialGameAPI 
+#define TrialGameImpl
+
 #define FrameworkAPI 
 #define FrameworkImpl
 #endif
