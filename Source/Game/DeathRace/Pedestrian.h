@@ -12,8 +12,13 @@ public:
 
 	void HandleBeginOverlap() override;
 
+	void UpdateDirection();
+
 private:
 
+	glm::vec2 m_Movement;
+	float m_Timer;
+	float m_Direction;
 	bool bIsDead;
 
 };
