@@ -342,3 +342,58 @@ project (ShaderProjectName)
         "Source/Data/Shaders/**.vert",
         "Source/Data/Shaders/**.frag",
     }
+
+    
+------------------------------------------------ An all in 1 project since DLLS are cool but I wanted to see 1 main exe
+project "AllInOnePlayer"
+targetname  "AllInOnePlayer"
+location    (WorkingDirectory)
+debugdir    "Source"
+kind        "ConsoleApp"
+language    "C++"
+defines     {"ALLONEPROJECT"}
+
+includedirs {
+    "Source/Framework",
+    "Source/Game",
+    "Source/Game/Core",
+    "Source/ThirdParty/include",
+}
+
+files {
+    "Source/main.cpp",
+    "Source/Framework/**.cpp",
+    "Source/Framework/**.h",
+    "Source/Game/**.cpp",
+    "Source/Game/**.h",
+}
+
+targetdir (GameOutputDir)
+objdir  (WorkingDirectory.."/bin-obj/")
+
+libdirs{
+    (ThirdPartyLibFolder),
+}
+
+links {
+    "opengl32",
+    "glew32",
+    "glfw3dll",
+    "Winmm",
+}
+
+postbuildcommands{
+    ("{COPY} %{prj.location}../Source/Data %{prj.location}bin/"..outputdir.."/Game/Data"),
+    ("{COPY} %{prj.location}../"..(ThirdPartyLibFolder).."/glew32.dll %{cfg.targetdir}/"),
+    ("{COPY} %{prj.location}../"..(ThirdPartyLibFolder).."/glfw3.dll %{cfg.targetdir}/"),
+}
+
+filter {"configurations:Release", "system:windows"}
+    kind "WindowedApp"
+    entrypoint ("mainCRTStartup")
+
+filter {"configurations:Publish", "system:windows"}
+    kind "WindowedApp"
+    entrypoint ("mainCRTStartup")
+
+filter {}

@@ -1,11 +1,11 @@
 #include <GamePCH.h>
 #include "TrialGame.h"
 #include "MyGameObject.h"
-#include "Ship.h"
+#include "TrialShip.h"
 
 TrialGame::TrialGame()
 {
-	m_GameObjects.push_back(std::make_shared<Ship>(this));
+	m_GameObjects.push_back(std::make_shared<TrialShip>(this));
 	m_GameObjects.push_back(std::make_shared<MyGameObject>());
 }
 

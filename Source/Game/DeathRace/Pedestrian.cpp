@@ -3,6 +3,8 @@
 #include <Windows.h>
 #include "mmsystem.h"
 
+#pragma comment (lib, "Winmm.lib")
+
 void Pedestrian::Init()
 {
 	float width = 12.0f;

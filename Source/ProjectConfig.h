@@ -4,6 +4,25 @@
 */
 #ifdef _WINDOWS
 
+#ifdef ALLONEPROJECT
+
+#define GameAPI 
+#define GameImpl 
+
+#define AsteroidsAPI 
+#define AsteroidsImpl
+
+#define DeathRaceAPI 
+#define DeathRaceImpl
+
+#define TrialGameAPI 
+#define TrialGameImpl
+
+#define FrameworkAPI 
+#define FrameworkImpl
+
+#else
+
 #ifdef GameDLLExport
 #define GameAPI __declspec(dllexport)
 #define GameImpl
@@ -44,6 +63,7 @@
 #define FrameworkImpl extern
 #endif
 
+#endif
 #endif
 
 /*

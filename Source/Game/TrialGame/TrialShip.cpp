@@ -1,13 +1,13 @@
 #include "GamePCH.h"
-#include "Ship.h"
+#include "TrialShip.h"
 
-Ship::Ship(Game* game)
+TrialShip::TrialShip(Game* game)
 {
-	GameCursorPosFunc cursor = std::bind(&Ship::HandleCursorPos, this, std::placeholders::_1, std::placeholders::_2);
+	GameCursorPosFunc cursor = std::bind(&TrialShip::HandleCursorPos, this, std::placeholders::_1, std::placeholders::_2);
 	game->RegisterForInputCallback(cursor);
 }
 
-void Ship::HandleCursorPos(double x, double y)
+void TrialShip::HandleCursorPos(double x, double y)
 {
 	float nx = x;
 	float ny = y;
@@ -16,7 +16,7 @@ void Ship::HandleCursorPos(double x, double y)
 	m_Position.y = ny;
 }
 
-void Ship::Init()
+void TrialShip::Init()
 {
 	std::vector<glm::vec2> vertices =
 	{
@@ -32,6 +32,6 @@ void Ship::Init()
 	m_Mesh->Init(vertices, ColorList::WHITE, GL_LINE_LOOP);
 }
 
-void Ship::Update(double delta)
+void TrialShip::Update(double delta)
 {
 }
