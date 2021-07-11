@@ -39,18 +39,18 @@ void GameObject::Draw(const Renderer& renderer)
 bool GameObject::IsOverlappingWithOther(const glm::vec2 pos, const glm::vec2 scale)
 {
 	return 
-		(pos.x + scale.x) >= (m_Position.x - m_Scale.x) &&
-		(pos.x - scale.x) <= (m_Position.x + m_Scale.x) &&
-		(pos.y + scale.y) >= (m_Position.y - m_Scale.y) &&
-		(pos.y - scale.y) <= (m_Position.y + m_Scale.y);
+		(pos.x + scale.x*0.5) >= (m_Position.x - m_Scale.x*0.5) &&
+		(pos.x - scale.x*0.5) <= (m_Position.x + m_Scale.x*0.5) &&
+		(pos.y + scale.y*0.5) >= (m_Position.y - m_Scale.y*0.5) &&
+		(pos.y - scale.y*0.5) <= (m_Position.y + m_Scale.y*0.5);
 }
 
 void GameObject::HandleBeginOverlap()
 {
-
+	m_Mesh->SetColor(ColorList::RED);
 }
 
 void GameObject::HandleEndOverlap()
 {
-
+	m_Mesh->SetColor(ColorList::WHITE);
 }

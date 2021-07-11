@@ -11,4 +11,8 @@ public:
 
 	void Init() override;
 	void Update(double delta) override;
+
+private:
+
+	int m_CarIdx;
 };

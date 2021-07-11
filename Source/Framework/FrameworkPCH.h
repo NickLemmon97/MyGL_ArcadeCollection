@@ -21,6 +21,7 @@
 #include <Debug/Debugging.h>
 #include <Debug/Logger.h>
 
+#include <Utilities/Random.h>
 #include <Utilities/Utilities.h>
 #include <Utilities/ColorList.h>
 

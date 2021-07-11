@@ -17,9 +17,9 @@ void TrialGame::Init()
 {
 	Game::Init();
 
-	App::Get().GetRenderer().SetBackgroundColor(ColorList::GREEN);
+	App::Get().GetRenderer().SetBackgroundColor(ColorList::DARKGRAY);
 
-	LOG_MESSAGE(LogGame, LogVerbosity::Success, "Trrial Game Created!");	
+	LOG_MESSAGE(LogGame, LogVerbosity::Success, "Trial Game Created!");	
 }
 
 void TrialGame::Update(double delta)

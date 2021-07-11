@@ -1,6 +1,5 @@
 #pragma once
-#include "GameObject.h"
-#include <stack>
+#include <GameObject.h>
 
 class Car : public GameObject
 {
