@@ -7,6 +7,14 @@
 
 #include <iostream>
 
+#if defined DEBUG && defined _WINDOWS && !defined TEMP_DONT_USE
+#if CHECK_FOR_MEMORY_LEAKS
+#define _CRTDBG_MAP_ALLOC  
+#include <stdlib.h>  
+#include <crtdbg.h>
+#endif
+#endif
+
 using namespace std;
 
 int AcknowledgeUserInput();
@@ -33,7 +41,7 @@ int main(int argc, char** argv)
 {
 #if defined DEBUG && defined _WINDOWS && !defined TEMP_DONT_USE
 #if CHECK_FOR_MEMORY_LEAKS
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF);
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	{
 #endif
 #endif

@@ -1,5 +1,7 @@
 #include "GamePCH.h"
 #include "Pedestrian.h"
+#include <Windows.h>
+#include "mmsystem.h"
 
 void Pedestrian::Init()
 {
@@ -50,8 +52,13 @@ bool Pedestrian::GetIsDead()
 
 void Pedestrian::HandleBeginOverlap()
 {
+	if (bIsDead) return;
+
 	m_Mesh->SetColor(ColorList::RED);
 	bIsDead = true;
+
+	PlaySound(TEXT("Data/Audio/Destroy.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
 }
 
 void Pedestrian::UpdateDirection()

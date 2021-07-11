@@ -8,6 +8,7 @@ Game::Game()
 
 Game::~Game()
 {
+	m_GameObjects.clear();
 }
 
 void Game::Exit()
