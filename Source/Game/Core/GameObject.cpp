@@ -36,6 +36,18 @@ void GameObject::Draw(const Renderer& renderer)
 #endif
 }
 
+void GameObject::ScreenWrapPosition()
+{
+	if (m_Position.x < 0)
+		m_Position.x += INITIAL_WINDOW_WIDTH;
+	if (m_Position.y < 0)
+		m_Position.y += INITIAL_WINDOW_HEIGHT;
+	if (m_Position.x > INITIAL_WINDOW_WIDTH)
+		m_Position.x -= INITIAL_WINDOW_WIDTH;
+	if (m_Position.y > INITIAL_WINDOW_HEIGHT)
+		m_Position.y -= INITIAL_WINDOW_HEIGHT;
+}
+
 bool GameObject::IsOverlappingWithOther(const glm::vec2 pos, const glm::vec2 scale)
 {
 	return 

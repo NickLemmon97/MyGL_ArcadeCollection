@@ -3,6 +3,7 @@
 
 #include "Game/DeathRace/DeathGame.h"
 #include "Game/TrialGame/TrialGame.h"
+#include "Game/Asteroids/AsteroidsGame.h"
 
 #include <iostream>
 
@@ -23,6 +24,7 @@ void OutputSelection()
 		<< "1. Default\n"
 		<< "2. Death Race\n"
 		<< "3. Trial Game\n"
+		<< "4. Asteroids\n"
 		<< "0. Exit"
 		<< endl;
 }
@@ -60,6 +62,10 @@ int main(int argc, char** argv)
 			case 3:
 				cout << "Playing Game 3\n";
 				PlayGame<TrialGame>();
+				break;
+			case 4:
+				cout << "Playing Game 3\n";
+				PlayGame<AsteroidsGame>();
 				break;
 			default:
 				cout << "Not a valid game\n";

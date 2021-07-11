@@ -23,12 +23,12 @@ GameProjectName          = ("5. "..GameName)
 GameNames = 
 {
     "DeathRace",
-    --"Asteroids",
+    "Asteroids",
     --"BrickBreak",
     --"SpaceInvaders",
     "TrialGame",
 }
-GameNamesLength = 2
+GameNamesLength = 3
 
 --A global to show where the third party libraries are for your system
 ThirdPartyLibFolder = "Source/ThirdParty/lib"
@@ -41,6 +41,7 @@ files{
 filter "system:windows"
         cppdialect "C++17"
         systemversion "latest"
+    disablewarnings { "4251" }
 
 filter "configurations:Debug"
        defines { "DEBUG", "_DEBUG", "EXECUTE_WITH_CONSOLE_VISIBLE"}
@@ -62,6 +63,8 @@ filter "configurations:Publish"
         defines {"RELEASE", "STANDALONE"}
         optimize "On"
         symbols "Off"
+
+filter {}
 
 ------------------------------------------------ Solution
 workspace (WorkspaceName)

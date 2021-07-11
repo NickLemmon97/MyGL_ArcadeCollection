@@ -24,17 +24,10 @@ void Pedestrian::Update(double delta)
 {
 	if (bIsDead) return;
 
-	m_Position.x += m_Movement.x * delta * 100;
-	m_Position.y += m_Movement.y * delta * 100;
+	m_Position.x += m_Movement.x * delta * 100.0f;
+	m_Position.y += m_Movement.y * delta * 100.0f;
 
-	if (m_Position.x < 0)
-		m_Position.x += INITIAL_WINDOW_WIDTH;
-	if (m_Position.y < 0)
-		m_Position.y += INITIAL_WINDOW_HEIGHT;
-	if (m_Position.x > INITIAL_WINDOW_WIDTH)
-		m_Position.x -= INITIAL_WINDOW_WIDTH;
-	if (m_Position.y > INITIAL_WINDOW_HEIGHT)
-		m_Position.y -= INITIAL_WINDOW_HEIGHT;
+	ScreenWrapPosition();
 
 	m_Timer -= delta;
 
@@ -63,10 +56,10 @@ void Pedestrian::HandleBeginOverlap()
 
 void Pedestrian::UpdateDirection()
 {
-	m_Direction = Random::RandomFloat(0, 6.28);
+	m_Direction = Random::RandomFloat(0.0f, 6.28f);
 
 	m_Movement.x = sinf(m_Direction);
 	m_Movement.y = cosf(m_Direction);
 
-	m_Timer = Random::RandomFloat(0.5f, 2.5f);
+	m_Timer = Random::RandomFloat(0.65f, 4.5f);
 }

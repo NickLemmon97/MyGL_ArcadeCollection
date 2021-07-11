@@ -28,6 +28,14 @@
 #define DeathRaceImpl extern
 #endif
 
+#ifdef AsteroidsDLLExport
+#define AsteroidsAPI __declspec(dllexport)
+#define AsteroidsImpl
+#else
+#define AsteroidsAPI __declspec(dllimport)
+#define AsteroidsImpl extern
+#endif
+
 #ifdef FrameworkDLLExport
 #define FrameworkAPI __declspec(dllexport)
 #define FrameworkImpl 
@@ -44,6 +52,9 @@
 #ifdef _LINUX
 #define GameAPI 
 #define GameImpl 
+
+#define AsteroidsAPI 
+#define AsteroidsImpl
 
 #define DeathRaceAPI 
 #define DeathRaceImpl

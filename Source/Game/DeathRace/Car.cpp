@@ -8,7 +8,7 @@ Car::Car(Game* game)
 	GameInputFunc input = bind(&Car::HandleKeyboardInput, this, placeholders::_1, placeholders::_2, placeholders::_3, placeholders::_4);
 	game->RegisterForInputCallback(input);
 
-	m_Speed = 170.0f;
+	m_Speed = 185.0f;
 }
 
 Car::~Car()
