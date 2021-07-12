@@ -9,6 +9,7 @@ public:
 
 	void Exit();
 	void DisplayRules();
+	void Reset();
 
 	void Init() override;
 	void Update(double delta) override;

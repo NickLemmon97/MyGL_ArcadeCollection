@@ -28,6 +28,14 @@ void Game::DisplayRules()
 		<< std::endl;
 }
 
+void Game::Reset()
+{
+	for (auto& go : m_GameObjects)
+	{
+		go->Reset();
+	}
+}
+
 void Game::Init()
 {
 	for (auto& go : m_GameObjects)
