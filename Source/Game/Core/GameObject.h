@@ -17,8 +17,10 @@ public:
 	virtual void HandleBeginOverlap();
 	virtual void HandleEndOverlap();
 
-	glm::vec2 GetPosition() { return m_Position; }
-	glm::vec2 GetScale()    { return m_Scale; }
+	glm::vec2 GetPosition();
+	glm::vec2 GetScale();
+							
+	bool GetIsActive();
 
 protected:
 	std::shared_ptr<class Shape> m_Mesh;
@@ -27,5 +29,9 @@ protected:
 	glm::vec2 m_Scale;
 	float m_Rotation;
 
+	bool bIsActive;
+
+#ifdef DEBUG
 	std::shared_ptr<class Shape> m_DebugCollider;
+#endif
 };

@@ -1,10 +1,16 @@
 #include <GamePCH.h>
 #include "AsteroidsGame.h"
 #include "Ship.h"
+#include "Meteor.h"
 
 AsteroidsGame::AsteroidsGame()
 {
 	m_GameObjects.push_back(std::make_shared<Ship>(this));
+
+	for (int i = 0; i < 20; i++)
+	{
+		m_GameObjects.push_back(std::make_shared<Meteor>());
+	}
 }
 
 AsteroidsGame::~AsteroidsGame()

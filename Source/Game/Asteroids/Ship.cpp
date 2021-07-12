@@ -19,7 +19,7 @@ void Ship::Init()
 		{-30.0f, -30.0f},
 	};
 
-	m_Scale = { 30, 30 };
+	m_Scale = { 20, 20 };
 
 	m_Position = {
 		App::Get().GetWindowWidth() * 0.5,
@@ -33,6 +33,20 @@ void Ship::Init()
 
 void Ship::Update(double delta)
 {
+	m_Rotation += m_RotationDirection * delta;
+
+	if (bDoThrust)
+	{
+		m_Velocity.y = cosf(-m_Rotation) * 130.0f;
+		m_Velocity.x = sinf(-m_Rotation) * 130.0f;
+
+		if (m_Velocity.y > 150.0f) m_Velocity.y = 150.0f;
+		if (m_Velocity.x > 150.0f) m_Velocity.x = 150.0f;
+	}
+
+	m_Position.x += m_Velocity.x * delta;
+	m_Position.y += m_Velocity.y * delta;
+
 	ScreenWrapPosition();
 }
 
@@ -47,16 +61,19 @@ void Ship::HandleKeyboardInput(int key, int scancode, int action, int mode)
 		case GLFW_KEY_LEFT:
 			[[fallthrough]];
 		case GLFW_KEY_A:
+			m_RotationDirection += 1;
 			break;
 
 		case GLFW_KEY_RIGHT:
 			[[fallthrough]];
 		case GLFW_KEY_D:
+			m_RotationDirection += -1;
 			break;
 
 		case GLFW_KEY_UP:
 			[[fallthrough]];
 		case GLFW_KEY_W:
+			bDoThrust = true;
 			break;
 
 		case GLFW_KEY_DOWN:
@@ -71,14 +88,20 @@ void Ship::HandleKeyboardInput(int key, int scancode, int action, int mode)
 		switch (key)
 		{
 		case GLFW_KEY_LEFT: [[fallthrough]];
-		case GLFW_KEY_A: [[fallthrough]];
+		case GLFW_KEY_A:
+			m_RotationDirection += -1;
+			break;
 		case GLFW_KEY_RIGHT: [[fallthrough]];
-		case GLFW_KEY_D: [[fallthrough]];
+		case GLFW_KEY_D: 
+			m_RotationDirection += 1;
+			break;
 		case GLFW_KEY_UP: [[fallthrough]];
-		case GLFW_KEY_W: [[fallthrough]];
+		case GLFW_KEY_W: 
+			bDoThrust = false;
+			break;
 		case GLFW_KEY_DOWN: [[fallthrough]];
 		case GLFW_KEY_S:
-			DEBUG_LOG_MESSAGE(LogShip, LogVerbosity::Log, "Key Up");
+			break;
 		}
 	}
 }

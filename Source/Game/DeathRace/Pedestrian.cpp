@@ -3,7 +3,7 @@
 #include <Windows.h>
 #include "mmsystem.h"
 
-#pragma comment (lib, "Winmm.lib")
+#pragma comment (lib, "Winmm.lib") //For windows PlaySound()
 
 void Pedestrian::Init()
 {

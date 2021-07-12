@@ -70,3 +70,18 @@ void GameObject::HandleEndOverlap()
 	m_Mesh->SetColor(ColorList::WHITE);
 #endif
 }
+
+glm::vec2 GameObject::GetPosition()
+{
+	return m_Position;
+}
+
+glm::vec2 GameObject::GetScale()
+{
+	return m_Scale;
+}
+
+bool GameObject::GetIsActive()
+{
+	return bIsActive;
+}
