@@ -9,6 +9,9 @@ Game::Game()
 Game::~Game()
 {
 	m_GameObjects.clear();
+	m_CursorPosFuncs.clear();
+	m_InputFunctions.clear();
+	m_MouseInputFuncs.clear();
 }
 
 void Game::Exit()

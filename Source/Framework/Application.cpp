@@ -76,8 +76,6 @@ void App::Close()
 	}
 	m_pRenderer = nullptr;
 
-	glfwDestroyWindow(m_pWindow);
-
 	glfwTerminate();
 }
 

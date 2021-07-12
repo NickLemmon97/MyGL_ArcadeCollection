@@ -36,6 +36,11 @@ void GameObject::Draw(const Renderer& renderer)
 #endif
 }
 
+void GameObject::Reset()
+{
+
+}
+
 void GameObject::ScreenWrapPosition()
 {
 	if (m_Position.x < 0)
@@ -59,14 +64,14 @@ bool GameObject::IsOverlappingWithOther(const glm::vec2 pos, const glm::vec2 sca
 
 void GameObject::HandleBeginOverlap()
 {
-#ifdef DEBUG
+#ifndef RELEASE
 	m_Mesh->SetColor(ColorList::RED);
 #endif
 }
 
 void GameObject::HandleEndOverlap()
 {
-#ifdef DEBUG
+#ifndef RELEASE
 	m_Mesh->SetColor(ColorList::WHITE);
 #endif
 }

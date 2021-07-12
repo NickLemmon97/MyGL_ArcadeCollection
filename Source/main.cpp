@@ -29,13 +29,12 @@ void PlayGame()
 void OutputSelection()
 {
 	cout << "Please select a game by inputing the number:\n"
-		<< "1. Default\n"
-		<< "2. Death Race\n"
-		<< "3. Trial Game\n"
-		<< "4. Asteroids\n"
+		<< "1. Death Race\n"
+		<< "2. Asteroids\n"
 		<< "0. Exit"
 		<< endl;
 }
+
 
 int main(int argc, char** argv)
 {
@@ -56,23 +55,12 @@ int main(int argc, char** argv)
 
 			switch (input)
 			{
-			case 0:
-				//Should not reach here.  Explicitly Defining 0
-				break;
 			case 1:
-				cout << "Playing Game 1\n";
-				PlayGame<Game>();
-				break;
-			case 2:
-				cout << "Playing Game 2\n";
+				cout << "Playing Death Race\n";
 				PlayGame<DeathRace>();
 				break;
-			case 3:
-				cout << "Playing Game 3\n";
-				PlayGame<TrialGame>();
-				break;
-			case 4:
-				cout << "Playing Game 3\n";
+			case 2:
+				cout << "Playing Asteroids\n";
 				PlayGame<AsteroidsGame>();
 				break;
 			default:

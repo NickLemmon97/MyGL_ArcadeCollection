@@ -12,8 +12,8 @@ Shape::Shape()
 
 Shape::~Shape()
 {
-	glDeleteBuffers(1, &m_Vbo);
 	glDeleteVertexArrays(1, &m_Vao);
+	glDeleteBuffers(1, &m_Vbo);
 }
 
 void Shape::Init(std::vector<glm::vec2>& points)

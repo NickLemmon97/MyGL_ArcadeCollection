@@ -1,10 +1,11 @@
-
 /*
-* Export defines for exporting and importing DLL functions on windows
+* Handle dll importing and exporting defines for windows systems
+* 
+* On linux, it seems as though they do not need to be defined as such
+* If I want to export it all as one project it doesn't need to be defined either
 */
-#ifdef _WINDOWS
 
-#ifdef ALLONEPROJECT
+#if defined ALLONEPROJECT || defined _LINUX
 
 #define GameAPI 
 #define GameImpl 
@@ -21,7 +22,7 @@
 #define FrameworkAPI 
 #define FrameworkImpl
 
-#else
+#elif defined _WINDOWS
 
 #ifdef GameDLLExport
 #define GameAPI __declspec(dllexport)
@@ -63,25 +64,4 @@
 #define FrameworkImpl extern
 #endif
 
-#endif
-#endif
-
-/*
-* In basic research, linux doesn't do the __declspec so define these as nothing 
-*/
-#ifdef _LINUX
-#define GameAPI 
-#define GameImpl 
-
-#define AsteroidsAPI 
-#define AsteroidsImpl
-
-#define DeathRaceAPI 
-#define DeathRaceImpl
-
-#define TrialGameAPI 
-#define TrialGameImpl
-
-#define FrameworkAPI 
-#define FrameworkImpl
 #endif

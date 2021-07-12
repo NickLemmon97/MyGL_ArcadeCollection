@@ -31,7 +31,7 @@ void Meteor::Init()
 
 	for (int i = 0; i < count; i++)
 	{
-		float radius = Random::RandomFloat(13.0f, 33.0f);
+		float radius = Random::RandomFloat(13.0f, 39.0f);
 		m_Scale.x += radius;
 		m_Scale.y += radius;
 		vertices.push_back({ cosf(i * divisions) * radius, sinf(i * divisions) * radius });

@@ -11,4 +11,9 @@ public:
 
 	void Init() override;
 	void Update(double delta) override;
+
+private:
+
+	class GameObject* m_pPlayer = nullptr;
+
 };
