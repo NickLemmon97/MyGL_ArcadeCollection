@@ -37,14 +37,6 @@ void Pedestrian::Update(double delta)
 
 	if (m_Timer < 0)
 		UpdateDirection();
-
-}
-
-void Pedestrian::Draw(const Renderer& renderer)
-{
-	//if (bIsDead) return;
-
-	GameObject::Draw(renderer);
 }
 
 bool Pedestrian::GetIsDead()
@@ -60,7 +52,6 @@ void Pedestrian::HandleBeginOverlap()
 	bIsDead = true;
 
 	PlaySound(TEXT("Data/Audio/Destroy.wav"), NULL, SND_FILENAME | SND_ASYNC);
-
 }
 
 void Pedestrian::UpdateDirection()

@@ -27,7 +27,7 @@ void Meteor::Init()
 
 	int count = Random::RandomInt(8, 18);
 
-	float divisions = 6.28 / count;
+	float divisions = 6.28f / count;
 
 	for (int i = 0; i < count; i++)
 	{

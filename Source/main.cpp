@@ -20,8 +20,7 @@ void DumpMemLeaks();
 template <class _Ty>
 void PlayGame()
 {
-	std::shared_ptr<_Ty> game = std::make_shared<_Ty>();
-	AppInitializer app = { game.get() };
+	AppInitializer app = { new _Ty() };
 }
 
 void OutputSelection()

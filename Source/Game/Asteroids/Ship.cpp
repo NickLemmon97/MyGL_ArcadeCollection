@@ -45,11 +45,11 @@ void Ship::Update(double delta)
 	}
 	else
 	{
-		m_Speed -= m_Speed * delta * delta;
+		m_Speed -= m_Speed * 0.5f * delta;
 	}
 
-	m_Position.x += m_Velocity.x * delta * m_Speed;
-	m_Position.y += m_Velocity.y * delta * m_Speed;
+	m_Position.x += m_Velocity.x * float(delta) * m_Speed;
+	m_Position.y += m_Velocity.y * float(delta) * m_Speed;
 
 	ScreenWrapPosition();
 }

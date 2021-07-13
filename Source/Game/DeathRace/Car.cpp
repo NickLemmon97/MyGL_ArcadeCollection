@@ -18,77 +18,11 @@ Car::~Car()
 
 void Car::Init()
 {
-	//Should not hard code my game objects - it takes a while
-
 	float farh = 7;
-	float axley = 5;
 	float width = 5;
-	float bodywidth = 2.5;
-
-	std::vector<glm::vec2> points =
-	{
-		//bumper
-		{0.0f, -farh},
-		{-width, -farh},
-		{-width, -axley},
-		{-bodywidth, -axley},
-		//wheel
-		{-bodywidth, -3},
-		{-4, -3},
-		{-4, -4},
-		{-width, -4},
-		{-width, -1},
-		{-4, -1},
-		{-4, -2},
-
-		{-bodywidth, -2},
-
-		{-bodywidth, 2},
-		//wheel
-		{-4, 2},
-		{-4, 1},
-		{-width, 1},
-		{-width, 4},
-		{-4, 4},
-		{-4, 3},
-		{-bodywidth, 3},
-		//wheel
-		{bodywidth, 3},
-		{4, 3},
-		{4, 4},
-		{width, 4},
-		{width, 1},
-		{4, 1},
-		{4, 2},
-
-
-		{bodywidth, 2},
-
-		{bodywidth, -2},
-		//wheel
-		{4, -2},
-		{4, -1},
-		{width, -1},
-		{width, -4},
-		{4, -4},
-		{4, -3},
-		{bodywidth, -3},
-		//bumper
-		{bodywidth, -axley},
-		{width, -axley},
-		{width, -farh},
-	};
-
 	float sizeModifier = 12;
 
-	//Modifiers to avoid rewriting the above code in anyway
-	for (auto& v : points)
-	{
-		v.y += 1;
-		v *= sizeModifier;
-	}
-
-	m_Mesh->Init(points, ColorList::WHITE, GL_LINE_LOOP);
+	CreateCarMesh(width, farh, sizeModifier);
 
 	m_Scale = { width * sizeModifier, farh * sizeModifier };
 
@@ -215,4 +149,40 @@ void Car::SetDirection(Direction d)
 		m_Scale = { 7 * 12, 5 * 12 };
 		break;
 	}
+}
+
+void Car::CreateCarMesh(int width, int farh, int sizeModifier)
+{
+	float axley = 5;
+	float bodywidth = 2.5;
+
+	std::vector<glm::vec2> points =
+	{
+		//front bumper
+		{0.0f, -farh},{-width, -farh},{-width, -axley},{-bodywidth, -axley},
+		//wheel
+		{-bodywidth, -3},{-4, -3},{-4, -4},{-width, -4},{-width, -1},{-4, -1},{-4, -2},
+
+		{-bodywidth, -2},
+		{-bodywidth, 2},
+		//wheel
+		{-4, 2},{-4, 1},{-width, 1},{-width, 4},{-4, 4},{-4, 3},{-bodywidth, 3},
+		//wheel
+		{bodywidth, 3},	{4, 3},{4, 4},{width, 4},	{width, 1},{4, 1},	{4, 2},
+
+		{bodywidth, 2},
+		{bodywidth, -2},
+		//wheel
+		{4, -2},{4, -1},{width, -1},{width, -4},{4, -4},{4, -3},{bodywidth, -3},
+		//bumper
+		{bodywidth, -axley},{width, -axley},{width, -farh},
+	};
+
+	for (auto& v : points)
+	{
+		v.y += 1;
+		v *= sizeModifier;
+	}
+
+	m_Mesh->Init(points, ColorList::WHITE, GL_LINE_LOOP);
 }

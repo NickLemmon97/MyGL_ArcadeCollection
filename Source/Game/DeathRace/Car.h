@@ -27,5 +27,5 @@ public:
 
 private:
 	void SetDirection(Direction d);
-
+	void CreateCarMesh(int width, int farh, int sizemodifier);
 };

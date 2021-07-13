@@ -5,17 +5,18 @@
 
 AsteroidsGame::AsteroidsGame()
 {
-	m_GameObjects.push_back(std::make_shared<Ship>(this));
-	m_pPlayer = m_GameObjects.back().get();
+	m_GameObjects.push_back(new Ship(this));
+	m_pPlayer = m_GameObjects.back();
 
 	for (int i = 0; i < 20; i++)
 	{
-		m_GameObjects.push_back(std::make_shared<Meteor>());
+		m_GameObjects.push_back(new Meteor());
 	}
 }
 
 AsteroidsGame::~AsteroidsGame()
 {
+	m_pPlayer = nullptr;
 }
 
 void AsteroidsGame::DisplayRules()

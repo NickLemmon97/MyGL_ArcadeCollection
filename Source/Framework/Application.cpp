@@ -4,7 +4,7 @@
 static App* _sInstance;
 
 #ifdef DEBUG
-void ShowFPS(double delta);
+void ShowFPS(float delta);
 #endif
 
 App::App()
@@ -56,7 +56,7 @@ bool App::Init()
 	m_pRenderer = new Renderer();
 	m_pRenderer->Init();
 	m_pRenderer->SetProjection(
-		float(m_WindowWidth) ,
+		float(m_WindowWidth),
 		float(m_WindowHeight));
 
 	m_pRenderer->SetCameraPosition(
@@ -310,7 +310,7 @@ int frameCount = 0;
 
 #include <sstream>
 
-void ShowFPS(double delta)
+void ShowFPS(float delta)
 {
 	fpsTime += delta;
 	if (fpsTime > 1)

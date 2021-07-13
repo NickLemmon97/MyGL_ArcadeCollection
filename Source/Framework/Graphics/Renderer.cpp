@@ -1,16 +1,22 @@
 #include <FrameworkPCH.h>
 
+Renderer::~Renderer()
+{
+	delete m_ShapeShader;
+	delete m_UIShapeShader;
+}
+
 void Renderer::Init()
 {
 	SetBackgroundColor(ColorList::CYAN);
 
-	m_ShapeShader = std::make_unique<ShaderProgram>();
+	m_ShapeShader = new ShaderProgram();
 	if (m_ShapeShader->LoadShader("shape") == false)
 	{
 		DEBUG_LOG_MESSAGE(LogRenderer, LogVerbosity::Error, "Renderer Failed to load Shader");
 	}
 
-	m_UIShapeShader = std::make_unique<ShaderProgram>();
+	m_UIShapeShader = new ShaderProgram();
 	if (m_UIShapeShader->LoadShader("ui.vert", "shape.frag") == false)
 	{
 		DEBUG_LOG_MESSAGE(LogRenderer, LogVerbosity::Error, "Renderer Failed to load Shader");
@@ -19,7 +25,7 @@ void Renderer::Init()
 
 void Renderer::UseShader(std::string&& shaderName)
 {
-	m_ShapeShader = std::make_unique<ShaderProgram>();
+	m_ShapeShader = new ShaderProgram();
 	if (m_ShapeShader->LoadShader(shaderName) == false)
 	{
 		DEBUG_LOG_MESSAGE(LogRenderer, LogVerbosity::Error, "Renderer Failed to load Shader");

@@ -9,8 +9,8 @@ TrialShip::TrialShip(Game* game)
 
 void TrialShip::HandleCursorPos(double x, double y)
 {
-	float nx = x;
-	float ny = y;
+	float nx = float(x);
+	float ny = float(y);
 
 	m_Position.x = nx;
 	m_Position.y = ny;

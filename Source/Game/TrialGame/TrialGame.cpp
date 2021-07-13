@@ -5,8 +5,8 @@
 
 TrialGame::TrialGame()
 {
-	m_GameObjects.push_back(std::make_shared<TrialShip>(this));
-	m_GameObjects.push_back(std::make_shared<MyGameObject>());
+	m_GameObjects.push_back(new TrialShip(this));
+	m_GameObjects.push_back(new MyGameObject());
 }
 
 TrialGame::~TrialGame()

@@ -9,12 +9,15 @@ AppInitializer::AppInitializer(IGameClass* game)
 
 AppInitializer::~AppInitializer()
 {
+	delete Game_;
 	Game_ = nullptr;
+
+	delete Application_;
 }
 
 void AppInitializer::Run()
 {
-	Application_ = std::make_shared<App>();
+	Application_ = new App();
 	if (Setup())
 	{
 		Game_->Init();

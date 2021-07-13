@@ -7,3 +7,11 @@
 #define new   new( _NORMAL_BLOCK, __FILE__, __LINE__)
 #endif
 #endif 
+
+
+#define SafeDelete(p) \
+if (p != nullptr)     \
+{                     \
+delete p;             \
+}                     \
+p = nullptr;

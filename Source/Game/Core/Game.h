@@ -23,10 +23,10 @@ public:
 	void RegisterForInputCallback(GameMouseInputFunc func);
 
 protected:
-	std::vector<std::shared_ptr<class GameObject>> m_GameObjects;
-	std::vector<std::shared_ptr<class UIObject>> m_UIElements;
+	std::vector<class GameObject*> m_GameObjects;
+	std::vector<class UIObject*> m_UIElements;
 
-	std::shared_ptr<class Shape> m_GameBoundary;
+	class Shape* m_GameBoundary;
 
 	std::vector<GameInputFunc> m_InputFunctions;
 	std::vector<GameCursorPosFunc> m_CursorPosFuncs;
