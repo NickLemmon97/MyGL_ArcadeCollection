@@ -9,11 +9,8 @@ TrialShip::TrialShip(Game* game)
 
 void TrialShip::HandleCursorPos(double x, double y)
 {
-	float nx = float(x);
-	float ny = float(y);
-
-	m_Position.x = nx;
-	m_Position.y = ny;
+	m_Position.x = float(x);
+	m_Position.y = float(y);
 }
 
 void TrialShip::Init()
@@ -30,8 +27,4 @@ void TrialShip::Init()
 	GameObject::Init();
 
 	m_Mesh->Init(vertices, ColorList::WHITE, GL_LINE_LOOP);
-}
-
-void TrialShip::Update(double delta)
-{
 }

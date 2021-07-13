@@ -5,6 +5,4 @@ class MyGameObject : public GameObject
 {
 public:
 	void Init();
-	void Update(double delta);
 };
-

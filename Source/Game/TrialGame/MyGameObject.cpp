@@ -8,7 +8,3 @@ void MyGameObject::Init()
 	m_Position.x = INITIAL_WINDOW_WIDTH  * 0.5;
 	m_Position.y = INITIAL_WINDOW_HEIGHT * 0.5;
 }
-
-void MyGameObject::Update(double delta)
-{
-}

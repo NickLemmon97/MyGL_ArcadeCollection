@@ -7,7 +7,6 @@ DLL_LibOutput =  ("/bin/" ..outputdir.. "/Libs")
 
 GameOutputDir = (WorkingDirectory.."/bin/" ..outputdir.. "/Game")
 
-
 --Name of the current game project
 GameName = "Game"
 
@@ -20,15 +19,15 @@ ApplicationProjectName   = "3. Player"
 FrameworkProjectName     = "4. Framework"
 GameProjectName          = ("5. "..GameName)
 
+GameNamesLength = 2
 GameNames = 
 {
     "DeathRace",
     "Asteroids",
     --"BrickBreak",
     --"SpaceInvaders",
-    "TrialGame",
+    --"TrialGame",
 }
-GameNamesLength = 3
 
 --A global to show where the third party libraries are for your system
 ThirdPartyLibFolder = "Source/ThirdParty/lib"
@@ -120,7 +119,6 @@ project (ApplicationProjectName)
     
     dependson{
         (FrameworkProjectName),
-        (GameProjectName),
     }
 
     for GameCount = 1, GameNamesLength do
@@ -146,7 +144,6 @@ project (ApplicationProjectName)
 
     links {
         "Framework",
-        (GameName),
     }
 
     postbuildcommands{
