@@ -1,4 +1,5 @@
 #include <GamePCH.h>
+#include "UIObject.h"
 #include "Button.h"
 
 Game::Game()
@@ -9,10 +10,11 @@ Game::Game()
 
 Game::~Game()
 {
-	m_GameObjects.clear();
 	m_CursorPosFuncs.clear();
 	m_InputFunctions.clear();
 	m_MouseInputFuncs.clear();
+	m_GameObjects.clear();
+	m_UIElements.clear();
 }
 
 void Game::Exit()

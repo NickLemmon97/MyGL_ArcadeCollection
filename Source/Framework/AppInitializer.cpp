@@ -27,16 +27,16 @@ bool AppInitializer::Setup()
 {
 	if (!Application_->Init())
 	{
-		std::cerr << RED_CONSOLE_TEXT << "Application was unable to initialize, will be closing" << std::endl;
+		Logger::LogMessage(LogVerbosity::Error, "Application was unable to initialize, will be closing");
 		return false;
 	}
 
-	SetupFunctionCallbacks();
+	BindFunctionCallbacks();
 
 	return true;
 }
 
-void AppInitializer::SetupFunctionCallbacks()
+void AppInitializer::BindFunctionCallbacks()
 {
 	GameLoopFunc loop = std::bind(&IGameClass::Update, Game_, std::placeholders::_1);
 	Application_->SetGameLoop(loop);

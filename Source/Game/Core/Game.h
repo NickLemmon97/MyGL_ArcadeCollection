@@ -24,7 +24,7 @@ public:
 
 protected:
 	std::vector<std::shared_ptr<class GameObject>> m_GameObjects;
-	std::vector<std::shared_ptr<class UIElement>> m_UIElements;
+	std::vector<std::shared_ptr<class UIObject>> m_UIElements;
 
 	std::shared_ptr<class Shape> m_GameBoundary;
 
