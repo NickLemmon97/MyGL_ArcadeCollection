@@ -13,8 +13,8 @@ App::App()
 
 	m_glfwTime = 0.0;
 
-	m_WindowHeight = INITIAL_WINDOW_HEIGHT;
-	m_WindowWidth = INITIAL_WINDOW_WIDTH;
+	m_CamPosY = m_WindowHeight = INITIAL_WINDOW_HEIGHT;
+	m_CamPosX = m_WindowWidth = INITIAL_WINDOW_WIDTH;
 }
 
 App::~App()
@@ -56,8 +56,12 @@ bool App::Init()
 	m_pRenderer = new Renderer();
 	m_pRenderer->Init();
 	m_pRenderer->SetProjection(
-		float(INITIAL_WINDOW_WIDTH) ,
-		float(INITIAL_WINDOW_HEIGHT));
+		float(m_WindowWidth) ,
+		float(m_WindowHeight));
+
+	m_pRenderer->SetCameraPosition(
+		float(m_WindowWidth),
+		float(m_WindowHeight));
 
 	SetupGLFWCallbacks();
 
@@ -132,11 +136,62 @@ void App::HandleWindowResize(GLFWwindow* window, int width, int height)
 
 void App::HandleInput(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
+
+#ifdef DEBUG
+	int camSkip = 50;
+#endif
+
 	switch (key)
 	{
 	case GLFW_KEY_ESCAPE:
 		glfwSetWindowShouldClose(window, GL_TRUE);
 		break;
+#ifdef DEBUG
+
+	case GLFW_KEY_Z:
+		_sInstance->m_WindowWidth+=6;
+		_sInstance->m_WindowHeight+=6;
+		_sInstance->m_pRenderer->SetProjection(
+			float(_sInstance->m_WindowWidth),
+			float(_sInstance->m_WindowHeight));
+		break;
+	case GLFW_KEY_X:
+		_sInstance->m_WindowWidth -= 6;
+		_sInstance->m_WindowHeight -= 6;
+		_sInstance->m_pRenderer->SetProjection(
+			float(_sInstance->m_WindowWidth),
+			float(_sInstance->m_WindowHeight));
+		break;
+
+	case GLFW_KEY_J:
+		_sInstance->m_CamPosX -= camSkip;
+		_sInstance->m_pRenderer->SetCameraPosition(
+			_sInstance->m_CamPosX,
+			_sInstance->m_CamPosY);
+		break;
+
+	case GLFW_KEY_L:
+		_sInstance->m_CamPosX += camSkip;
+		_sInstance->m_pRenderer->SetCameraPosition(
+			_sInstance->m_CamPosX,
+			_sInstance->m_CamPosY);
+		break;
+
+	case GLFW_KEY_K:
+		_sInstance->m_CamPosY -= camSkip;
+		_sInstance->m_pRenderer->SetCameraPosition(
+			_sInstance->m_CamPosX,
+			_sInstance->m_CamPosY);
+		break;
+
+	case GLFW_KEY_I:
+		_sInstance->m_CamPosY += camSkip;
+		_sInstance->m_pRenderer->SetCameraPosition(
+			_sInstance->m_CamPosX,
+			_sInstance->m_CamPosY);
+		break;
+
+#endif
 	default:
 		//do nothing;
 		break;

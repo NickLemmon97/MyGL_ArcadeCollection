@@ -3,7 +3,8 @@
 
 Game::Game()
 {
-	m_GameObjects.push_back(std::make_shared<ExitButton>(this));
+	m_GameBoundary = std::make_shared<Shape>();
+	m_UIElements.push_back(std::make_shared<ExitButton>(this));
 }
 
 Game::~Game()
@@ -42,6 +43,15 @@ void Game::Init()
 	{
 		go->Init();
 	}
+	for (auto& go : m_UIElements)
+	{
+		go->Init();
+	}
+
+	m_GameBoundary->MakeRectangle(
+		App::Get().GetWindowWidth() + 2, 
+		App::Get().GetWindowHeight() + 2, 
+		ColorList::GREEN);
 }
 
 void Game::Update(double delta)
@@ -56,7 +66,14 @@ void Game::Draw(const Renderer& renderer)
 {
 	renderer.BeginDraw();
 
+	renderer.Draw(*m_GameBoundary.get(), { 640, 360 }, 0);
+
 	for (auto& go : m_GameObjects)
+	{
+		go->Draw(renderer);
+	}
+
+	for (auto& go : m_UIElements)
 	{
 		go->Draw(renderer);
 	}

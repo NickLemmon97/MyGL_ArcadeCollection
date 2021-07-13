@@ -165,6 +165,10 @@ void Car::HandleKeyboardInput(int key, int scancode, int action, int mode)
 		case GLFW_KEY_S:
 			SetDirection(DOWN);
 			break;
+
+		default:
+			bIsMoving--;
+			break;
 		}
 	}
 

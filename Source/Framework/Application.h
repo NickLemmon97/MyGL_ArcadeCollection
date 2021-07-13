@@ -65,5 +65,7 @@ private:
 	int m_WindowHeight;
 	int m_WindowWidth;
 
+	float m_CamPosX, m_CamPosY;
+
 	double m_glfwTime;
 };
