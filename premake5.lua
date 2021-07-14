@@ -19,12 +19,14 @@ ApplicationProjectName   = "3. Player"
 FrameworkProjectName     = "4. Framework"
 GameProjectName          = ("5. "..GameName)
 
-GameNamesLength = 3
+GameNamesLength = 5
 GameNames = 
 {
     "DeathRace",
     "Asteroids",
     "BrickBreak",
+    "Pong",
+    "SpaceInvaders",
     --"SpaceInvaders",
     --"TrialGame",
 }
