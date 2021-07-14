@@ -26,8 +26,12 @@
 #define BrickBreakAPI
 #define BrickBreakImpl
 
+#define PongAPI 
+#define PongImpl
+
 
 #elif defined _WINDOWS
+
 
 #define TrialGameAPI
 #define TrialGameImpl
@@ -46,6 +50,22 @@
 #else
 #define DeathRaceAPI __declspec(dllimport)
 #define DeathRaceImpl extern
+#endif
+
+#ifdef PongDLLExport
+#define PongAPI __declspec(dllexport)
+#define PongImpl
+#else
+#define PongAPI __declspec(dllimport)
+#define PongImpl extern
+#endif
+
+#ifdef SpaceInvadersDLLExport
+#define SpaceInvadersAPI __declspec(dllexport)
+#define SpaceInvadersImpl
+#else
+#define SpaceInvadersAPI __declspec(dllimport)
+#define SpaceInvadersImpl extern
 #endif
 
 #ifdef AsteroidsDLLExport
