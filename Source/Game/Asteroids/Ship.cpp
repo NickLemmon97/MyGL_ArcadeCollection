@@ -1,10 +1,14 @@
 #include "GamePCH.h"
 #include "Ship.h"
+#include "Projectile.h"
+#include "AsteroidsGame.h"
 
 using namespace std;
 
-Ship::Ship(Game* game)
+Ship::Ship(AsteroidsGame* game)
 {
+	m_pGame = game;
+
 	GameInputFunc input = bind(&Ship::HandleKeyboardInput, this, placeholders::_1, placeholders::_2, placeholders::_3, placeholders::_4);
 	game->RegisterForInputCallback(input);
 }
@@ -58,8 +62,6 @@ void Ship::HandleKeyboardInput(int key, int scancode, int action, int mode)
 {
 	if (action == GLFW_PRESS)
 	{
-		DEBUG_LOG_MESSAGE(LogShip, LogVerbosity::Log, "Key Down");
-
 		switch (key)
 		{
 		case GLFW_KEY_LEFT:
@@ -83,6 +85,10 @@ void Ship::HandleKeyboardInput(int key, int scancode, int action, int mode)
 		case GLFW_KEY_DOWN:
 			[[fallthrough]];
 		case GLFW_KEY_S:
+			break;
+
+		case GLFW_KEY_SPACE:
+			m_pGame->ShootBullet(m_Rotation, m_Position);
 			break;
 		}
 	}

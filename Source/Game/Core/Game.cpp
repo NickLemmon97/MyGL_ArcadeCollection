@@ -72,7 +72,8 @@ void Game::Update(double delta)
 {
 	for (auto& go : m_GameObjects)
 	{
-		go->Update(delta);
+		if(go->GetIsActive())
+			go->Update(delta);
 	}
 }
 
@@ -84,7 +85,8 @@ void Game::Draw(const Renderer& renderer)
 
 	for (auto& go : m_GameObjects)
 	{
-		go->Draw(renderer);
+		if (go->GetIsActive())
+			go->Draw(renderer);
 	}
 
 	for (auto& go : m_UIElements)

@@ -57,3 +57,9 @@ void Meteor::Update(double delta)
 
 	ScreenWrapPosition();
 }
+
+void Meteor::HandleBeginOverlap()
+{
+	GameObject::HandleBeginOverlap();
+	bIsActive = false;
+}

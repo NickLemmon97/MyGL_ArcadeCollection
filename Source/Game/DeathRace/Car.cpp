@@ -67,7 +67,6 @@ void Car::HandleKeyboardInput(int key, int scancode, int action, int mode)
 {
 	if (action == GLFW_PRESS)
 	{
-		DEBUG_LOG_MESSAGE(LogCar, LogVerbosity::Log, "Key Down");
 		bIsMoving++;
 
 		switch (key)
@@ -115,7 +114,6 @@ void Car::HandleKeyboardInput(int key, int scancode, int action, int mode)
 		case GLFW_KEY_DOWN: [[fallthrough]];
 		case GLFW_KEY_S:
 		
-		DEBUG_LOG_MESSAGE(LogCar, LogVerbosity::Log, "Key Up");
 		bIsMoving--;
 		if (bIsMoving < 0) bIsMoving = 0;
 		}

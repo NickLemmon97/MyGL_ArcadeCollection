@@ -32,7 +32,7 @@ void GameObject::Draw(const Renderer& renderer)
 {
 	renderer.Draw(*m_Mesh.get(), m_Position, m_Rotation);
 #ifdef DEBUG
-	renderer.Draw(*m_DebugCollider.get(), m_Position, m_Rotation);
+	renderer.Draw(*m_DebugCollider.get(), m_Position, 0);
 #endif
 }
 

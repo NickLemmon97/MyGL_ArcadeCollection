@@ -9,6 +9,7 @@ public:
 	void Init();
 	void Update(double delta);
 
+	void HandleBeginOverlap() override;
 protected:
 
 	glm::vec2 m_Velocity = { 0.0f, 0.0f };
