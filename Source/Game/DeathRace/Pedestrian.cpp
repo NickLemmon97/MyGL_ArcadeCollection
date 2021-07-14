@@ -14,14 +14,9 @@ void Pedestrian::Init()
 
 	m_Scale = { width + 1, height + 1 };
 
-	m_Position.x = Random::RandomFloat(30.0f, INITIAL_WINDOW_WIDTH - 30.0f);
-	m_Position.y = Random::RandomFloat(30.0f, INITIAL_WINDOW_HEIGHT - 30.0f);
-
-	bIsDead = false;
-	
-	UpdateDirection();
-
 	GameObject::Init();
+
+	Reset();
 }
 
 void Pedestrian::Update(double delta)
@@ -37,6 +32,16 @@ void Pedestrian::Update(double delta)
 
 	if (m_Timer < 0)
 		UpdateDirection();
+}
+
+void Pedestrian::Reset()
+{
+	m_Position.x = Random::RandomFloat(30.0f, INITIAL_WINDOW_WIDTH - 30.0f);
+	m_Position.y = Random::RandomFloat(30.0f, INITIAL_WINDOW_HEIGHT - 30.0f);
+
+	bIsDead = false;
+
+	UpdateDirection();
 }
 
 bool Pedestrian::GetIsDead()

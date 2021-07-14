@@ -10,9 +10,11 @@ public:
 	virtual void Update(double delta);
 	virtual void Draw(const Renderer& renderer);
 
-	void Reset();
+	virtual void Reset();
 
 	void ScreenWrapPosition();
+	void KeepInScreenBounds();
+	void KeepInBounds(glm::vec2 lowerBounds, glm::vec2 upperBounds);
 	
 	bool IsOverlappingWithOther(const glm::vec2 pos, const glm::vec2 scale);
 

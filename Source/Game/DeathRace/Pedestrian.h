@@ -6,6 +6,7 @@ class Pedestrian : public GameObject
 public:
 	void Init() override;
 	void Update(double delta) override;
+	void Reset() override;
 
 	bool GetIsDead();
 

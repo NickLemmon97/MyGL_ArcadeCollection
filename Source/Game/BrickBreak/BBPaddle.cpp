@@ -5,20 +5,26 @@ BBPaddle::BBPaddle(Game* game)
 	GameInputFunc input = std::bind(&BBPaddle::HandleKeyboardInput, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
 	game->RegisterForInputCallback(input);
 
-	m_Position = { HALF_WINDOW_WIDTH, HALF_WINDOW_HEIGHT - 200.0f };
+	m_Position = { HALF_WINDOW_WIDTH, 180.0f };
 }
 
 void BBPaddle::Init()
 {
-	m_Mesh->MakeRectangle(30.0f, 10.0f, ColorList::WHITE, GL_TRIANGLE_FAN);
+	float w, h;
+	w = 100.f;
+	h = 35.0f;
+	m_Mesh->MakeRectangle(w,h, ColorList::WHITE, GL_TRIANGLE_FAN);
 
-	m_Scale = { 30.0f, 10.0f };
+	m_Scale = { w,h };
 
 	GameObject::Init();
 }
 
 void BBPaddle::Update(double delta)
 {
+	m_Position.x += m_Direction * delta * 100.0f;
+
+	KeepInScreenBounds();
 }
 
 void BBPaddle::HandleKeyboardInput(int key, int scancode, int action, int mode)

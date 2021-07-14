@@ -43,14 +43,46 @@ void GameObject::Reset()
 
 void GameObject::ScreenWrapPosition()
 {
-	if (m_Position.x < 0)
+
+	if (m_Position.x < 0.0f)
 		m_Position.x += INITIAL_WINDOW_WIDTH;
-	if (m_Position.y < 0)
+	if (m_Position.y < 0.0f)
 		m_Position.y += INITIAL_WINDOW_HEIGHT;
 	if (m_Position.x > INITIAL_WINDOW_WIDTH)
 		m_Position.x -= INITIAL_WINDOW_WIDTH;
 	if (m_Position.y > INITIAL_WINDOW_HEIGHT)
 		m_Position.y -= INITIAL_WINDOW_HEIGHT;
+}
+
+void GameObject::KeepInScreenBounds()
+{
+	KeepInBounds({ 0,0 }, { INITIAL_WINDOW_WIDTH, INITIAL_WINDOW_HEIGHT });
+}
+
+void GameObject::KeepInBounds(glm::vec2 lowerBounds, glm::vec2 upperBounds)
+{
+
+	glm::vec2 halfScale = { m_Scale.x * 0.5f, m_Scale.y * 0.5f };
+	
+	if (m_Position.x - halfScale.x < lowerBounds.x)
+	{
+		m_Position.x = halfScale.x;
+	}
+
+	if (m_Position.x + halfScale.x > upperBounds.x)
+	{
+		m_Position.x = upperBounds.x - halfScale.x;
+	}
+
+	if (m_Position.y - halfScale.y < lowerBounds.y)
+	{
+		m_Position.y = halfScale.y + lowerBounds.y;
+	}
+
+	if (m_Position.y + halfScale.y > upperBounds.y)
+	{
+		m_Position.y = upperBounds.y - halfScale.y;
+	}
 }
 
 bool GameObject::IsOverlappingWithOther(const glm::vec2 pos, const glm::vec2 scale)

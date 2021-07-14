@@ -45,23 +45,19 @@ void Car::Update(double delta)
 		{
 		case UP:
 			m_Position.y += speed;
-			if (m_Position.y + (m_Scale.y/2) > INITIAL_WINDOW_HEIGHT)
-				m_Position.y = INITIAL_WINDOW_HEIGHT - (m_Scale.y / 2);
+			KeepInScreenBounds();
 			break;
 		case DOWN:
-			m_Position.y = m_Position.y - speed;
-			if (m_Position.y - (m_Scale.y / 2) < 0)
-				m_Position.y = 0 + (m_Scale.y / 2);
+			m_Position.y -= speed;
+			KeepInScreenBounds();
 			break;
 		case LEFT:
 			m_Position.x -= speed;
-			if (m_Position.x - (m_Scale.x / 2) < 0)
-				m_Position.x = 0 + (m_Scale.x / 2);
+			KeepInScreenBounds();
 			break;
 		case RIGHT:
 			m_Position.x += speed;
-			if (m_Position.x + (m_Scale.x / 2) > INITIAL_WINDOW_WIDTH)
-				m_Position.x = INITIAL_WINDOW_WIDTH - (m_Scale.x / 2);
+			KeepInScreenBounds();
 			break;
 		}
 	}
