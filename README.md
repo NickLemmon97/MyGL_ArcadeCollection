@@ -16,3 +16,14 @@ run PremakeGenerateBuildFiles.bat to generate a vs2019 project
 The current state of the project assumes vs2019. 
 There is an issue copying over the dlls that generated since the Game folder doesn't exist
 The supplied dlls and libs are only compatible with vs2019, as that is how I am creating the project
+
+# Licenses
+
+## Included external libraries (packed in)
+
+| Library    | Licence                                                                           | Web page                                |
+| ---------- | --------------------------------------------------------------------------------- | --------------------------------------- |
+| GLM        | [MIT/Happy Bunny](https://github.com/g-truc/glm/blob/master/copying.txt)          | https://github.com/g-truc/glm           |
+| GLFW 3     | [zlib/libpng](https://github.com/glfw/glfw/blob/master/LICENSE.md)                | https://github.com/glfw/glfw            |
+
+------
