@@ -19,12 +19,12 @@ ApplicationProjectName   = "3. Player"
 FrameworkProjectName     = "4. Framework"
 GameProjectName          = ("5. "..GameName)
 
-GameNamesLength = 2
+GameNamesLength = 3
 GameNames = 
 {
     "DeathRace",
     "Asteroids",
-    --"BrickBreak",
+    "BrickBreak",
     --"SpaceInvaders",
     --"TrialGame",
 }
@@ -119,6 +119,7 @@ project (ApplicationProjectName)
     
     dependson{
         (FrameworkProjectName),
+        (GameName),
     }
 
     for GameCount = 1, GameNamesLength do
@@ -144,6 +145,7 @@ project (ApplicationProjectName)
 
     links {
         "Framework",
+        (GameName),
     }
 
     postbuildcommands{

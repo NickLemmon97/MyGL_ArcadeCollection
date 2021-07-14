@@ -24,8 +24,8 @@ void UIObject::Draw(const Renderer& renderer)
 	renderer.DrawUI(*m_Mesh.get(), m_Position, m_Anchor, m_Rotation);
 
 #ifdef DEBUG
-	float width = App::Get().GetWindowWidth();
-	float height = App::Get().GetWindowHeight();
+	float width  = (float)App::Get().GetWindowWidth();
+	float height = (float)App::Get().GetWindowHeight();
 
 	float xAnchorOffset = (width  - (width  * -m_Anchor.x));
 	float yAnchorOffset = (height * m_Anchor.y);

@@ -13,8 +13,8 @@ App::App()
 
 	m_glfwTime = 0.0;
 
-	m_CamPosY = m_WindowHeight = INITIAL_WINDOW_HEIGHT;
-	m_CamPosX = m_WindowWidth = INITIAL_WINDOW_WIDTH;
+	m_CamPosY = m_WindowHeight = float(INITIAL_WINDOW_HEIGHT);
+	m_CamPosX = m_WindowWidth  = float(INITIAL_WINDOW_WIDTH );
 }
 
 App::~App()
@@ -109,7 +109,7 @@ void App::Run()
 		GameLoop(deltaTime);
 
 #ifdef DEBUG
-		ShowFPS(deltaTime);
+		ShowFPS(float(deltaTime));
 #endif
 
 		Draw();

@@ -5,8 +5,8 @@ static const char* APP_TITLE = "Arcade Collection";
 
 constexpr int INITIAL_WINDOW_HEIGHT =  720;
 constexpr int INITIAL_WINDOW_WIDTH  = 1280;
-constexpr int HALF_WINDOW_HEIGHT    =  640;
-constexpr int HALF_WINDOW_WIDTH     =  360;
+constexpr float HALF_WINDOW_HEIGHT  =  360;
+constexpr float HALF_WINDOW_WIDTH   =  640;
 
 
 typedef std::function<void(double)>                                       GameLoopFunc;

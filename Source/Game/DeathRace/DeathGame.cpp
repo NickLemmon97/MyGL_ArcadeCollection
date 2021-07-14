@@ -28,6 +28,7 @@ void DeathRace::DisplayRules()
 		<< "RULES:\n"
 		<< "Move the player car around with WASD/Arrow Keys\n"
 		<< "Hit all the other objects on screen\n"
+		<< "Keep track of how many objects left at the top\n"
 		<< "-----------------------------------------------"
 		<< std::endl;
 }

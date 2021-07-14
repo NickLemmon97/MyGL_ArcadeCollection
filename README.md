@@ -11,4 +11,5 @@ run PremakeGenerateBuildFiles.bat to generate a vs2019 project
 
 # Build Note
 The current state of the project assumes vs2019. 
+There is an issue copying over the dlls that generated since the Game folder doesn't exist
 The supplied lua, glfw and glew dll and libs are only compatible with vs2019, as that is how I am creating the project
