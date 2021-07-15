@@ -23,8 +23,6 @@ void Renderer::Init()
 
 void Renderer::UseShader(std::string&& shaderName)
 {
-	m_ShapeShader.release();
-
 	m_ShapeShader = std::make_unique<ShaderProgram>();
 	if (m_ShapeShader->LoadShader(shaderName) == false)
 	{

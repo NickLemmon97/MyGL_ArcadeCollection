@@ -7,6 +7,11 @@ static App* _sInstance;
 void ShowFPS(float delta);
 #endif
 
+static void ErrorCallback(int error, const char* desc)
+{
+	Logger::LogMessage("LogGLFW", LogVerbosity::Error, desc);
+}
+
 App::App()
 {
 	_sInstance = this;
@@ -29,6 +34,8 @@ bool App::Init()
 		DEBUG_LOG_MESSAGE(LogApplication, LogVerbosity::Error, "Failed to initialize glfw");
 		return false;
 	}
+
+	glfwSetErrorCallback(ErrorCallback);
 
 	SetGLWindowHints();
 
