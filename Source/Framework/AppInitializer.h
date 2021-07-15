@@ -2,8 +2,6 @@
 #include <memory>
 #include "../ProjectConfig.h"
 
-FrameworkImpl template class FrameworkAPI std::shared_ptr<class App>;
-
 class FrameworkAPI AppInitializer
 {
 public:

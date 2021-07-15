@@ -23,6 +23,8 @@ public:
 
 	glm::vec2 GetPosition();
 	glm::vec2 GetScale();
+
+	void SetPosition(glm::vec2&& pos);
 							
 	bool GetIsActive();
 

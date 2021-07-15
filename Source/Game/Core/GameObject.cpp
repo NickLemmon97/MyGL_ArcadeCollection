@@ -118,6 +118,11 @@ glm::vec2 GameObject::GetScale()
 	return m_Scale;
 }
 
+void GameObject::SetPosition(glm::vec2&& pos)
+{
+	m_Position = pos;
+}
+
 bool GameObject::GetIsActive()
 {
 	return bIsActive;
