@@ -58,7 +58,7 @@ void AsteroidsGame::Update(double delta)
 			b->Update(delta);
 	}
 
-	for (int i = 2; i < m_GameObjects.size(); i++)
+	for (int i = 1; i < m_GameObjects.size(); i++)
 	{
 		if (m_GameObjects[i]->GetIsActive() == false) continue;
 

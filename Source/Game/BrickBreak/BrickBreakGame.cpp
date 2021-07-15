@@ -9,14 +9,14 @@ BrickBreakGame::BrickBreakGame()
 	m_GameObjects.push_back(new Ball());
 	m_pBall = static_cast<Ball*>(m_GameObjects.back());
 
-	for (int i = 0; i < 80; i++)
+	for (int i = 0; i < 60; i++)
 	{
 		float xOffset = i % 10 * 40.0f;
 		int yIdx = i / 6;
 		float yOffset = yIdx * 35.0f;
 
 		Brick* b = new Brick(m_pBall, yIdx);
-		b->SetPosition({xOffset + HALF_WINDOW_WIDTH, yOffset + HALF_WINDOW_HEIGHT});
+		b->SetPosition({xOffset + HALF_WINDOW_WIDTH - (5 * 40), yOffset + HALF_WINDOW_HEIGHT - (1 * 35)});
 
 		m_GameObjects.push_back(b);
 	}

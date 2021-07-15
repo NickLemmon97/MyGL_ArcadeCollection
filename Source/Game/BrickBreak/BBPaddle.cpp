@@ -5,7 +5,7 @@ BBPaddle::BBPaddle(Game* game)
 	GameInputFunc input = std::bind(&BBPaddle::HandleKeyboardInput, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
 	game->RegisterForInputCallback(input);
 
-	m_Position = { HALF_WINDOW_WIDTH, 180.0f };
+	m_Position = { HALF_WINDOW_WIDTH, 100.0f };
 }
 
 void BBPaddle::Init()

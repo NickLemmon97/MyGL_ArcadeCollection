@@ -10,8 +10,10 @@ Brick::Brick(Ball* ball, int idx)
 
 void Brick::Init()
 {
+	m_Scale = { 35,30 };
+	GameObject::Init();
 
-	m_Mesh->MakeRectangle(35.0f, 30.0f, m_Col);
+	m_Mesh->MakeRectangle(35.0f, 30.0f, m_Col, GL_TRIANGLE_FAN);
 }
 
 void Brick::Update(double delta)

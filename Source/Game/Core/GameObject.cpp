@@ -8,6 +8,8 @@ GameObject::GameObject()
 	m_Scale = { 0.0f,0.0f };
 	m_Rotation = 0.0f;
 
+	bIsActive = true;
+
 #ifdef DEBUG
 	m_DebugCollider = std::make_shared<Shape>();
 #endif

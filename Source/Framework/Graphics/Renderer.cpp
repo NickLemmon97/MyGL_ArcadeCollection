@@ -35,8 +35,6 @@ void Renderer::UseShader(std::string&& shaderName)
 void Renderer::BeginDraw() const
 {
 	glClear(GL_COLOR_BUFFER_BIT);
-
-	m_ShapeShader->Use();
 }
 
 void Renderer::Draw(const Shape& shape, const glm::vec2& pos, float rotation) const
