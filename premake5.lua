@@ -68,6 +68,7 @@ project (ProjectConfigProjectName)
         "premake5.lua",
         "PremakeGenerateBuildFiles.bat",
         ".gitignore",
+        "README.md",
     }
 
     targetdir (GameOutputDir)

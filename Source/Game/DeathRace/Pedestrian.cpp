@@ -3,8 +3,6 @@
 #include <Windows.h>
 #include "mmsystem.h"
 
-#pragma comment (lib, "Winmm.lib") //For windows PlaySound()
-
 void Pedestrian::Init()
 {
 	float width = 12.0f;
