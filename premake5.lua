@@ -72,8 +72,8 @@ project (ProjectConfigProjectName)
         "README.md",
     }
 
-    targetdir (WorkingDirectory.."none")
-    objdir  (WorkingDirectory.."none")
+    targetdir (WorkingDirectory.."/none")
+    objdir  (WorkingDirectory.."/none")
 
     filter "system:windows"
         postbuildcommands{
