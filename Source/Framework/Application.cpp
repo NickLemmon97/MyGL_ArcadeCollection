@@ -18,8 +18,12 @@ App::App()
 
 	m_glfwTime = 0.0;
 
-	m_CamPosY = m_WindowHeight = float(INITIAL_WINDOW_HEIGHT);
-	m_CamPosX = m_WindowWidth  = float(INITIAL_WINDOW_WIDTH );
+
+	m_WindowHeight = INITIAL_WINDOW_HEIGHT;
+	m_WindowWidth  = INITIAL_WINDOW_WIDTH;
+
+	m_CamPosY = float(m_WindowHeight);
+	m_CamPosX = float(m_WindowWidth);
 }
 
 App::~App()

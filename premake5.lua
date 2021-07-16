@@ -16,13 +16,17 @@ ProjectConfigProjectName = "1. Project Config"
 ShaderProjectName        = "2. Shaders"
 
 --A global to show where the third party libraries are for your system
-ThirdPartyLibFolder = "Source/ThirdParty/lib"
+ThirdPartyIncludeFolder = "Source/ThirdParty/include"
+ThirdPartyLibFolder     = "Source/ThirdParty/lib"
 
 --All configuration settings
+objdir  (WorkingDirectory.."/bin-obj/")
+
 files{
     "Source/ProjectConfig.h",
 }
 
+-- Universal project filters
 filter "system:windows"
        cppdialect "C++17"
        systemversion "latest"
@@ -73,7 +77,6 @@ project (ProjectConfigProjectName)
     }
 
     targetdir (GameOutputDir)
-    objdir  (WorkingDirectory.."/bin-obj/")
 
     filter "system:windows"
         postbuildcommands{
@@ -88,7 +91,6 @@ project (ShaderProjectName)
     kind "Utility"
 
     targetdir (WorkingDirectory.."/bin/" ..outputdir)
-    objdir  (WorkingDirectory.."/bin-obj/")
 
     files{
         "Source/Data/Shaders/**.vert",
@@ -110,9 +112,10 @@ dependson{
 
 includedirs {
     "Source/Framework",
+    "Source/Framework/ThirdParty",
     "Source/Game",
     "Source/Game/Core",
-    "Source/ThirdParty/include",
+    (ThirdPartyIncludeFolder),
 }
 
 files {
@@ -123,7 +126,6 @@ files {
 }
 
 targetdir (GameOutputDir)
-objdir  (WorkingDirectory.."/bin-obj/")
 
 libdirs{
     (ThirdPartyLibFolder),
@@ -131,7 +133,7 @@ libdirs{
 }
 
 links {
-    "Winmm",
+    "Winmm",    --For calling Playsound on windows
     "FrameworkLib",
 }
 
@@ -156,19 +158,21 @@ pchsource   "Source/Framework/FrameworkPCH.cpp"
 
 includedirs {
     "Source/Framework",
-    "Source/ThirdParty/include",
+    "Source/Framework/ThirdParty",
+    (ThirdPartyIncludeFolder),
 }
 
 files {
     "Source/Framework/**.cpp",
     "Source/Framework/**.h",
+    "Source/Framework/**.hpp",
+    "Source/Framework/**.inl",
 }
 
 targetdir (LibOutputDir)
-objdir  (WorkingDirectory.."/bin-obj/")
 
 libdirs{
-    (ThirdPartyLibFolder),
+     (ThirdPartyLibFolder),
 }
 
 links {
@@ -176,5 +180,8 @@ links {
     "glew32",
     "glfw3dll",
 }
+
+ filter "files:Source/Framework/ThirdParty/**"
+        flags   "NoPCH"
 
 filter {}

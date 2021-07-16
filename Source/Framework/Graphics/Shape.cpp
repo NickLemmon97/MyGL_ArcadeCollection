@@ -34,7 +34,7 @@ void Shape::Init(std::vector<glm::vec2>& points, const glm::vec3& col)
 void Shape::Init(std::vector<glm::vec2>& points, const glm::vec3& col, GLenum primitive)
 {
 	m_Color = col;
-	m_NumVerts = points.size();
+	m_NumVerts = static_cast<int>(points.size());
 	m_PrimitiveType = primitive;
 
 	glGenBuffers(1, &m_Vbo);
