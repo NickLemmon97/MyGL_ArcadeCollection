@@ -1,6 +1,5 @@
 #include "GamePCH.h"
 #include "Ship.h"
-#include "Projectile.h"
 #include "AsteroidsGame.h"
 
 using namespace std;
@@ -140,7 +139,9 @@ void Ship::HandleKeyboardInput(int key, int scancode, int action, int mode)
 void Ship::HandleHealth()
 {
 	if (m_Health > 0)
+	{
 		m_Mesh->SetColor(HealthColors[m_Health - 1]);
+	}
 	else
 	{
 		bIsActive = false;

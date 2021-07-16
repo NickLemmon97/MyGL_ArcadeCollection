@@ -22,7 +22,7 @@ void BBPaddle::Init()
 
 void BBPaddle::Update(float delta)
 {
-	m_Position.x += m_Direction * delta * 100.0f;
+	m_Position.x += m_Direction * delta * 160.0f;
 
 	KeepInScreenBounds();
 }

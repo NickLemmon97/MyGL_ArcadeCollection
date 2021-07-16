@@ -11,8 +11,8 @@ PongPaddle::PongPaddle(Game* game)
 void PongPaddle::Init()
 {
 	float w, h;
-	w = 100.f;
-	h = 35.0f;
+	h = 100.f;
+	w = 35.0f;
 	m_Mesh->MakeRectangle(w,h, ColorList::WHITE, GL_TRIANGLE_FAN);
 
 	m_Scale = { w,h };
@@ -22,7 +22,7 @@ void PongPaddle::Init()
 
 void PongPaddle::Update(float delta)
 {
-	m_Position.y += m_Direction * delta * 100.0f;
+	m_Position.y -= m_Direction * delta * 140.0f;
 
 	KeepInScreenBounds();
 }
