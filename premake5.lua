@@ -106,9 +106,6 @@ kind        "ConsoleApp"
 language    "C++"
 defines     {"ALLONEPROJECT"}
 
-dependson{
-    "FrameworkLib",
-}
 
 includedirs {
     "Source/Framework",
@@ -123,6 +120,7 @@ files {
     "Source/AppInitializer.*",
     "Source/Game/**.cpp",
     "Source/Game/**.h",
+    "Source/Framework/**.*",
 }
 
 targetdir (GameOutputDir)
@@ -134,7 +132,10 @@ libdirs{
 
 links {
     "Winmm",    --For calling Playsound on windows
-    "FrameworkLib",
+    
+    "opengl32",
+    "glew32",
+    "glfw3dll",
 }
 
 postbuildcommands{
@@ -142,46 +143,5 @@ postbuildcommands{
     ("{COPY} %{prj.location}../"..(ThirdPartyLibFolder).."/glew32.dll %{cfg.targetdir}/"),
     ("{COPY} %{prj.location}../"..(ThirdPartyLibFolder).."/glfw3.dll %{cfg.targetdir}/"),
 }
-
-filter {}
-
-
------------------------------------------------- An all in 1 project since DLLS are cool but I wanted to see 1 main exe
-project "FrameworkLib"
-location    (WorkingDirectory)
-debugdir    "Source"
-kind        "StaticLib"
-language    "C++"
-defines     {"ALLONEPROJECT"}
-pchheader   "FrameworkPCH.h"
-pchsource   "Source/Framework/FrameworkPCH.cpp"
-
-includedirs {
-    "Source/Framework",
-    "Source/Framework/ThirdParty",
-    (ThirdPartyIncludeFolder),
-}
-
-files {
-    "Source/Framework/**.cpp",
-    "Source/Framework/**.h",
-    "Source/Framework/**.hpp",
-    "Source/Framework/**.inl",
-}
-
-targetdir (LibOutputDir)
-
-libdirs{
-     (ThirdPartyLibFolder),
-}
-
-links {
-    "opengl32",
-    "glew32",
-    "glfw3dll",
-}
-
- filter "files:Source/Framework/ThirdParty/**"
-        flags   "NoPCH"
 
 filter {}
