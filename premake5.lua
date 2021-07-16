@@ -1,13 +1,15 @@
 ------------------------------------------------ Globals
--- Directoory names
+-- Directory names
 WorkingDirectory = "build"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 GameOutputDir = (WorkingDirectory.."/bin/" ..outputdir.. "/Game")
 LibOutputDir  = (WorkingDirectory.."/bin/" ..outputdir.. "/Lib")
 
+
 --Name of the current game project
 GameName = "ArcadeCollection"
+
 
 --Project names as a variable
 WorkspaceName            = "OpenGLFramework"
@@ -15,16 +17,15 @@ WorkspaceName            = "OpenGLFramework"
 ProjectConfigProjectName = "1. Project Config"
 ShaderProjectName        = "2. Shaders"
 
+
 --A global to show where the third party libraries are for your system
 ThirdPartyIncludeFolder = "Source/ThirdParty/include"
 ThirdPartyLibFolder     = "Source/ThirdParty/lib"
 
+
 --All configuration settings
 objdir  (WorkingDirectory.."/bin-obj/")
 
-files{
-    "Source/ProjectConfig.h",
-}
 
 -- Universal project filters
 filter "system:windows"
