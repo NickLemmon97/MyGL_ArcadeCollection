@@ -6,7 +6,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 GameOutputDir = (WorkingDirectory.."/bin/" ..outputdir.. "/Game")
 
 --Name of the current game project
-GameName = "Game"
+GameName = "ArcadeCollection"
 
 --Project names as a variable
 WorkspaceName            = "OpenGLFramework"
@@ -23,9 +23,9 @@ files{
 }
 
 filter "system:windows"
-        cppdialect "C++17"
-        systemversion "latest"
-    disablewarnings { "4251" }
+       cppdialect "C++17"
+       systemversion "latest"
+       disablewarnings { "4251" }
 
 filter "configurations:Debug"
        defines { "DEBUG", "_DEBUG", "EXECUTE_WITH_CONSOLE_VISIBLE"}
@@ -35,18 +35,10 @@ filter "configurations:Development"
        defines {"DEVELOPMENT", "EXECUTE_WITH_CONSOLE_VISIBLE"}
        optimize "On"
 
-filter "configurations:Release"
-       defines { "RELEASE", "STANDALONE" }
-       optimize "On"
-
 filter "configurations:ReleaseConsole"
        defines { "CONSOLE_RELEASE", "STANDALONE", "EXECUTE_WITH_CONSOLE_VISIBLE" }
        optimize "On"
-
-filter "configurations:Publish"
-        defines {"RELEASE", "STANDALONE"}
-        optimize "On"
-        symbols "Off"
+       symbols "Off"
 
 filter {}
 
@@ -54,7 +46,7 @@ filter {}
 workspace (WorkspaceName)
     configurations  { "Debug", "ReleaseConsole", "Development"}
     location        (WorkingDirectory)
-    startproject    "AllInOnePlayer"
+    startproject    (GameName)
 
     filter "system:windows"
         platforms       { "x64" }
@@ -102,10 +94,9 @@ project (ShaderProjectName)
         "Source/Data/Shaders/**.frag",
     }
 
-  
+
 ------------------------------------------------ An all in 1 project since DLLS are cool but I wanted to see 1 main exe
-project "AllInOnePlayer"
-targetname  "AllInOnePlayer"
+project (GameName)
 location    (WorkingDirectory)
 debugdir    "Source"
 kind        "ConsoleApp"
@@ -146,13 +137,5 @@ postbuildcommands{
     ("{COPY} %{prj.location}../"..(ThirdPartyLibFolder).."/glew32.dll %{cfg.targetdir}/"),
     ("{COPY} %{prj.location}../"..(ThirdPartyLibFolder).."/glfw3.dll %{cfg.targetdir}/"),
 }
-
-filter {"configurations:Release", "system:windows"}
-    kind "WindowedApp"
-    entrypoint ("mainCRTStartup")
-
-filter {"configurations:Publish", "system:windows"}
-    kind "WindowedApp"
-    entrypoint ("mainCRTStartup")
 
 filter {}
