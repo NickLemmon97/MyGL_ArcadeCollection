@@ -1,7 +1,7 @@
 #pragma once
 #include <GamePCH.h>
 
-class SpaceInvadersAPI SpaceInvaders : public Game
+class SpaceInvaders : public Game
 {
 public:
 	SpaceInvaders();

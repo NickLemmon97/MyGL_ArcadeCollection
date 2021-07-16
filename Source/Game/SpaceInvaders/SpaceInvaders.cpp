@@ -27,7 +27,6 @@ void SpaceInvaders::Reset()
 
 void SpaceInvaders::Init()
 {
-	
 	Game::Init();
 }
 

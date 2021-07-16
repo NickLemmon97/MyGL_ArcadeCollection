@@ -1,7 +1,6 @@
 #pragma once
-#include <GameClass.h>
 
-class GameAPI Game : public IGameClass
+class GameAPI Game
 {
 public:
 	Game();
@@ -9,14 +8,14 @@ public:
 
 	void Exit();
 	void DisplayRules();
-	void Reset();
+	virtual void Reset();
 
-	void Init() override;
-	void Update(double delta) override;
-	void Draw(const class Renderer& renderer) override;
-	void HandleInput(int key, int scancode, int action, int mode) override;
-	void HandleMousePosition(double x, double y) override;
-	void HandleMouseInput(int button, int action, int mods) override;
+	virtual void Init();
+	virtual void Update(double delta);
+	virtual void Draw(const class Renderer& renderer);
+	void HandleInput(int key, int scancode, int action, int mode);
+	void HandleMousePosition(double x, double y);
+	void HandleMouseInput(int button, int action, int mods);
 
 	void RegisterForInputCallback(GameInputFunc func);
 	void RegisterForInputCallback(GameCursorPosFunc func);
@@ -31,5 +30,4 @@ protected:
 	std::vector<GameInputFunc> m_InputFunctions;
 	std::vector<GameCursorPosFunc> m_CursorPosFuncs;
 	std::vector<GameMouseInputFunc> m_MouseInputFuncs;
-
 };

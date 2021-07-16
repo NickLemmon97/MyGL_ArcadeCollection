@@ -1,6 +1,7 @@
 #include <FrameworkPCH.h>
+#include <GamePCH.h>
 
-AppInitializer::AppInitializer(IGameClass* game)
+AppInitializer::AppInitializer(Game* game)
 {
 	Game_ = game;
 	Game_->DisplayRules();
@@ -41,22 +42,22 @@ bool AppInitializer::Setup()
 
 void AppInitializer::BindFunctionCallbacks()
 {
-	GameLoopFunc loop = std::bind(&IGameClass::Update, Game_, std::placeholders::_1);
+	GameLoopFunc loop = std::bind(&Game::Update, Game_, std::placeholders::_1);
 	Application_->SetGameLoop(loop);
 
-	GameDrawFunc draw = std::bind(&IGameClass::Draw, Game_, std::placeholders::_1);
+	GameDrawFunc draw = std::bind(&Game::Draw, Game_, std::placeholders::_1);
 	Application_->SetGameDraw(draw);
 
-	GameInputFunc input = std::bind(&IGameClass::HandleInput, Game_,
+	GameInputFunc input = std::bind(&Game::HandleInput, Game_,
 		std::placeholders::_1,
 		std::placeholders::_2,
 		std::placeholders::_3,
 		std::placeholders::_4);
 	Application_->SetGameInput(input);
 
-	GameCursorPosFunc cursor = std::bind(&IGameClass::HandleMousePosition, Game_, std::placeholders::_1, std::placeholders::_2);
+	GameCursorPosFunc cursor = std::bind(&Game::HandleMousePosition, Game_, std::placeholders::_1, std::placeholders::_2);
 	Application_->SetGameCursorFunc(cursor);
 
-	GameMouseInputFunc mouse = std::bind(&IGameClass::HandleMouseInput, Game_, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
+	GameMouseInputFunc mouse = std::bind(&Game::HandleMouseInput, Game_, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
 	Application_->SetGameMouseInputFunc(mouse);
 }

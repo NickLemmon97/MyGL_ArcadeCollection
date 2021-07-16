@@ -5,7 +5,7 @@
 class FrameworkAPI AppInitializer
 {
 public:
-	AppInitializer(class IGameClass* game);
+	AppInitializer(class Game* game);
 	~AppInitializer();
 
 	void Run();
@@ -17,5 +17,5 @@ private:
 	void BindFunctionCallbacks();
 
 	class App* Application_;
-	class IGameClass* Game_;
+	class Game* Game_;
 };

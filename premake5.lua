@@ -3,8 +3,6 @@
 WorkingDirectory = "build"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-DLL_LibOutput =  ("/bin/" ..outputdir.. "/Libs")
-
 GameOutputDir = (WorkingDirectory.."/bin/" ..outputdir.. "/Game")
 
 --Name of the current game project
@@ -15,21 +13,6 @@ WorkspaceName            = "OpenGLFramework"
 
 ProjectConfigProjectName = "1. Project Config"
 ShaderProjectName        = "2. Shaders"
-ApplicationProjectName   = "3. Player"
-FrameworkProjectName     = "4. Framework"
-GameProjectName          = ("5. "..GameName)
-
-GameNamesLength = 5
-GameNames = 
-{
-    "DeathRace",
-    "Asteroids",
-    "BrickBreak",
-    "Pong",
-    "SpaceInvaders",
-    --"SpaceInvaders",
-    --"TrialGame",
-}
 
 --A global to show where the third party libraries are for your system
 ThirdPartyLibFolder = "Source/ThirdParty/lib"
@@ -71,7 +54,7 @@ filter {}
 workspace (WorkspaceName)
     configurations  { "Debug", "ReleaseConsole", "Development"}
     location        (WorkingDirectory)
-    startproject    (ApplicationProjectName)
+    startproject    "AllInOnePlayer"
 
     filter "system:windows"
         platforms       { "x64" }
@@ -105,231 +88,6 @@ project (ProjectConfigProjectName)
         }
 
 
------------------------------------------------- Main Executable Project
-project (ApplicationProjectName)
-    targetname  "Player"
-    location    (WorkingDirectory)
-    debugdir    "Source"
-    kind        "ConsoleApp"
-    language    "C++"
-    
-    includedirs {
-        "Source/Framework",
-        "Source/Game",
-        "Source/ThirdParty/include",
-    }
-    
-    dependson{
-        (FrameworkProjectName),
-        (GameName),
-    }
-
-    for GameCount = 1, GameNamesLength do
-        currGame = table.tostring(GameNames[GameCount])
-        dependson{
-            (currGame)
-        }
-        links{
-            (currGame)
-        }
-    end
-
-    files {
-        "Source/main.cpp",
-    }
-
-    targetdir (GameOutputDir)
-    objdir  (WorkingDirectory.."/bin-obj/")
-
-    libdirs{
-        (WorkingDirectory..DLL_LibOutput),
-    }
-
-    links {
-        "Framework",
-        (GameName),
-    }
-
-    postbuildcommands{
-        ("{COPY} %{prj.location}../Source/Data %{prj.location}bin/"..outputdir.."/Game/Data"),
-        ("{COPY} %{prj.location}../"..(ThirdPartyLibFolder).."/glew32.dll %{cfg.targetdir}/"),
-        ("{COPY} %{prj.location}../"..(ThirdPartyLibFolder).."/glfw3.dll %{cfg.targetdir}/"),
-    }
-
-    filter "configurations:Debug"
-        postbuildcommands{
-          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/ %{cfg.targetdir}/"),
-        }
-
-    filter "configurations:Development"
-        postbuildcommands{
-          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/Framework.dll %{cfg.targetdir}/"),
-          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll %{cfg.targetdir}/"),
-        }
-
-    filter "configurations:Release"
-        postbuildcommands{
-          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/Framework.dll %{cfg.targetdir}/"),
-          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll %{cfg.targetdir}/"),
-        }
-
-    filter "configurations:ReleaseConsole"
-        postbuildcommands{
-          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/Framework.dll %{cfg.targetdir}/"),
-          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll %{cfg.targetdir}/"),
-        }
-
-    filter "configurations:Publish"
-        postbuildcommands{
-          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/Framework.dll %{cfg.targetdir}/"),
-          ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll %{cfg.targetdir}/"),
-        }
-
-    filter {"configurations:Release", "system:windows"}
-        kind "WindowedApp"
-        entrypoint ("mainCRTStartup")
-
-    filter {"configurations:Publish", "system:windows"}
-        kind "WindowedApp"
-        entrypoint ("mainCRTStartup")
-
-    filter {}
-
-
------------------------------------------------- Game Project
-project (GameProjectName)
-    targetname  (GameName)
-    location    (WorkingDirectory)
-    kind        "SharedLib"
-    language    "C++"
-    defines     {"GameDLLExport"}
-    pchheader   "GamePCH.h"
-    pchsource   "Source/Game/GamePCH.cpp"
-
-    dependson {
-        (FrameworkProjectName),
-    }
-    
-    includedirs {
-        "Source/Game",
-        "Source/Game/Core",
-        "Source/Framework",
-        "Source/ThirdParty/include",
-    }
-
-    files {
-        "Source/Game/Core/**.cpp",
-        "Source/Game/Core/**.h",
-        "Source/Game/GamePCH.cpp",
-        "Source/Game/GamePCH.h",
-    }
-
-    targetdir (WorkingDirectory..DLL_LibOutput)
-    objdir  (WorkingDirectory.."/bin-obj/")
-
-    libdirs{
-        (WorkingDirectory..DLL_LibOutput),
-    }
-
-    links {
-        "Framework",
-    }
-
-    postbuildcommands{
-      ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..GameName..".dll bin/" ..outputdir.. "/Game"),
-    }
-
-    filter {}
-
------------------------------------------------ All games Project generation
-
-for GameCount = 1, GameNamesLength do
-
-currGame = table.tostring(GameNames[GameCount])
-
-project (currGame)
-    targetname  (currGame)
-    location    (WorkingDirectory)
-    kind        "SharedLib"
-    language    "C++"
-    defines     {(currGame.."DLLExport")}
-
-    dependson {
-        (FrameworkProjectName),
-        (GameProjectName),
-    }
-    
-    includedirs {
-        "Source/Game",
-        "Source/Game/Core",
-        "Source/Framework",
-        "Source/ThirdParty/include",
-    }
-
-    files {
-        ("Source/Game/"..currGame.."/**.cpp"),
-        ("Source/Game/"..currGame.."/**.h"),
-        "Source/Game/GamePCH.cpp",
-        "Source/Game/GamePCH.h",
-    }
-
-    targetdir (WorkingDirectory..DLL_LibOutput)
-    objdir  (WorkingDirectory.."/bin-obj/")
-
-    libdirs{
-        (WorkingDirectory..DLL_LibOutput),
-    }
-
-    links {
-        "Framework",
-        "Game",
-    }
-
-    postbuildcommands{
-      ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/"..currGame..".dll bin/" ..outputdir.. "/Game"),
-    }
-
-end 
-
------------------------------------------------- Framework Project
-project (FrameworkProjectName)
-    targetname  "Framework"
-    location    (WorkingDirectory)
-    kind        "SharedLib"
-    language    "C++"
-    defines     {"FrameworkDLLExport"}
-    pchheader   "FrameworkPCH.h"
-    pchsource   "Source/Framework/FrameworkPCH.cpp"
-
-    includedirs {
-        "Source/Framework",
-        "Source/ThirdParty/include",
-    }
-
-    files {
-        "Source/Framework/**.cpp",
-        "Source/Framework/**.h",
-    }
-
-    targetdir (WorkingDirectory..DLL_LibOutput)
-    objdir  (WorkingDirectory.."/bin-obj/")
-
-    libdirs{
-        (ThirdPartyLibFolder),
-    }
-
-    links {
-        "opengl32",
-        "glew32",
-        "glfw3dll",
-    }
-
-    postbuildcommands{
-      ("{COPY} %{prj.location}bin/"..outputdir.."/Libs/Framework.dll bin/"..outputdir.."/Game"),
-    }
-
-    filter {}
-
 
 ------------------------------------------------------- Shaders project
 project (ShaderProjectName)
@@ -344,7 +102,7 @@ project (ShaderProjectName)
         "Source/Data/Shaders/**.frag",
     }
 
-    
+  
 ------------------------------------------------ An all in 1 project since DLLS are cool but I wanted to see 1 main exe
 project "AllInOnePlayer"
 targetname  "AllInOnePlayer"

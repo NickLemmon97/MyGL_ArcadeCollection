@@ -1,7 +1,7 @@
 #pragma once
 #include <GamePCH.h>
 
-class BrickBreakAPI BrickBreakGame : public Game
+class BrickBreakGame : public Game
 {
 public:
 	BrickBreakGame();

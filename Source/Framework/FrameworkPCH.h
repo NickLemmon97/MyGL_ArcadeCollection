@@ -25,8 +25,6 @@
 #include <Utilities/Utilities.h>
 #include <Utilities/ColorList.h>
 
-#include <GameClass.h>
-
 #include <Application.h>
 #include <AppInitializer.h>
 

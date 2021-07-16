@@ -1,7 +1,7 @@
 #pragma once
 #include <GamePCH.h>
 
-class DeathRaceAPI DeathRace : public Game
+class DeathRace : public Game
 {
 public:
 	DeathRace();

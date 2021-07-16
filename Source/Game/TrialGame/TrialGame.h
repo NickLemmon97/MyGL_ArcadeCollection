@@ -1,7 +1,7 @@
 #pragma once
 #include <GamePCH.h>
 
-class TrialGameAPI TrialGame : public Game
+class TrialGame : public Game
 {
 public:
 	TrialGame();
