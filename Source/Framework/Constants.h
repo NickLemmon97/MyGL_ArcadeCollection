@@ -10,7 +10,7 @@ constexpr float HALF_WINDOW_HEIGHT  =  360;
 constexpr float HALF_WINDOW_WIDTH   =  640;
 
 
-typedef std::function<void(double)>                                       GameLoopFunc;
+typedef std::function<void(float delta)>                                  GameLoopFunc;
 typedef std::function<void(double x, double y)>                      GameCursorPosFunc;
 typedef std::function<void(const class Renderer&)>                        GameDrawFunc;
 typedef std::function<void(int button, int action, int mods)>       GameMouseInputFunc;

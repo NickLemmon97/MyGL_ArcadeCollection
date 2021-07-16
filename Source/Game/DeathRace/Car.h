@@ -3,14 +3,15 @@
 
 class Car : public GameObject
 {
-	enum Direction
+	enum class Direction
 	{
 		DOWN  = 0,
 		RIGHT,
 		UP,
 		LEFT,
 	};
-	Direction m_Direction = DOWN;
+
+	Direction m_Direction = Direction::DOWN;
 
 	int bIsMoving = 0;
 
@@ -21,11 +22,11 @@ public:
 	~Car();
 
 	void Init() override;
-	void Update(double delta) override;
+	void Update(float delta) override;
 
 	void HandleKeyboardInput(int key, int scancode, int action, int mode);
 
 private:
 	void SetDirection(Direction d);
-	void CreateCarMesh(int width, int farh, int sizemodifier);
+	void CreateCarMesh(float width, float farh, float sizemodifier);
 };

@@ -6,7 +6,7 @@
 DeathRace::DeathRace()
 {
 	m_GameObjects.push_back(new Car(this));
-	m_CarIdx = m_GameObjects.size() - 1;
+	m_CarIdx = static_cast<int>(m_GameObjects.size()) - 1;
 
 	for (int i = 0; i < 12; i++)
 	{
@@ -45,7 +45,7 @@ void DeathRace::Init()
 	LOG_MESSAGE(LogGame, LogVerbosity::Success, "Death Race Created");
 }
 
-void DeathRace::Update(double delta)
+void DeathRace::Update(float delta)
 {
 	Game::Update(delta);
 

@@ -22,7 +22,7 @@ void TrialGame::Init()
 	LOG_MESSAGE(LogGame, LogVerbosity::Success, "Trial Game Created!");	
 }
 
-void TrialGame::Update(double delta)
+void TrialGame::Update(float delta)
 {
 	Game::Update(delta);
 	if (m_GameObjects[1]->IsOverlappingWithOther(m_GameObjects[0]->GetPosition(), m_GameObjects[0]->GetScale()))

@@ -46,7 +46,7 @@ void Meteor::Init()
 	m_Mesh->Init(vertices, ColorList::WHITE, GL_LINE_LOOP);
 }
 
-void Meteor::Update(double delta)
+void Meteor::Update(float delta)
 {
 	m_Rotation += m_RotationDirection * delta;
 

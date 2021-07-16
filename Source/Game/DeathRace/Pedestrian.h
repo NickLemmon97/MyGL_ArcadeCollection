@@ -5,7 +5,7 @@ class Pedestrian : public GameObject
 {
 public:
 	void Init() override;
-	void Update(double delta) override;
+	void Update(float delta) override;
 	void Reset() override;
 
 	bool GetIsDead();
@@ -15,8 +15,8 @@ public:
 	void UpdateDirection();
 
 private:
-	glm::vec2 m_Movement;
-	float m_Timer;
-	float m_Direction;
-	bool bIsDead;
+	glm::vec2 m_Movement = { 0.0f,0.0f };
+	float m_Timer = 0.0f;
+	float m_Direction = 0.0f;
+	bool bIsDead = false;
 };

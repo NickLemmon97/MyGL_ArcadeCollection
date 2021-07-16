@@ -72,8 +72,8 @@ project (ProjectConfigProjectName)
         "README.md",
     }
 
-    targetdir (WorkingDirectory.."/none")
-    objdir  (WorkingDirectory.."/none")
+    targetdir (GameOutputDir)
+    objdir  (WorkingDirectory.."/bin-obj/")
 
     filter "system:windows"
         postbuildcommands{
@@ -152,7 +152,7 @@ kind        "StaticLib"
 language    "C++"
 defines     {"ALLONEPROJECT"}
 pchheader   "FrameworkPCH.h"
-pchsource   "FrameworkPCH.cpp"
+pchsource   "Source/Framework/FrameworkPCH.cpp"
 
 includedirs {
     "Source/Framework",

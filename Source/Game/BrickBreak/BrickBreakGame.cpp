@@ -28,7 +28,7 @@ void BrickBreakGame::Init()
 	Game::Init();
 }
 
-void BrickBreakGame::Update(double delta)
+void BrickBreakGame::Update(float delta)
 {
 	Game::Update(delta);
 }

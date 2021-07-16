@@ -6,7 +6,7 @@ class Projectile : public GameObject
 public:
 	Projectile();
 	void Init() override;
-	void Update(double delta) override;
+	void Update(float delta) override;
 
 	void Shoot(glm::vec2 dir, glm::vec2 pos);
 

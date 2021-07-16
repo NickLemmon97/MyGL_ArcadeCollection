@@ -1,7 +1,6 @@
 #ifndef __GAME_PCH__
 #define __GAME_PCH__
 
-#include "../ProjectConfig.h"
 #include <FrameworkPCH.h>
 
 #include <sstream>

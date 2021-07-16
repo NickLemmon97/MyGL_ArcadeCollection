@@ -34,7 +34,7 @@ void Car::Init()
 	GameObject::Init();
 }
 
-void Car::Update(double delta)
+void Car::Update(float delta)
 {
 	GameObject::Update(delta);
 
@@ -43,19 +43,19 @@ void Car::Update(double delta)
 		float speed = m_Speed* delta;
 		switch (m_Direction)
 		{
-		case UP:
+		case Direction::UP:
 			m_Position.y += speed;
 			KeepInScreenBounds();
 			break;
-		case DOWN:
+		case Direction::DOWN:
 			m_Position.y -= speed;
 			KeepInScreenBounds();
 			break;
-		case LEFT:
+		case Direction::LEFT:
 			m_Position.x -= speed;
 			KeepInScreenBounds();
 			break;
-		case RIGHT:
+		case Direction::RIGHT:
 			m_Position.x += speed;
 			KeepInScreenBounds();
 			break;
@@ -74,25 +74,25 @@ void Car::HandleKeyboardInput(int key, int scancode, int action, int mode)
 		case GLFW_KEY_LEFT:
 			[[fallthrough]];
 		case GLFW_KEY_A:
-			SetDirection(LEFT);
+			SetDirection(Direction::LEFT);
 			break;
 
 		case GLFW_KEY_RIGHT:
 			[[fallthrough]];
 		case GLFW_KEY_D:
-			SetDirection(RIGHT);
+			SetDirection(Direction::RIGHT);
 			break;
 
 		case GLFW_KEY_UP:
 			[[fallthrough]];
 		case GLFW_KEY_W:
-			SetDirection(UP);
+			SetDirection(Direction::UP);
 			break;
 
 		case GLFW_KEY_DOWN:
 			[[fallthrough]];
 		case GLFW_KEY_S:
-			SetDirection(DOWN);
+			SetDirection(Direction::DOWN);
 			break;
 
 		default:
@@ -126,26 +126,26 @@ void Car::SetDirection(Direction d)
 
 	switch (d)
 	{
-	case UP: 
+	case Direction::UP: 
 		m_Rotation = 3.14f;
 		m_Scale = { 5 * 12, 7 * 12 };
 		break;
-	case DOWN:
+	case Direction::DOWN:
 		m_Rotation = 0.0f;
 		m_Scale = { 5 * 12, 7 * 12 };
 		break;
-	case LEFT:
+	case Direction::LEFT:
 		m_Rotation = 4.71f;
 		m_Scale = { 7 * 12, 5 * 12};
 		break;
-	case RIGHT:
+	case Direction::RIGHT:
 		m_Rotation = 1.57f;
 		m_Scale = { 7 * 12, 5 * 12 };
 		break;
 	}
 }
 
-void Car::CreateCarMesh(int width, int farh, int sizeModifier)
+void Car::CreateCarMesh(float width, float farh, float sizeModifier)
 {
 	float axley = 5;
 	float bodywidth = 2.5;

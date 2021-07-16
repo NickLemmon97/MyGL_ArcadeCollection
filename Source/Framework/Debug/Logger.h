@@ -18,8 +18,8 @@ enum class LogVerbosity
 
 namespace Logger
 {
-	void FrameworkAPI LogMessage(const char* Category, LogVerbosity verbosity, const char* message);
-	void FrameworkAPI LogMessage(LogVerbosity verbosity, const char* message);
+	void LogMessage(const char* Category, LogVerbosity verbosity, const char* message);
+	void LogMessage(LogVerbosity verbosity, const char* message);
 };
 
 

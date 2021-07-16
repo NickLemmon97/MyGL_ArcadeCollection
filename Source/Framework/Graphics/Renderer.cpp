@@ -55,7 +55,7 @@ void Renderer::Draw(const Shape& shape, const glm::vec2& pos, float rotation) co
 	glBindVertexArray(0);
 }
 
-void FrameworkAPI Renderer::DrawUI(const Shape& shape, const glm::vec2& pos, glm::vec2& anchor, float rotation) const
+void Renderer::DrawUI(const Shape& shape, const glm::vec2& pos, glm::vec2& anchor, float rotation) const
 {
 	m_UIShapeShader->Use();
 

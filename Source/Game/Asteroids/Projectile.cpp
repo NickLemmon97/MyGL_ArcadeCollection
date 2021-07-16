@@ -4,6 +4,7 @@ Projectile::Projectile()
 {
 	m_Rotation = 0.0f;
 	m_Position = { 0.0f,0.0f };
+	m_Direction = { 0.0f, 0.0f };
 }
 
 void Projectile::Init()
@@ -19,7 +20,7 @@ void Projectile::Init()
 	GameObject::Init();
 }
 
-void Projectile::Update(double delta)
+void Projectile::Update(float delta)
 {
 	if (bIsActive)
 	{

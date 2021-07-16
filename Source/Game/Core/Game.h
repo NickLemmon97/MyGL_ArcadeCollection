@@ -1,17 +1,17 @@
 #pragma once
 
-class GameAPI Game
+class Game
 {
 public:
 	Game();
 	virtual ~Game();
 
 	void Exit();
-	void DisplayRules();
+	virtual void DisplayRules();
 	virtual void Reset();
 
 	virtual void Init();
-	virtual void Update(double delta);
+	virtual void Update(float delta);
 	virtual void Draw(const class Renderer& renderer);
 	void HandleInput(int key, int scancode, int action, int mode);
 	void HandleMousePosition(double x, double y);

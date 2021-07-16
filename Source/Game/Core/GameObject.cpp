@@ -26,7 +26,7 @@ void GameObject::Init()
 #endif
 }
 
-void GameObject::Update(double delta)
+void GameObject::Update(float delta)
 {
 }
 

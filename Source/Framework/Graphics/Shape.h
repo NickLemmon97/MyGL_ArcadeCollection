@@ -1,7 +1,7 @@
 #pragma once
 #include <Utilities/ColorList.h>
 
-class FrameworkAPI Shape
+class Shape
 {
 	friend class Renderer;
 

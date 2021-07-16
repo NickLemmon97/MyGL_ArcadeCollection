@@ -1,13 +1,13 @@
 #pragma once
 
-class GameAPI GameObject
+class GameObject
 {
 public:
 	GameObject();
 	virtual ~GameObject();
 
 	virtual void Init();
-	virtual void Update(double delta);
+	virtual void Update(float delta);
 	virtual void Draw(const Renderer& renderer);
 
 	virtual void Reset();

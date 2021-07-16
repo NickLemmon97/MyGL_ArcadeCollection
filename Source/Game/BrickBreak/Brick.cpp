@@ -16,7 +16,7 @@ void Brick::Init()
 	m_Mesh->MakeRectangle(35.0f, 30.0f, m_Col, GL_TRIANGLE_FAN);
 }
 
-void Brick::Update(double delta)
+void Brick::Update(float delta)
 {
 	if (IsOverlappingWithOther(m_pBall->GetPosition(), m_pBall->GetScale()))
 	{

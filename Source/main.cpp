@@ -1,5 +1,6 @@
-#include <FrameworkPCH.h>
 #include <GamePCH.h>
+
+#include "AppInitializer.h"
 
 #include "Game/DeathRace/DeathGame.h"
 #include "Game/TrialGame/TrialGame.h"

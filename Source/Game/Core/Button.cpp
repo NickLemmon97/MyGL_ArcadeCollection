@@ -89,8 +89,8 @@ void Button::SetOnClickCallback(std::function<void()> pressed)
 
 bool Button::CheckMouseInBounds(double x, double y)
 {
-	float width = App::Get().GetWindowWidth();
-	float height = App::Get().GetWindowHeight();
+	float width  = (float)App::Get().GetWindowWidth();
+	float height = (float)App::Get().GetWindowHeight();
 
 	float xAnchorOffset = (width - (width * -m_Anchor.x));
 	float yAnchorOffset = (height * m_Anchor.y);
@@ -98,10 +98,10 @@ bool Button::CheckMouseInBounds(double x, double y)
 	glm::vec2 posOffset = { xAnchorOffset + m_Position.x, yAnchorOffset + m_Position.y };
 
 	return 
-		(x >= posOffset.x - m_Scale.x &&
-		 x <= posOffset.x + m_Scale.x &&
-		 y >= posOffset.y - m_Scale.y &&
-		 y <= posOffset.y + m_Scale.y );
+		((float)x >= (posOffset.x - m_Scale.x) &&
+		 (float)x <= (posOffset.x + m_Scale.x) &&
+		 (float)y >= (posOffset.y - m_Scale.y) &&
+		 (float)y <= (posOffset.y + m_Scale.y) );
 }
 
 

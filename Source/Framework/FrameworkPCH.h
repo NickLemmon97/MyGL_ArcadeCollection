@@ -15,8 +15,6 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
-#include "../ProjectConfig.h"
-
 #include <Constants.h>
 #include <Debug/Debugging.h>
 #include <Debug/Logger.h>

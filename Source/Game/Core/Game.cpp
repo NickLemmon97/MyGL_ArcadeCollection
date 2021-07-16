@@ -68,7 +68,7 @@ void Game::Init()
 		ColorList::GREEN);
 }
 
-void Game::Update(double delta)
+void Game::Update(float delta)
 {
 	for (auto& go : m_GameObjects)
 	{

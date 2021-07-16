@@ -10,7 +10,7 @@ public:
 	void DisplayRules();
 
 	void Init() override;
-	void Update(double delta) override;
+	void Update(float delta) override;
 	void Draw(const class Renderer& renderer) override;
 
 	void ShootBullet(float dir, glm::vec2 pos);

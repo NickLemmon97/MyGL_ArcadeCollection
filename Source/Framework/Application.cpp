@@ -113,7 +113,7 @@ void App::Run()
 		double deltaTime = m_glfwTime - previousTime;
 		previousTime = m_glfwTime;
 
-		GameLoop(deltaTime);
+		GameLoop((float)deltaTime);
 
 #ifdef DEBUG
 		ShowFPS(float(deltaTime));

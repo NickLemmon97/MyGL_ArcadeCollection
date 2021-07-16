@@ -11,21 +11,21 @@ public:
 
 	struct GLFWwindow* GetGLFWWindow();
 
-	void FrameworkAPI SetWindowTitle(const char* title);
+	void SetWindowTitle(const char* title);
 
-	double FrameworkAPI GetGLFWTime();
+	double GetGLFWTime();
 
-	static FrameworkAPI App& Get();
+	static App& Get();
 
-	int FrameworkAPI GetWindowHeight();
-	int FrameworkAPI GetWindowWidth();
+	int GetWindowHeight();
+	int GetWindowWidth();
 
 	void SetWindowHeight(int height);
 	void SetWindowWidth(int width);
 
-	void FrameworkAPI RequestExit();
+	void RequestExit();
 
-	FrameworkAPI class Renderer& GetRenderer();
+	class Renderer& GetRenderer();
 
 protected:
 

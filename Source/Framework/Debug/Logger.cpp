@@ -53,7 +53,7 @@ void Logger::LogMessage(const char* Category, LogVerbosity verbosity, const char
 
 }
 
-void FrameworkAPI Logger::LogMessage(LogVerbosity verbosity, const char* message)
+void Logger::LogMessage(LogVerbosity verbosity, const char* message)
 {
 	LogMessage("", verbosity, message);
 }

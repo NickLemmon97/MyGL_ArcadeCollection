@@ -20,7 +20,7 @@ void PongPaddle::Init()
 	GameObject::Init();
 }
 
-void PongPaddle::Update(double delta)
+void PongPaddle::Update(float delta)
 {
 	m_Position.y += m_Direction * delta * 100.0f;
 

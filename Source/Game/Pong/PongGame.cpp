@@ -28,7 +28,7 @@ void PongGame::Init()
 	Game::Init();
 }
 
-void PongGame::Update(double delta)
+void PongGame::Update(float delta)
 {
 	Game::Update(delta);
 }

@@ -35,9 +35,9 @@ void Ship::Init()
 	m_Mesh->Init(vertices, ColorList::WHITE, GL_LINE_LOOP);
 }
 
-void Ship::Update(double delta)
+void Ship::Update(float delta)
 {
-	m_Rotation += m_RotationDirection * delta * (m_Speed * 0.01);
+	m_Rotation += m_RotationDirection * delta * (m_Speed * 0.01f);
 
 	if (bDoThrust)
 	{
@@ -67,13 +67,13 @@ void Ship::HandleKeyboardInput(int key, int scancode, int action, int mode)
 		case GLFW_KEY_LEFT:
 			[[fallthrough]];
 		case GLFW_KEY_A:
-			m_RotationDirection += 1;
+			m_RotationDirection += 1.0f;
 			break;
 
 		case GLFW_KEY_RIGHT:
 			[[fallthrough]];
 		case GLFW_KEY_D:
-			m_RotationDirection += -1;
+			m_RotationDirection += -1.0f;
 			break;
 
 		case GLFW_KEY_UP:
@@ -99,11 +99,11 @@ void Ship::HandleKeyboardInput(int key, int scancode, int action, int mode)
 		{
 		case GLFW_KEY_LEFT: [[fallthrough]];
 		case GLFW_KEY_A:
-			m_RotationDirection += -1;
+			m_RotationDirection += -1.0f;
 			break;
 		case GLFW_KEY_RIGHT: [[fallthrough]];
 		case GLFW_KEY_D: 
-			m_RotationDirection += 1;
+			m_RotationDirection += 1.0f;
 			break;
 		case GLFW_KEY_UP: [[fallthrough]];
 		case GLFW_KEY_W: 

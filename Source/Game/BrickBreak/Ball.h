@@ -5,7 +5,7 @@ class Ball : public GameObject
 {
 public:
 	void Init() override;
-	void Update(double delta) override;
+	void Update(float delta) override;
 
 	void Bounce();
 };

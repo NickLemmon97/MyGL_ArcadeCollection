@@ -6,8 +6,8 @@ class Meteor : public GameObject
 {
 public:
 	Meteor();
-	void Init();
-	void Update(double delta);
+	void Init() override;
+	void Update(float delta) override;
 
 	void HandleBeginOverlap() override;
 protected:

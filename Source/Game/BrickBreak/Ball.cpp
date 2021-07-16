@@ -4,7 +4,7 @@ void Ball::Init()
 {
 }
 
-void Ball::Update(double delta)
+void Ball::Update(float delta)
 {
 }
 

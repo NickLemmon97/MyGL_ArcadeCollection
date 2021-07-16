@@ -20,7 +20,7 @@ void InvaderShip::Init()
 	GameObject::Init();
 }
 
-void InvaderShip::Update(double delta)
+void InvaderShip::Update(float delta)
 {
 	m_Position.x += m_Direction * delta * 100.0f;
 

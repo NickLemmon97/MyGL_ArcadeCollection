@@ -8,5 +8,5 @@ public:
 	~TrialGame();
 
 	void Init() override;
-	void Update(double delta) override;
+	void Update(float delta) override;
 };

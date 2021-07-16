@@ -48,7 +48,7 @@ void AsteroidsGame::Init()
 	LOG_MESSAGE(LogGame, LogVerbosity::Success, "Trial Game Created!");	
 }
 
-void AsteroidsGame::Update(double delta)
+void AsteroidsGame::Update(float delta)
 {
 	Game::Update(delta);
 

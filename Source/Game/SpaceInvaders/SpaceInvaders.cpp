@@ -30,7 +30,7 @@ void SpaceInvaders::Init()
 	Game::Init();
 }
 
-void SpaceInvaders::Update(double delta)
+void SpaceInvaders::Update(float delta)
 {
 	Game::Update(delta);
 

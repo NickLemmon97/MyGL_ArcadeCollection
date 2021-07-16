@@ -17,7 +17,7 @@ void Pedestrian::Init()
 	Reset();
 }
 
-void Pedestrian::Update(double delta)
+void Pedestrian::Update(float delta)
 {
 	if (bIsDead) return;
 

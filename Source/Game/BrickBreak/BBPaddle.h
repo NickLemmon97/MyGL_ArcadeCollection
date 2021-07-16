@@ -6,7 +6,7 @@ class BBPaddle : public GameObject
 public:
 	BBPaddle(class Game* game);
 	void Init() override;
-	void Update(double delta) override;
+	void Update(float delta) override;
 
 protected:
 	void HandleKeyboardInput(int key, int scancode, int action, int mode);
