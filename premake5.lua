@@ -4,6 +4,7 @@ WorkingDirectory = "build"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 GameOutputDir = (WorkingDirectory.."/bin/" ..outputdir.. "/Game")
+LibOutputDir  = (WorkingDirectory.."/bin/" ..outputdir.. "/Lib")
 
 --Name of the current game project
 GameName = "ArcadeCollection"
@@ -71,15 +72,14 @@ project (ProjectConfigProjectName)
         "README.md",
     }
 
-    targetdir (GameOutputDir)
-    objdir  (WorkingDirectory.."/bin-obj/")
+    targetdir (WorkingDirectory.."none")
+    objdir  (WorkingDirectory.."none")
 
     filter "system:windows"
         postbuildcommands{
             "cd ..",
             "PremakeGenerateBuildFiles.bat",
         }
-
 
 
 ------------------------------------------------------- Shaders project
@@ -104,6 +104,10 @@ kind        "ConsoleApp"
 language    "C++"
 defines     {"ALLONEPROJECT"}
 
+dependson{
+    "FrameworkLib",
+}
+
 includedirs {
     "Source/Framework",
     "Source/Game",
@@ -113,13 +117,54 @@ includedirs {
 
 files {
     "Source/main.cpp",
-    "Source/Framework/**.cpp",
-    "Source/Framework/**.h",
+    "Source/AppInitializer.*",
     "Source/Game/**.cpp",
     "Source/Game/**.h",
 }
 
 targetdir (GameOutputDir)
+objdir  (WorkingDirectory.."/bin-obj/")
+
+libdirs{
+    (ThirdPartyLibFolder),
+    (LibOutputDir),
+}
+
+links {
+    "Winmm",
+    "FrameworkLib",
+}
+
+postbuildcommands{
+    ("{COPY} %{prj.location}../Source/Data %{prj.location}bin/"..outputdir.."/Game/Data"),
+    ("{COPY} %{prj.location}../"..(ThirdPartyLibFolder).."/glew32.dll %{cfg.targetdir}/"),
+    ("{COPY} %{prj.location}../"..(ThirdPartyLibFolder).."/glfw3.dll %{cfg.targetdir}/"),
+}
+
+filter {}
+
+
+------------------------------------------------ An all in 1 project since DLLS are cool but I wanted to see 1 main exe
+project "FrameworkLib"
+location    (WorkingDirectory)
+debugdir    "Source"
+kind        "StaticLib"
+language    "C++"
+defines     {"ALLONEPROJECT"}
+pchheader   "FrameworkPCH.h"
+pchsource   "FrameworkPCH.cpp"
+
+includedirs {
+    "Source/Framework",
+    "Source/ThirdParty/include",
+}
+
+files {
+    "Source/Framework/**.cpp",
+    "Source/Framework/**.h",
+}
+
+targetdir (LibOutputDir)
 objdir  (WorkingDirectory.."/bin-obj/")
 
 libdirs{
@@ -130,13 +175,6 @@ links {
     "opengl32",
     "glew32",
     "glfw3dll",
-    "Winmm",
-}
-
-postbuildcommands{
-    ("{COPY} %{prj.location}../Source/Data %{prj.location}bin/"..outputdir.."/Game/Data"),
-    ("{COPY} %{prj.location}../"..(ThirdPartyLibFolder).."/glew32.dll %{cfg.targetdir}/"),
-    ("{COPY} %{prj.location}../"..(ThirdPartyLibFolder).."/glfw3.dll %{cfg.targetdir}/"),
 }
 
 filter {}

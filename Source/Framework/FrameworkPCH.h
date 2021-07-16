@@ -26,7 +26,6 @@
 #include <Utilities/ColorList.h>
 
 #include <Application.h>
-#include <AppInitializer.h>
 
 #include <Graphics/ShaderProgram.h>
 #include <Graphics/Renderer.h>

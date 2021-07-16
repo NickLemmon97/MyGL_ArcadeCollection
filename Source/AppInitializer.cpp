@@ -1,5 +1,5 @@
-#include <FrameworkPCH.h>
 #include <GamePCH.h>
+#include "AppInitializer.h"
 
 AppInitializer::AppInitializer(Game* game)
 {

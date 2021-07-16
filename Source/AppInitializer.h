@@ -1,8 +1,7 @@
 #pragma once
 #include <memory>
-#include "../ProjectConfig.h"
 
-class FrameworkAPI AppInitializer
+class AppInitializer
 {
 public:
 	AppInitializer(class Game* game);
