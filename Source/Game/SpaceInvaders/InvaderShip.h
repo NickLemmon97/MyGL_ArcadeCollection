@@ -13,5 +13,6 @@ protected:
 
 private:
 
+	class SpaceInvaders* m_pGame = nullptr;
 	int m_Direction = 0;
 };

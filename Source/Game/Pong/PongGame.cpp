@@ -17,7 +17,7 @@ void PongGame::DisplayRules()
 		<< "------------------------------------\n"
 		<< "Pong!\n"
 		<< "Use W/S Up/Down to move up and down\n"
-		<< "Hit the ball before it hits the wall"
+		<< "Hit the ball before it hits the wall\n"
 		<< "------------------------------------\n"
 		<< std::endl;
 }
