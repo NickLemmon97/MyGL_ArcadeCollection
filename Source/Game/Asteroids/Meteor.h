@@ -9,6 +9,8 @@ public:
 	void Init() override;
 	void Update(float delta) override;
 
+	void Reset() override;
+
 	void HandleBeginOverlap() override;
 protected:
 

@@ -25,14 +25,11 @@ void Ship::Init()
 
 	m_Scale = { 30, 30 };
 
-	m_Position = {
-		App::Get().GetWindowWidth() * 0.5,
-		App::Get().GetWindowHeight() * 0.5
-	};
-
 	GameObject::Init();
 
 	m_Mesh->Init(vertices, ColorList::WHITE, GL_LINE_LOOP);
+
+	Reset();
 }
 
 void Ship::Update(float delta)
@@ -56,6 +53,30 @@ void Ship::Update(float delta)
 	m_Position.y += m_Velocity.y * float(delta) * m_Speed;
 
 	ScreenWrapPosition();
+}
+
+void Ship::Reset()
+{
+	m_Position = {
+		App::Get().GetWindowWidth() * 0.5,
+		App::Get().GetWindowHeight() * 0.5
+	};
+
+	m_Health = 3;
+
+	HandleHealth();
+
+	m_Speed = 0.0f;
+	m_Rotation = 0.0f;
+
+	bIsActive = true;
+}
+
+void Ship::HandleBeginOverlap()
+{
+	m_Health--;
+
+	HandleHealth();
 }
 
 void Ship::HandleKeyboardInput(int key, int scancode, int action, int mode)
@@ -113,5 +134,16 @@ void Ship::HandleKeyboardInput(int key, int scancode, int action, int mode)
 		case GLFW_KEY_S:
 			break;
 		}
+	}
+}
+
+void Ship::HandleHealth()
+{
+	if (m_Health > 0)
+		m_Mesh->SetColor(HealthColors[m_Health - 1]);
+	else
+	{
+		bIsActive = false;
+		m_pGame->TriggerReset();
 	}
 }

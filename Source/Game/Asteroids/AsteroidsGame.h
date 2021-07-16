@@ -15,8 +15,14 @@ public:
 
 	void ShootBullet(float dir, glm::vec2 pos);
 
+	void TriggerReset();
+
 private:
 
 	std::vector<class Projectile*> m_Projectiles;
-	class GameObject* m_pPlayer = nullptr;
+	class Ship* m_pPlayer = nullptr;
+
+	std::unique_ptr<class Shape> ResetCountDownIcon;
+	float ResetTimer = 0.0f;
+	bool bStartReset = false;
 };

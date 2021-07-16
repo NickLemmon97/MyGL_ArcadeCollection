@@ -6,6 +6,8 @@
 #include "Game/TrialGame/TrialGame.h"
 #include "Game/Asteroids/AsteroidsGame.h"
 #include "Game/BrickBreak/BrickBreakGame.h"
+#include "Game/Pong/PongGame.h"
+#include "Game/SpaceInvaders/SpaceInvaders.h"
 
 #include <iostream>
 
@@ -31,6 +33,11 @@ void OutputSelection()
 		<< "1. Death Race\n"
 		<< "2. Asteroids\n"
 		<< "3. Brick Break\n"
+		<< "4. Pong\n"
+		<< "5. Space Invaders\n"
+
+		<< "\n13. Trial Game\n"
+
 		<< "0. Exit"
 		<< endl;
 }
@@ -59,6 +66,18 @@ int main(int argc, char** argv)
 		case 3:
 			cout << "Playing Brick Break\n";
 			PlayGame<BrickBreakGame>();
+			break;
+		case 4:
+			cout << "Playing Pong\n";
+			PlayGame<PongGame>();
+			break;
+		case 5:
+			cout << "Playing Space Invaders\n";
+			PlayGame<SpaceInvaders>();
+			break;
+		case 13:
+			cout << "Playing TrialGame\n";
+			PlayGame<TrialGame>();
 			break;
 		default:
 			cout << "Not a valid game\n";
