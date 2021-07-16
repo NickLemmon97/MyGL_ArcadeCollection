@@ -53,6 +53,18 @@ void Shape::Init(std::vector<glm::vec2>& points, const glm::vec3& col, GLenum pr
 
 void Shape::MakeCircle(float radius,const glm::vec3& col, GLenum primitive)
 {
+	int count = 12;
+
+	float divisions = 6.28f / count;
+
+	std::vector<glm::vec2> vertices;
+
+	for (int i = 0; i < count; i++)
+	{
+		vertices.push_back({ cosf(i * divisions) * radius, sinf(i * divisions) * radius });
+	}
+
+	Init(vertices, col, primitive);
 }
 
 void Shape::MakeSqaure(float width,const glm::vec3& col, GLenum primitive)
