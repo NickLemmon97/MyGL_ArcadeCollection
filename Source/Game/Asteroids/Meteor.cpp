@@ -1,6 +1,9 @@
 #include "GamePCH.h"
 #include "Meteor.h"
+
+#ifdef _WINDOWS
 #include "mmsystem.h"
+#endif
 
 using namespace std;
 
@@ -70,5 +73,7 @@ void Meteor::HandleBeginOverlap()
 	GameObject::HandleBeginOverlap();
 	bIsActive = false;
 
+#ifdef _WINDOWS
 	PlaySound(TEXT("Data/Audio/Destroy.wav"), NULL, SND_FILENAME | SND_ASYNC);
+#endif
 }

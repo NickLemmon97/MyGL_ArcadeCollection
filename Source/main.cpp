@@ -36,7 +36,7 @@ void OutputSelection()
 		<< "4. Pong\n"
 		<< "5. Space Invaders\n"
 
-		<< "\n13. Trial Game\n"
+		<< "13. Trial Game\n"
 
 		<< "0. Exit"
 		<< endl;
@@ -56,9 +56,10 @@ int main(int argc, char** argv)
 		switch (input)
 		{
 		case 1:
+		{
 			cout << "Playing Death Race\n";
-			PlayGame<DeathRace>();
-			break;
+			PlayGame<DeathRace>(); 
+		} break;
 		case 2:
 			cout << "Playing Asteroids\n";
 			PlayGame<AsteroidsGame>();
@@ -75,10 +76,12 @@ int main(int argc, char** argv)
 			cout << "Playing Space Invaders\n";
 			PlayGame<SpaceInvaders>();
 			break;
+
 		case 13:
 			cout << "Playing TrialGame\n";
 			PlayGame<TrialGame>();
 			break;
+
 		default:
 			cout << "Not a valid game\n";
 			break;

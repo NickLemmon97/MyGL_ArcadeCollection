@@ -131,18 +131,33 @@ libdirs{
     (LibOutputDir),
 }
 
-links {
-    "Winmm",    --For calling Playsound on windows
-    
-    "opengl32",
-    "glew32",
-    "glfw3dll",
-}
-
 postbuildcommands{
     ("{COPY} %{prj.location}../Source/Data %{prj.location}bin/"..outputdir.."/Game/Data"),
-    ("{COPY} %{prj.location}../"..(ThirdPartyLibFolder).."/glew32.dll %{cfg.targetdir}/"),
-    ("{COPY} %{prj.location}../"..(ThirdPartyLibFolder).."/glfw3.dll %{cfg.targetdir}/"),
 }
+
+filter "system:windows"
+
+    links {
+        "opengl32",
+        "glew32",
+        "glfw3dll",
+    }
+
+    postbuildcommands{
+        ("{COPY} %{prj.location}../"..(ThirdPartyLibFolder).."/glew32.dll %{cfg.targetdir}/"),
+        ("{COPY} %{prj.location}../"..(ThirdPartyLibFolder).."/glfw3.dll %{cfg.targetdir}/"),
+    }
+
+    links {
+        "Winmm",    --For calling Playsound on windows
+    }
+
+filter "system:linux"
+
+     links {
+        "GL",
+        "GLEW",
+        "glfw",
+     }
 
 filter {}
