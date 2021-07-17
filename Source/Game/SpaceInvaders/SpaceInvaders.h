@@ -17,7 +17,7 @@ public:
 	void ShootBullet(float dir, glm::vec2 pos);
 
 private:
-
+	float m_ShootTimer = 0.0f;
 	std::vector<class Projectile*> m_Projectiles;
 
 };

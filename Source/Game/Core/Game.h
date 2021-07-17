@@ -13,7 +13,7 @@ public:
 	virtual void Init();
 	virtual void Update(float delta);
 	virtual void Draw(const class Renderer& renderer);
-	void HandleInput(int key, int scancode, int action, int mode);
+	virtual void HandleInput(int key, int scancode, int action, int mode);
 	void HandleMousePosition(double x, double y);
 	void HandleMouseInput(int button, int action, int mods);
 

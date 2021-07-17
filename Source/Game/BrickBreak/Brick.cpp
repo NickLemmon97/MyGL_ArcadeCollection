@@ -22,6 +22,5 @@ void Brick::Update(float delta)
 	{
 		bIsActive = false;
 
-		//Spawn Upgrade?
 	}
 }

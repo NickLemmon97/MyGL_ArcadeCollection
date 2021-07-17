@@ -45,6 +45,9 @@ void SpaceInvaders::Update(float delta)
 		if (b->GetIsActive())
 			b->Update(delta);
 	}
+
+	if(m_ShootTimer > 0.0f)
+		m_ShootTimer -= delta;
 }
 
 void SpaceInvaders::Draw(const Renderer& renderer)
@@ -59,6 +62,10 @@ void SpaceInvaders::Draw(const Renderer& renderer)
 
 void SpaceInvaders::ShootBullet(float rot, glm::vec2 pos)
 {
+	if (m_ShootTimer > 0.0f) return;
+
+	m_ShootTimer = 1.5f;
+
 	Projectile* bullet = nullptr;
 
 	for (auto& b : m_Projectiles)

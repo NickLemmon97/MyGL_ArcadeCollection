@@ -8,4 +8,12 @@ public:
 	void Update(float delta) override;
 
 	void Bounce();
+
+	bool IsBouncing();
+
+	void Shoot();
+
+private:
+	bool bIsBouncing;
+
 };
