@@ -7,7 +7,7 @@ public:
 	void Init() override;
 	void Update(float delta) override;
 
-	void Bounce();
+	void Bounce(glm::vec2 otherPos);
 
 	bool IsBouncing();
 
@@ -15,5 +15,7 @@ public:
 
 private:
 	bool bIsBouncing;
+
+	glm::vec2 Velocity;
 
 };

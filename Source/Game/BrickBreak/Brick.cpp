@@ -18,9 +18,29 @@ void Brick::Init()
 
 void Brick::Update(float delta)
 {
-	if (IsOverlappingWithOther(m_pBall->GetPosition(), m_pBall->GetScale()))
+	if (IsOverlappingBall())
 	{
 		bIsActive = false;
 
+		m_pBall->Bounce(m_Position);
 	}
+}
+
+bool Brick::IsOverlappingBall()
+{
+	glm::vec2 ballPos = m_pBall->GetPosition();
+	glm::vec2 checkPos = m_pBall->GetPosition();
+
+	if (ballPos.x < m_Position.x)      checkPos.x = m_Position.x - m_Scale.x;
+	else if (ballPos.x > m_Position.x) checkPos.x = m_Position.x + m_Scale.x;
+
+	if (ballPos.y < m_Position.y)      checkPos.y = m_Position.y - m_Scale.y;
+	else if (ballPos.y > m_Position.y) checkPos.y = m_Position.y + m_Scale.y;
+
+	float distX = ballPos.x - checkPos.x;
+	float distY = ballPos.y - checkPos.y;
+
+	float distance = (distX * distX) + (distY * distY);
+
+	return (distance <= (m_pBall->GetScale().x * m_pBall->GetScale().x));
 }

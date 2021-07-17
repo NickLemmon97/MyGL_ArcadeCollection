@@ -11,20 +11,30 @@ void Ball::Init()
 	GameObject::Init();
 
 	bIsBouncing = false;
+
+	Velocity = { 4, 30 };
 }
 
 void Ball::Update(float delta)
 {
 	if (!bIsBouncing) return;
 
-	m_Position.y += 100 * delta;
-
-
+	m_Position += Velocity * delta;
 
 }
 
-void Ball::Bounce()
+void Ball::Bounce(glm::vec2 otherPos)
 {
+	int checkX, checkY;
+
+	if (otherPos.x > m_Position.x) checkX = 1;
+	else checkX = -1;
+
+	if (otherPos.y > m_Position.y) checkY = -1;
+	else checkY = 1;
+
+	Velocity.x *= checkX;
+	Velocity.y *= checkY;
 }
 
 bool Ball::IsBouncing()

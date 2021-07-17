@@ -34,6 +34,8 @@ void BrickBreakGame::Update(float delta)
 	if (!m_pBall->IsBouncing())
 	{
 		m_pBall->SetPosition({ m_GameObjects[0]->GetPosition().x, m_GameObjects[0]->GetPosition().y + 40.0f });
+
+		return;
 	}
 }
 

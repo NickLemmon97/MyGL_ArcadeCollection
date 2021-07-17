@@ -9,6 +9,8 @@ public:
 	void Init() override;
 	void Update(float delta) override;
 
+	bool IsOverlappingBall();
+
 private:
 	class Ball* m_pBall = nullptr;
 
