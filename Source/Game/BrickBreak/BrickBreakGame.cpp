@@ -6,8 +6,11 @@
 BrickBreakGame::BrickBreakGame()
 {
 	m_GameObjects.push_back(new BBPaddle(this));
+	BBPaddle* paddle = static_cast<BBPaddle*>(m_GameObjects.back());
 	m_GameObjects.push_back(new Ball());
 	m_pBall = static_cast<Ball*>(m_GameObjects.back());
+
+	paddle->SetBall(m_pBall);
 
 	for (int i = 0; i < 126; i++)
 	{
@@ -31,12 +34,6 @@ void BrickBreakGame::Update(float delta)
 {
 	Game::Update(delta);
 
-	if (!m_pBall->IsBouncing())
-	{
-		m_pBall->SetPosition({ m_GameObjects[0]->GetPosition().x, m_GameObjects[0]->GetPosition().y + 40.0f });
-
-		return;
-	}
 }
 
 void BrickBreakGame::HandleInput(int key, int scancode, int action, int mode)

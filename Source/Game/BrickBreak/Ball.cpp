@@ -12,7 +12,7 @@ void Ball::Init()
 
 	bIsBouncing = false;
 
-	Velocity = { 4, 30 };
+	Velocity = { 0, -100 };
 }
 
 void Ball::Update(float delta)
@@ -20,7 +20,6 @@ void Ball::Update(float delta)
 	if (!bIsBouncing) return;
 
 	m_Position += Velocity * delta;
-
 }
 
 void Ball::Bounce(glm::vec2 otherPos)

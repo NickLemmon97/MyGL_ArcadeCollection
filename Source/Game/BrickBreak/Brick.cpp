@@ -31,11 +31,11 @@ bool Brick::IsOverlappingBall()
 	glm::vec2 ballPos = m_pBall->GetPosition();
 	glm::vec2 checkPos = m_pBall->GetPosition();
 
-	if (ballPos.x < m_Position.x)      checkPos.x = m_Position.x - m_Scale.x;
-	else if (ballPos.x > m_Position.x) checkPos.x = m_Position.x + m_Scale.x;
+	if (ballPos.x < m_Position.x - m_Scale.x)      checkPos.x = m_Position.x - m_Scale.x;
+	else if (ballPos.x > m_Position.x + m_Scale.x) checkPos.x = m_Position.x + m_Scale.x;
 
-	if (ballPos.y < m_Position.y)      checkPos.y = m_Position.y - m_Scale.y;
-	else if (ballPos.y > m_Position.y) checkPos.y = m_Position.y + m_Scale.y;
+	if (ballPos.y < m_Position.y - m_Scale.y)      checkPos.y = m_Position.y - m_Scale.y;
+	else if (ballPos.y > m_Position.y + m_Scale.y) checkPos.y = m_Position.y + m_Scale.y;
 
 	float distX = ballPos.x - checkPos.x;
 	float distY = ballPos.y - checkPos.y;

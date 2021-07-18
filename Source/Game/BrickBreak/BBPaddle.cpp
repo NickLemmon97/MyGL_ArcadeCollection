@@ -1,4 +1,5 @@
 #include "BBPaddle.h"
+#include "Ball.h"
 
 BBPaddle::BBPaddle(Game* game)
 {
@@ -22,9 +23,24 @@ void BBPaddle::Init()
 
 void BBPaddle::Update(float delta)
 {
+	if (!m_pBall->IsBouncing())
+	{
+		m_pBall->SetPosition({GetPosition().x, GetPosition().y + 1140.0f });
+	}
+
+	if (IsOverlappingBall())
+	{
+		m_pBall->Bounce(GetPosition());
+	}
+
 	m_Position.x += m_Direction * delta * 160.0f;
 
 	KeepInScreenBounds();
+}
+
+void BBPaddle::SetBall(Ball* ball)
+{
+	m_pBall = ball;
 }
 
 void BBPaddle::HandleKeyboardInput(int key, int scancode, int action, int mode)
@@ -60,4 +76,27 @@ void BBPaddle::HandleKeyboardInput(int key, int scancode, int action, int mode)
 			break;
 		}
 	}
+}
+
+bool BBPaddle::IsOverlappingBall()
+{
+	glm::vec2 ballPos = m_pBall->GetPosition();
+	glm::vec2 checkPos = m_pBall->GetPosition();
+
+	if (ballPos.x < m_Position.x - m_Scale.x)      
+		checkPos.x = m_Position.x - m_Scale.x;
+	else if (ballPos.x > m_Position.x + m_Scale.x) 
+		checkPos.x = m_Position.x + m_Scale.x;
+
+	if (ballPos.y < m_Position.y - m_Scale.y)      
+		checkPos.y = m_Position.y - m_Scale.y;
+	else if (ballPos.y > m_Position.y + m_Scale.y) 
+		checkPos.y = m_Position.y + m_Scale.y;
+
+	float distX = ballPos.x - checkPos.x;
+	float distY = ballPos.y - checkPos.y;
+
+	float distance = (distX * distX) + (distY * distY);
+
+	return (distance <= (m_pBall->GetScale().x * m_pBall->GetScale().x));
 }
