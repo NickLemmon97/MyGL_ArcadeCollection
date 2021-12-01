@@ -1,4 +1,4 @@
-# MyGL Framework
+# My OpenGL Framework
 An in progress framework to practice OpenGL and framework setup with the intent to make small games. 
 A comfortable environment for me to create what I want in the way I want to.  There are a lot of changes being made since it is in progress and there
 may even be some left over code from a completely different iteration.
